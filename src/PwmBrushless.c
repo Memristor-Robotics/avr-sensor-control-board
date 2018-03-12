@@ -1,5 +1,7 @@
 #include "PwmBrushless.h"
 
+static void PWM_SetDuty(uint16_t promil);
+
 void Brushless_Init(void) {
 
   Pin_SetMode(&Pin_B5, PIN_OUTPUT);
@@ -22,12 +24,13 @@ void PWM_SetDuty(uint16_t promil) {
   } else if(promil < 50) {
     promil = 50;
   }
-  
+
   uint16_t duty = 20 * promil;
 
   OCR1A = duty;
 
 }
+
 // speed (50 pr - 100 pr)
 void Brushless_Update(uint8_t speed) {
 

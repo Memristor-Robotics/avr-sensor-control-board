@@ -12,8 +12,6 @@ static uint8_t CurrentSpeed = 0;
 
 void Brushless_Init(void);
 
-void PWM_SetDuty(uint16_t promil);
-
 void Brushless_Update(uint8_t speed);
 
 #endif
