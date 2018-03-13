@@ -20,7 +20,7 @@ void HBridge_Add(Pin* inA, Pin* inB, Pin* inH, PinFrequency frequency) {
 
 int main() {
 
-
+	char uart_char;
 
 	//HBridge_Add(&Pin_B5, &Pin_B2, &Pin_E2, PIN_20KHz);
   USART0_init(57600);
@@ -37,8 +37,9 @@ int main() {
 
   while(1) {
 
-     Brushless_Update(USART0_receive());
-      USART0_transmit('s');
+		uart_char = USART0_receive();
+    Brushless_Update(uart_char);
+      USART0_transmit(uart_char);
       _delay_ms(1000);
 /*
 	Pin_WriteDigital(&Pin_B2, PIN_LOW);

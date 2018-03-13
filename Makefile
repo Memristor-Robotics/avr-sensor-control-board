@@ -80,7 +80,7 @@ OBJDIR = build
 
 
 # List C source files here. (C dependencies are automatically generated.)
-SRC = ./src/main.c ./src/uart0.c ./src/Pin.c ./src/Utils.c ./src/BinarySensor.c ./src/PwmBrushless.c
+SRC = ./src/main.c ./src/uart0.c ./src/Pin.c ./src/BinarySensor.c ./src/PwmBrushless.c
 
 BUILD_DIRS = ./build/src
 # List C++ source files here. (C dependencies are automatically generated.)
