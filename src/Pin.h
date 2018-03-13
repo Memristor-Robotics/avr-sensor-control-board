@@ -73,6 +73,7 @@ PinValue Pin_ReadDigital(Pin* pin);
 
 extern Pin Pin_B5;
 extern Pin Pin_B3;
+extern Pin Pin_B2;
 extern Pin Pin_B7;
 extern Pin Pin_B4;
 extern Pin Pin_B0;
@@ -95,5 +96,6 @@ extern Pin Pin_C4;
 extern Pin Pin_F2;
 extern Pin Pin_F3;
 extern Pin Pin_E3;
+extern Pin Pin_E2;
 
 #endif  // _PIN_H_

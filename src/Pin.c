@@ -177,6 +177,13 @@ Pin Pin_B3 = {
 	.timer = NULL
 };
 
+Pin Pin_B2 = {
+	.DDRx = &DDRB,
+	.PORTx = &PORTB,
+	.PINx = &PINB,
+	.Pxn = PB2,
+	.timer = NULL
+};
 
 Pin Pin_B7 = {
 	.DDRx = &DDRB,
@@ -335,6 +342,14 @@ Pin Pin_F3 = {
 	.PORTx = &PORTF,
 	.PINx = &PINF,
 	.Pxn = PF3,
+	.timer = NULL
+};
+
+Pin Pin_E2 = {
+	.DDRx = &DDRE,
+	.PORTx = &PORTE,
+	.PINx = &PINE,
+	.Pxn = PE2,
 	.timer = NULL
 };
 

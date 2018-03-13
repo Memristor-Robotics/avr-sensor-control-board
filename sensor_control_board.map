@@ -1,0 +1,869 @@
+Archive member included to satisfy reference by file (symbol)
+
+/usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr51/libm.a(addsf3.o)
+                              build/./src/PwmBrushless.o (__addsf3)
+/usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr51/libm.a(addsf3x.o)
+                              /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr51/libm.a(addsf3.o) (__addsf3x)
+/usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr51/libm.a(fixunssfsi.o)
+                              build/./src/PwmBrushless.o (__fixunssfsi)
+/usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr51/libm.a(floatsisf.o)
+                              build/./src/PwmBrushless.o (__floatunsisf)
+/usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr51/libm.a(fp_inf.o)
+                              /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr51/libm.a(addsf3x.o) (__fp_inf)
+/usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr51/libm.a(fp_nan.o)
+                              /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr51/libm.a(addsf3x.o) (__fp_nan)
+/usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr51/libm.a(fp_pscA.o)
+                              /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr51/libm.a(addsf3x.o) (__fp_pscA)
+/usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr51/libm.a(fp_pscB.o)
+                              /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr51/libm.a(addsf3x.o) (__fp_pscB)
+/usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr51/libm.a(fp_round.o)
+                              /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr51/libm.a(addsf3.o) (__fp_round)
+/usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr51/libm.a(fp_split3.o)
+                              /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr51/libm.a(addsf3x.o) (__fp_split3)
+/usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr51/libm.a(fp_zero.o)
+                              /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr51/libm.a(addsf3x.o) (__fp_zero)
+/usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr51/libm.a(mulsf3.o)
+                              build/./src/PwmBrushless.o (__mulsf3)
+/usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr51/libm.a(mulsf3x.o)
+                              /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr51/libm.a(mulsf3.o) (__mulsf3x)
+/usr/lib/gcc/avr/4.9.2/avr51/libgcc.a(_udivmodsi4.o)
+                              build/./src/uart0.o (__udivmodsi4)
+/usr/lib/gcc/avr/4.9.2/avr51/libgcc.a(_exit.o)
+                              /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr51/crtat90can128.o (exit)
+/usr/lib/gcc/avr/4.9.2/avr51/libgcc.a(_copy_data.o)
+                              build/./src/Pin.o (__do_copy_data)
+/usr/lib/gcc/avr/4.9.2/avr51/libgcc.a(_clear_bss.o)
+                              build/./src/Utils.o (__do_clear_bss)
+/usr/lib/gcc/avr/4.9.2/avr51/libgcc.a(_adddi3_s8.o)
+                              build/./src/Utils.o (__adddi3_s8)
+
+Memory Configuration
+
+Name             Origin             Length             Attributes
+text             0x0000000000000000 0x0000000000020000 xr
+data             0x0000000000800100 0x000000000000ff00 rw !x
+eeprom           0x0000000000810000 0x0000000000010000 rw !x
+fuse             0x0000000000820000 0x0000000000000400 rw !x
+lock             0x0000000000830000 0x0000000000000400 rw !x
+signature        0x0000000000840000 0x0000000000000400 rw !x
+user_signatures  0x0000000000850000 0x0000000000000400 rw !x
+*default*        0x0000000000000000 0xffffffffffffffff
+
+Linker script and memory map
+
+Address of section .data set to 0x800100
+LOAD /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr51/crtat90can128.o
+LOAD build/./src/main.o
+LOAD build/./src/uart0.o
+LOAD build/./src/Pin.o
+LOAD build/./src/Utils.o
+LOAD build/./src/BinarySensor.o
+LOAD build/./src/PwmBrushless.o
+LOAD /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr51/libm.a
+START GROUP
+LOAD /usr/lib/gcc/avr/4.9.2/avr51/libgcc.a
+LOAD /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr51/libm.a
+LOAD /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr51/libc.a
+LOAD /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr51/libat90can128.a
+END GROUP
+
+.hash
+ *(.hash)
+
+.dynsym
+ *(.dynsym)
+
+.dynstr
+ *(.dynstr)
+
+.gnu.version
+ *(.gnu.version)
+
+.gnu.version_d
+ *(.gnu.version_d)
+
+.gnu.version_r
+ *(.gnu.version_r)
+
+.rel.init
+ *(.rel.init)
+
+.rela.init
+ *(.rela.init)
+
+.rel.text
+ *(.rel.text)
+ *(.rel.text.*)
+ *(.rel.gnu.linkonce.t*)
+
+.rela.text
+ *(.rela.text)
+ *(.rela.text.*)
+ *(.rela.gnu.linkonce.t*)
+
+.rel.fini
+ *(.rel.fini)
+
+.rela.fini
+ *(.rela.fini)
+
+.rel.rodata
+ *(.rel.rodata)
+ *(.rel.rodata.*)
+ *(.rel.gnu.linkonce.r*)
+
+.rela.rodata
+ *(.rela.rodata)
+ *(.rela.rodata.*)
+ *(.rela.gnu.linkonce.r*)
+
+.rel.data
+ *(.rel.data)
+ *(.rel.data.*)
+ *(.rel.gnu.linkonce.d*)
+
+.rela.data
+ *(.rela.data)
+ *(.rela.data.*)
+ *(.rela.gnu.linkonce.d*)
+
+.rel.ctors
+ *(.rel.ctors)
+
+.rela.ctors
+ *(.rela.ctors)
+
+.rel.dtors
+ *(.rel.dtors)
+
+.rela.dtors
+ *(.rela.dtors)
+
+.rel.got
+ *(.rel.got)
+
+.rela.got
+ *(.rela.got)
+
+.rel.bss
+ *(.rel.bss)
+
+.rela.bss
+ *(.rela.bss)
+
+.rel.plt
+ *(.rel.plt)
+
+.rela.plt
+ *(.rela.plt)
+
+.text           0x0000000000000000      0xb1a
+ *(.vectors)
+ .vectors       0x0000000000000000       0x94 /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr51/crtat90can128.o
+                0x0000000000000000                __vectors
+                0x0000000000000000                __vector_default
+ *(.vectors)
+ *(.progmem.gcc*)
+                0x0000000000000094                . = ALIGN (0x2)
+                0x0000000000000094                __trampolines_start = .
+ *(.trampolines)
+ .trampolines   0x0000000000000094        0x0 linker stubs
+ *(.trampolines*)
+                0x0000000000000094                __trampolines_end = .
+ *(.progmem*)
+                0x0000000000000094                . = ALIGN (0x2)
+ *(.jumptables)
+ *(.jumptables*)
+ *(.lowtext)
+ *(.lowtext*)
+                0x0000000000000094                __ctors_start = .
+ *(.ctors)
+                0x0000000000000094                __ctors_end = .
+                0x0000000000000094                __dtors_start = .
+ *(.dtors)
+                0x0000000000000094                __dtors_end = .
+ SORT(*)(.ctors)
+ SORT(*)(.dtors)
+ *(.init0)
+ .init0         0x0000000000000094        0x0 /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr51/crtat90can128.o
+                0x0000000000000094                __init
+ *(.init0)
+ *(.init1)
+ *(.init1)
+ *(.init2)
+ .init2         0x0000000000000094        0xc /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr51/crtat90can128.o
+ *(.init2)
+ *(.init3)
+ *(.init3)
+ *(.init4)
+ .init4         0x00000000000000a0       0x1a /usr/lib/gcc/avr/4.9.2/avr51/libgcc.a(_copy_data.o)
+                0x00000000000000a0                __do_copy_data
+ .init4         0x00000000000000ba       0x10 /usr/lib/gcc/avr/4.9.2/avr51/libgcc.a(_clear_bss.o)
+                0x00000000000000ba                __do_clear_bss
+ *(.init4)
+ *(.init5)
+ *(.init5)
+ *(.init6)
+ *(.init6)
+ *(.init7)
+ *(.init7)
+ *(.init8)
+ *(.init8)
+ *(.init9)
+ .init9         0x00000000000000ca        0x8 /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr51/crtat90can128.o
+ *(.init9)
+ *(.text)
+ .text          0x00000000000000d2        0x4 /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr51/crtat90can128.o
+                0x00000000000000d2                __vector_22
+                0x00000000000000d2                __vector_28
+                0x00000000000000d2                __vector_1
+                0x00000000000000d2                __vector_32
+                0x00000000000000d2                __vector_34
+                0x00000000000000d2                __vector_24
+                0x00000000000000d2                __bad_interrupt
+                0x00000000000000d2                __vector_6
+                0x00000000000000d2                __vector_31
+                0x00000000000000d2                __vector_35
+                0x00000000000000d2                __vector_3
+                0x00000000000000d2                __vector_23
+                0x00000000000000d2                __vector_30
+                0x00000000000000d2                __vector_25
+                0x00000000000000d2                __vector_11
+                0x00000000000000d2                __vector_13
+                0x00000000000000d2                __vector_17
+                0x00000000000000d2                __vector_19
+                0x00000000000000d2                __vector_7
+                0x00000000000000d2                __vector_27
+                0x00000000000000d2                __vector_5
+                0x00000000000000d2                __vector_33
+                0x00000000000000d2                __vector_4
+                0x00000000000000d2                __vector_9
+                0x00000000000000d2                __vector_2
+                0x00000000000000d2                __vector_21
+                0x00000000000000d2                __vector_15
+                0x00000000000000d2                __vector_36
+                0x00000000000000d2                __vector_29
+                0x00000000000000d2                __vector_8
+                0x00000000000000d2                __vector_26
+                0x00000000000000d2                __vector_14
+                0x00000000000000d2                __vector_10
+                0x00000000000000d2                __vector_16
+                0x00000000000000d2                __vector_18
+                0x00000000000000d2                __vector_20
+ .text          0x00000000000000d6       0x50 build/./src/main.o
+                0x00000000000000d6                HBridge_Add
+ .text          0x0000000000000126       0xb0 build/./src/uart0.o
+                0x0000000000000126                USART0_init
+                0x00000000000001ba                USART0_transmit
+                0x00000000000001c8                USART0_receive
+ .text          0x00000000000001d6      0x354 build/./src/Pin.o
+                0x00000000000001d6                Pin_SetMode
+                0x000000000000022a                Pin_EnableAnalog
+                0x00000000000004c4                Pin_WriteAnalog
+                0x00000000000004da                Pin_WriteDigital
+                0x0000000000000506                Pin_ReadDigital
+ .text          0x000000000000052a       0xc6 build/./src/Utils.o
+                0x000000000000052a                __vector_12
+                0x00000000000005a8                Utils_Init
+                0x00000000000005ca                Utils_Mills
+ .text          0x00000000000005f0       0x2a build/./src/BinarySensor.o
+                0x00000000000005f0                BinarySensor_Add
+                0x00000000000005f6                ifSensorDetected
+ .text          0x000000000000061a      0x150 build/./src/PwmBrushless.o
+                0x0000000000000646                Brushless_Init
+                0x000000000000066e                Brushless_Update
+ .text          0x000000000000076a        0x0 /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr51/libm.a(addsf3.o)
+ .text          0x000000000000076a        0x0 /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr51/libm.a(addsf3x.o)
+ .text          0x000000000000076a        0x0 /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr51/libm.a(fixunssfsi.o)
+ .text          0x000000000000076a        0x0 /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr51/libm.a(floatsisf.o)
+ .text          0x000000000000076a        0x0 /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr51/libm.a(fp_inf.o)
+ .text          0x000000000000076a        0x0 /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr51/libm.a(fp_nan.o)
+ .text          0x000000000000076a        0x0 /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr51/libm.a(fp_pscA.o)
+ .text          0x000000000000076a        0x0 /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr51/libm.a(fp_pscB.o)
+ .text          0x000000000000076a        0x0 /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr51/libm.a(fp_round.o)
+ .text          0x000000000000076a        0x0 /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr51/libm.a(fp_split3.o)
+ .text          0x000000000000076a        0x0 /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr51/libm.a(fp_zero.o)
+ .text          0x000000000000076a        0x0 /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr51/libm.a(mulsf3.o)
+ .text          0x000000000000076a        0x0 /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr51/libm.a(mulsf3x.o)
+ .text          0x000000000000076a        0x0 /usr/lib/gcc/avr/4.9.2/avr51/libgcc.a(_udivmodsi4.o)
+ .text          0x000000000000076a        0x0 /usr/lib/gcc/avr/4.9.2/avr51/libgcc.a(_exit.o)
+ .text          0x000000000000076a        0x0 /usr/lib/gcc/avr/4.9.2/avr51/libgcc.a(_copy_data.o)
+ .text          0x000000000000076a        0x0 /usr/lib/gcc/avr/4.9.2/avr51/libgcc.a(_clear_bss.o)
+ .text          0x000000000000076a        0x0 /usr/lib/gcc/avr/4.9.2/avr51/libgcc.a(_adddi3_s8.o)
+                0x000000000000076a                . = ALIGN (0x2)
+ *(.text.*)
+ .text.startup  0x000000000000076a       0x22 build/./src/main.o
+                0x000000000000076a                main
+ .text.avr-libc.fplib
+                0x000000000000078c        0xe /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr51/libm.a(addsf3.o)
+                0x000000000000078c                __subsf3
+                0x000000000000078e                __addsf3
+ .text.avr-libc.fplib
+                0x000000000000079a       0xcc /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr51/libm.a(addsf3x.o)
+                0x00000000000007bc                __addsf3x
+ .text.avr-libc.fplib
+                0x0000000000000866       0x5e /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr51/libm.a(fixunssfsi.o)
+                0x0000000000000866                __fixunssfsi
+ .text.avr-libc.fplib
+                0x00000000000008c4       0x7a /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr51/libm.a(floatsisf.o)
+                0x00000000000008c4                __floatunsisf
+                0x00000000000008c8                __floatsisf
+ .text.avr-libc.fplib
+                0x000000000000093e        0xc /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr51/libm.a(fp_inf.o)
+                0x000000000000093e                __fp_inf
+ .text.avr-libc.fplib
+                0x000000000000094a        0x6 /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr51/libm.a(fp_nan.o)
+                0x000000000000094a                __fp_nan
+ .text.avr-libc.fplib
+                0x0000000000000950        0xe /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr51/libm.a(fp_pscA.o)
+                0x0000000000000950                __fp_pscA
+ .text.avr-libc.fplib
+                0x000000000000095e        0xe /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr51/libm.a(fp_pscB.o)
+                0x000000000000095e                __fp_pscB
+ .text.avr-libc.fplib
+                0x000000000000096c       0x22 /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr51/libm.a(fp_round.o)
+                0x000000000000096c                __fp_round
+ .text.avr-libc.fplib
+                0x000000000000098e       0x44 /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr51/libm.a(fp_split3.o)
+                0x000000000000098e                __fp_split3
+                0x000000000000099e                __fp_splitA
+ .text.avr-libc.fplib
+                0x00000000000009d2        0xe /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr51/libm.a(fp_zero.o)
+                0x00000000000009d2                __fp_zero
+                0x00000000000009d4                __fp_szero
+ .text.avr-libc.fplib
+                0x00000000000009e0        0x8 /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr51/libm.a(mulsf3.o)
+                0x00000000000009e0                __mulsf3
+ .text.avr-libc.fplib
+                0x00000000000009e8       0xd2 /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr51/libm.a(mulsf3x.o)
+                0x0000000000000a06                __mulsf3x
+                0x0000000000000a0c                __mulsf3_pse
+ .text.libgcc.mul
+                0x0000000000000aba        0x0 /usr/lib/gcc/avr/4.9.2/avr51/libgcc.a(_udivmodsi4.o)
+ .text.libgcc.div
+                0x0000000000000aba       0x44 /usr/lib/gcc/avr/4.9.2/avr51/libgcc.a(_udivmodsi4.o)
+                0x0000000000000aba                __udivmodsi4
+ .text.libgcc   0x0000000000000afe        0x0 /usr/lib/gcc/avr/4.9.2/avr51/libgcc.a(_udivmodsi4.o)
+ .text.libgcc.prologue
+                0x0000000000000afe        0x0 /usr/lib/gcc/avr/4.9.2/avr51/libgcc.a(_udivmodsi4.o)
+ .text.libgcc.builtins
+                0x0000000000000afe        0x0 /usr/lib/gcc/avr/4.9.2/avr51/libgcc.a(_udivmodsi4.o)
+ .text.libgcc.fmul
+                0x0000000000000afe        0x0 /usr/lib/gcc/avr/4.9.2/avr51/libgcc.a(_udivmodsi4.o)
+ .text.libgcc.fixed
+                0x0000000000000afe        0x0 /usr/lib/gcc/avr/4.9.2/avr51/libgcc.a(_udivmodsi4.o)
+ .text.libgcc.mul
+                0x0000000000000afe        0x0 /usr/lib/gcc/avr/4.9.2/avr51/libgcc.a(_exit.o)
+ .text.libgcc.div
+                0x0000000000000afe        0x0 /usr/lib/gcc/avr/4.9.2/avr51/libgcc.a(_exit.o)
+ .text.libgcc   0x0000000000000afe        0x0 /usr/lib/gcc/avr/4.9.2/avr51/libgcc.a(_exit.o)
+ .text.libgcc.prologue
+                0x0000000000000afe        0x0 /usr/lib/gcc/avr/4.9.2/avr51/libgcc.a(_exit.o)
+ .text.libgcc.builtins
+                0x0000000000000afe        0x0 /usr/lib/gcc/avr/4.9.2/avr51/libgcc.a(_exit.o)
+ .text.libgcc.fmul
+                0x0000000000000afe        0x0 /usr/lib/gcc/avr/4.9.2/avr51/libgcc.a(_exit.o)
+ .text.libgcc.fixed
+                0x0000000000000afe        0x0 /usr/lib/gcc/avr/4.9.2/avr51/libgcc.a(_exit.o)
+ .text.libgcc.mul
+                0x0000000000000afe        0x0 /usr/lib/gcc/avr/4.9.2/avr51/libgcc.a(_copy_data.o)
+ .text.libgcc.div
+                0x0000000000000afe        0x0 /usr/lib/gcc/avr/4.9.2/avr51/libgcc.a(_copy_data.o)
+ .text.libgcc   0x0000000000000afe        0x0 /usr/lib/gcc/avr/4.9.2/avr51/libgcc.a(_copy_data.o)
+ .text.libgcc.prologue
+                0x0000000000000afe        0x0 /usr/lib/gcc/avr/4.9.2/avr51/libgcc.a(_copy_data.o)
+ .text.libgcc.builtins
+                0x0000000000000afe        0x0 /usr/lib/gcc/avr/4.9.2/avr51/libgcc.a(_copy_data.o)
+ .text.libgcc.fmul
+                0x0000000000000afe        0x0 /usr/lib/gcc/avr/4.9.2/avr51/libgcc.a(_copy_data.o)
+ .text.libgcc.fixed
+                0x0000000000000afe        0x0 /usr/lib/gcc/avr/4.9.2/avr51/libgcc.a(_copy_data.o)
+ .text.libgcc.mul
+                0x0000000000000afe        0x0 /usr/lib/gcc/avr/4.9.2/avr51/libgcc.a(_clear_bss.o)
+ .text.libgcc.div
+                0x0000000000000afe        0x0 /usr/lib/gcc/avr/4.9.2/avr51/libgcc.a(_clear_bss.o)
+ .text.libgcc   0x0000000000000afe        0x0 /usr/lib/gcc/avr/4.9.2/avr51/libgcc.a(_clear_bss.o)
+ .text.libgcc.prologue
+                0x0000000000000afe        0x0 /usr/lib/gcc/avr/4.9.2/avr51/libgcc.a(_clear_bss.o)
+ .text.libgcc.builtins
+                0x0000000000000afe        0x0 /usr/lib/gcc/avr/4.9.2/avr51/libgcc.a(_clear_bss.o)
+ .text.libgcc.fmul
+                0x0000000000000afe        0x0 /usr/lib/gcc/avr/4.9.2/avr51/libgcc.a(_clear_bss.o)
+ .text.libgcc.fixed
+                0x0000000000000afe        0x0 /usr/lib/gcc/avr/4.9.2/avr51/libgcc.a(_clear_bss.o)
+ .text.libgcc.mul
+                0x0000000000000afe        0x0 /usr/lib/gcc/avr/4.9.2/avr51/libgcc.a(_adddi3_s8.o)
+ .text.libgcc.div
+                0x0000000000000afe        0x0 /usr/lib/gcc/avr/4.9.2/avr51/libgcc.a(_adddi3_s8.o)
+ .text.libgcc   0x0000000000000afe       0x18 /usr/lib/gcc/avr/4.9.2/avr51/libgcc.a(_adddi3_s8.o)
+                0x0000000000000afe                __adddi3_s8
+ .text.libgcc.prologue
+                0x0000000000000b16        0x0 /usr/lib/gcc/avr/4.9.2/avr51/libgcc.a(_adddi3_s8.o)
+ .text.libgcc.builtins
+                0x0000000000000b16        0x0 /usr/lib/gcc/avr/4.9.2/avr51/libgcc.a(_adddi3_s8.o)
+ .text.libgcc.fmul
+                0x0000000000000b16        0x0 /usr/lib/gcc/avr/4.9.2/avr51/libgcc.a(_adddi3_s8.o)
+ .text.libgcc.fixed
+                0x0000000000000b16        0x0 /usr/lib/gcc/avr/4.9.2/avr51/libgcc.a(_adddi3_s8.o)
+                0x0000000000000b16                . = ALIGN (0x2)
+ *(.fini9)
+ .fini9         0x0000000000000b16        0x0 /usr/lib/gcc/avr/4.9.2/avr51/libgcc.a(_exit.o)
+                0x0000000000000b16                exit
+                0x0000000000000b16                _exit
+ *(.fini9)
+ *(.fini8)
+ *(.fini8)
+ *(.fini7)
+ *(.fini7)
+ *(.fini6)
+ *(.fini6)
+ *(.fini5)
+ *(.fini5)
+ *(.fini4)
+ *(.fini4)
+ *(.fini3)
+ *(.fini3)
+ *(.fini2)
+ *(.fini2)
+ *(.fini1)
+ *(.fini1)
+ *(.fini0)
+ .fini0         0x0000000000000b16        0x4 /usr/lib/gcc/avr/4.9.2/avr51/libgcc.a(_exit.o)
+ *(.fini0)
+                0x0000000000000b1a                _etext = .
+
+.data           0x0000000000800100      0x11a load address 0x0000000000000b1a
+                0x0000000000800100                PROVIDE (__data_start, .)
+ *(.data)
+ .data          0x0000000000800100        0x0 /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr51/crtat90can128.o
+ .data          0x0000000000800100        0x0 build/./src/main.o
+ .data          0x0000000000800100        0x0 build/./src/uart0.o
+ .data          0x0000000000800100      0x11a build/./src/Pin.o
+                0x0000000000800100                Pin_E3
+                0x0000000000800109                Pin_E2
+                0x0000000000800112                Pin_F3
+                0x000000000080011b                Pin_F2
+                0x0000000000800124                Pin_C4
+                0x000000000080012d                Pin_C3
+                0x0000000000800136                Pin_C2
+                0x000000000080013f                Pin_C1
+                0x0000000000800148                Pin_C0
+                0x0000000000800151                Pin_A3
+                0x000000000080015a                Pin_A4
+                0x0000000000800163                Pin_A5
+                0x000000000080016c                Pin_A6
+                0x0000000000800175                Pin_A7
+                0x000000000080017e                Pin_G2
+                0x0000000000800187                Pin_C7
+                0x0000000000800190                Pin_C6
+                0x0000000000800199                Pin_A0
+                0x00000000008001a2                Pin_A1
+                0x00000000008001ab                Pin_A2
+                0x00000000008001b4                Pin_B0
+                0x00000000008001bd                Pin_B7
+                0x00000000008001c6                Pin_B2
+                0x00000000008001cf                Pin_B3
+                0x00000000008001d8                Pin_B5
+                0x00000000008001e1                Pin_B4
+                0x00000000008001ea                Timer_2A
+                0x00000000008001fa                Timer_0A
+                0x000000000080020a                Timer_1A
+ .data          0x000000000080021a        0x0 build/./src/Utils.o
+ .data          0x000000000080021a        0x0 build/./src/BinarySensor.o
+ .data          0x000000000080021a        0x0 build/./src/PwmBrushless.o
+ .data          0x000000000080021a        0x0 /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr51/libm.a(addsf3.o)
+ .data          0x000000000080021a        0x0 /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr51/libm.a(addsf3x.o)
+ .data          0x000000000080021a        0x0 /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr51/libm.a(fixunssfsi.o)
+ .data          0x000000000080021a        0x0 /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr51/libm.a(floatsisf.o)
+ .data          0x000000000080021a        0x0 /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr51/libm.a(fp_inf.o)
+ .data          0x000000000080021a        0x0 /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr51/libm.a(fp_nan.o)
+ .data          0x000000000080021a        0x0 /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr51/libm.a(fp_pscA.o)
+ .data          0x000000000080021a        0x0 /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr51/libm.a(fp_pscB.o)
+ .data          0x000000000080021a        0x0 /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr51/libm.a(fp_round.o)
+ .data          0x000000000080021a        0x0 /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr51/libm.a(fp_split3.o)
+ .data          0x000000000080021a        0x0 /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr51/libm.a(fp_zero.o)
+ .data          0x000000000080021a        0x0 /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr51/libm.a(mulsf3.o)
+ .data          0x000000000080021a        0x0 /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr51/libm.a(mulsf3x.o)
+ .data          0x000000000080021a        0x0 /usr/lib/gcc/avr/4.9.2/avr51/libgcc.a(_udivmodsi4.o)
+ .data          0x000000000080021a        0x0 /usr/lib/gcc/avr/4.9.2/avr51/libgcc.a(_exit.o)
+ .data          0x000000000080021a        0x0 /usr/lib/gcc/avr/4.9.2/avr51/libgcc.a(_copy_data.o)
+ .data          0x000000000080021a        0x0 /usr/lib/gcc/avr/4.9.2/avr51/libgcc.a(_clear_bss.o)
+ .data          0x000000000080021a        0x0 /usr/lib/gcc/avr/4.9.2/avr51/libgcc.a(_adddi3_s8.o)
+ *(.data*)
+ *(.rodata)
+ *(.rodata*)
+ *(.gnu.linkonce.d*)
+                0x000000000080021a                . = ALIGN (0x2)
+                0x000000000080021a                _edata = .
+                0x000000000080021a                PROVIDE (__data_end, .)
+
+.bss            0x000000000080021a        0x9
+                0x000000000080021a                PROVIDE (__bss_start, .)
+ *(.bss)
+ .bss           0x000000000080021a        0x0 /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr51/crtat90can128.o
+ .bss           0x000000000080021a        0x0 build/./src/main.o
+ .bss           0x000000000080021a        0x0 build/./src/uart0.o
+ .bss           0x000000000080021a        0x0 build/./src/Pin.o
+ .bss           0x000000000080021a        0x8 build/./src/Utils.o
+ .bss           0x0000000000800222        0x0 build/./src/BinarySensor.o
+ .bss           0x0000000000800222        0x1 build/./src/PwmBrushless.o
+ .bss           0x0000000000800223        0x0 /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr51/libm.a(addsf3.o)
+ .bss           0x0000000000800223        0x0 /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr51/libm.a(addsf3x.o)
+ .bss           0x0000000000800223        0x0 /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr51/libm.a(fixunssfsi.o)
+ .bss           0x0000000000800223        0x0 /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr51/libm.a(floatsisf.o)
+ .bss           0x0000000000800223        0x0 /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr51/libm.a(fp_inf.o)
+ .bss           0x0000000000800223        0x0 /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr51/libm.a(fp_nan.o)
+ .bss           0x0000000000800223        0x0 /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr51/libm.a(fp_pscA.o)
+ .bss           0x0000000000800223        0x0 /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr51/libm.a(fp_pscB.o)
+ .bss           0x0000000000800223        0x0 /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr51/libm.a(fp_round.o)
+ .bss           0x0000000000800223        0x0 /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr51/libm.a(fp_split3.o)
+ .bss           0x0000000000800223        0x0 /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr51/libm.a(fp_zero.o)
+ .bss           0x0000000000800223        0x0 /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr51/libm.a(mulsf3.o)
+ .bss           0x0000000000800223        0x0 /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr51/libm.a(mulsf3x.o)
+ .bss           0x0000000000800223        0x0 /usr/lib/gcc/avr/4.9.2/avr51/libgcc.a(_udivmodsi4.o)
+ .bss           0x0000000000800223        0x0 /usr/lib/gcc/avr/4.9.2/avr51/libgcc.a(_exit.o)
+ .bss           0x0000000000800223        0x0 /usr/lib/gcc/avr/4.9.2/avr51/libgcc.a(_copy_data.o)
+ .bss           0x0000000000800223        0x0 /usr/lib/gcc/avr/4.9.2/avr51/libgcc.a(_clear_bss.o)
+ .bss           0x0000000000800223        0x0 /usr/lib/gcc/avr/4.9.2/avr51/libgcc.a(_adddi3_s8.o)
+ *(.bss*)
+ *(COMMON)
+                0x0000000000800223                PROVIDE (__bss_end, .)
+                0x0000000000000b1a                __data_load_start = LOADADDR (.data)
+                0x0000000000000c34                __data_load_end = (__data_load_start + SIZEOF (.data))
+
+.noinit         0x0000000000800223        0x0
+                0x0000000000800223                PROVIDE (__noinit_start, .)
+ *(.noinit*)
+                0x0000000000800223                PROVIDE (__noinit_end, .)
+                0x0000000000800223                _end = .
+                0x0000000000800223                PROVIDE (__heap_start, .)
+
+.eeprom         0x0000000000810000        0x0
+ *(.eeprom*)
+                0x0000000000810000                __eeprom_end = .
+
+.fuse
+ *(.fuse)
+ *(.lfuse)
+ *(.hfuse)
+ *(.efuse)
+
+.lock
+ *(.lock*)
+
+.signature
+ *(.signature*)
+
+.user_signatures
+ *(.user_signatures*)
+
+.stab
+ *(.stab)
+
+.stabstr
+ *(.stabstr)
+
+.stab.excl
+ *(.stab.excl)
+
+.stab.exclstr
+ *(.stab.exclstr)
+
+.stab.index
+ *(.stab.index)
+
+.stab.indexstr
+ *(.stab.indexstr)
+
+.comment        0x0000000000000000       0x11
+ *(.comment)
+ .comment       0x0000000000000000       0x11 build/./src/main.o
+                                         0x12 (size before relaxing)
+ .comment       0x0000000000000011       0x12 build/./src/uart0.o
+ .comment       0x0000000000000011       0x12 build/./src/Pin.o
+ .comment       0x0000000000000011       0x12 build/./src/Utils.o
+ .comment       0x0000000000000011       0x12 build/./src/BinarySensor.o
+ .comment       0x0000000000000011       0x12 build/./src/PwmBrushless.o
+
+.note.gnu.avr.deviceinfo
+                0x0000000000000000       0x40
+ .note.gnu.avr.deviceinfo
+                0x0000000000000000       0x40 /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr51/crtat90can128.o
+
+.note.gnu.build-id
+ *(.note.gnu.build-id)
+
+.debug
+ *(.debug)
+
+.line
+ *(.line)
+
+.debug_srcinfo
+ *(.debug_srcinfo)
+
+.debug_sfnames
+ *(.debug_sfnames)
+
+.debug_aranges  0x0000000000000000       0xc8
+ *(.debug_aranges)
+ .debug_aranges
+                0x0000000000000000       0x28 build/./src/main.o
+ .debug_aranges
+                0x0000000000000028       0x20 build/./src/uart0.o
+ .debug_aranges
+                0x0000000000000048       0x20 build/./src/Pin.o
+ .debug_aranges
+                0x0000000000000068       0x20 build/./src/Utils.o
+ .debug_aranges
+                0x0000000000000088       0x20 build/./src/BinarySensor.o
+ .debug_aranges
+                0x00000000000000a8       0x20 build/./src/PwmBrushless.o
+
+.debug_pubnames
+ *(.debug_pubnames)
+
+.debug_info     0x0000000000000000     0x11cd
+ *(.debug_info .gnu.linkonce.wi.*)
+ .debug_info    0x0000000000000000      0x3fb build/./src/main.o
+ .debug_info    0x00000000000003fb       0xf6 build/./src/uart0.o
+ .debug_info    0x00000000000004f1      0x557 build/./src/Pin.o
+ .debug_info    0x0000000000000a48      0x185 build/./src/Utils.o
+ .debug_info    0x0000000000000bcd      0x268 build/./src/BinarySensor.o
+ .debug_info    0x0000000000000e35      0x398 build/./src/PwmBrushless.o
+
+.debug_abbrev   0x0000000000000000      0x7be
+ *(.debug_abbrev)
+ .debug_abbrev  0x0000000000000000      0x1d7 build/./src/main.o
+ .debug_abbrev  0x00000000000001d7       0x98 build/./src/uart0.o
+ .debug_abbrev  0x000000000000026f      0x147 build/./src/Pin.o
+ .debug_abbrev  0x00000000000003b6      0x135 build/./src/Utils.o
+ .debug_abbrev  0x00000000000004eb      0x110 build/./src/BinarySensor.o
+ .debug_abbrev  0x00000000000005fb      0x1c3 build/./src/PwmBrushless.o
+
+.debug_line     0x0000000000000000      0x401
+ *(.debug_line .debug_line.* .debug_line_end)
+ .debug_line    0x0000000000000000       0xba build/./src/main.o
+ .debug_line    0x00000000000000ba       0x7a build/./src/uart0.o
+ .debug_line    0x0000000000000134       0xb2 build/./src/Pin.o
+ .debug_line    0x00000000000001e6       0x9c build/./src/Utils.o
+ .debug_line    0x0000000000000282       0x6b build/./src/BinarySensor.o
+ .debug_line    0x00000000000002ed      0x114 build/./src/PwmBrushless.o
+
+.debug_frame    0x0000000000000000      0x240
+ *(.debug_frame)
+ .debug_frame   0x0000000000000000       0x6c build/./src/main.o
+ .debug_frame   0x000000000000006c       0x44 build/./src/uart0.o
+ .debug_frame   0x00000000000000b0       0x70 build/./src/Pin.o
+ .debug_frame   0x0000000000000120       0x88 build/./src/Utils.o
+ .debug_frame   0x00000000000001a8       0x34 build/./src/BinarySensor.o
+ .debug_frame   0x00000000000001dc       0x64 build/./src/PwmBrushless.o
+
+.debug_str      0x0000000000000000      0x4e4
+ *(.debug_str)
+ .debug_str     0x0000000000000000      0x276 build/./src/main.o
+                                        0x2ca (size before relaxing)
+ .debug_str     0x0000000000000276       0x46 build/./src/uart0.o
+                                        0x18a (size before relaxing)
+ .debug_str     0x00000000000002bc      0x12b build/./src/Pin.o
+                                        0x372 (size before relaxing)
+ .debug_str     0x00000000000003e7       0x7d build/./src/Utils.o
+                                        0x1ae (size before relaxing)
+ .debug_str     0x0000000000000464       0x3b build/./src/BinarySensor.o
+                                        0x216 (size before relaxing)
+ .debug_str     0x000000000000049f       0x45 build/./src/PwmBrushless.o
+                                        0x28b (size before relaxing)
+
+.debug_loc      0x0000000000000000      0x6bb
+ *(.debug_loc)
+ .debug_loc     0x0000000000000000      0x169 build/./src/main.o
+ .debug_loc     0x0000000000000169       0x56 build/./src/uart0.o
+ .debug_loc     0x00000000000001bf      0x22f build/./src/Pin.o
+ .debug_loc     0x00000000000003ee       0xc4 build/./src/Utils.o
+ .debug_loc     0x00000000000004b2       0x4e build/./src/BinarySensor.o
+ .debug_loc     0x0000000000000500      0x1bb build/./src/PwmBrushless.o
+
+.debug_macinfo
+ *(.debug_macinfo)
+
+.debug_weaknames
+ *(.debug_weaknames)
+
+.debug_funcnames
+ *(.debug_funcnames)
+
+.debug_typenames
+ *(.debug_typenames)
+
+.debug_varnames
+ *(.debug_varnames)
+
+.debug_pubtypes
+ *(.debug_pubtypes)
+
+.debug_ranges   0x0000000000000000       0x18
+ *(.debug_ranges)
+ .debug_ranges  0x0000000000000000       0x18 build/./src/main.o
+
+.debug_macro
+ *(.debug_macro)
+OUTPUT(sensor_control_board.elf elf32-avr)
+LOAD linker stubs
+
+Cross Reference Table
+
+Symbol                                            File
+BinarySensor_Add                                  build/./src/BinarySensor.o
+Brushless_Init                                    build/./src/PwmBrushless.o
+                                                  build/./src/main.o
+Brushless_Update                                  build/./src/PwmBrushless.o
+                                                  build/./src/main.o
+HBridge_Add                                       build/./src/main.o
+Pin_A0                                            build/./src/Pin.o
+Pin_A1                                            build/./src/Pin.o
+Pin_A2                                            build/./src/Pin.o
+Pin_A3                                            build/./src/Pin.o
+Pin_A4                                            build/./src/Pin.o
+Pin_A5                                            build/./src/Pin.o
+Pin_A6                                            build/./src/Pin.o
+Pin_A7                                            build/./src/Pin.o
+Pin_B0                                            build/./src/Pin.o
+Pin_B2                                            build/./src/Pin.o
+Pin_B3                                            build/./src/Pin.o
+Pin_B4                                            build/./src/Pin.o
+Pin_B5                                            build/./src/Pin.o
+                                                  build/./src/main.o
+Pin_B7                                            build/./src/Pin.o
+Pin_C0                                            build/./src/Pin.o
+Pin_C1                                            build/./src/Pin.o
+Pin_C2                                            build/./src/Pin.o
+Pin_C3                                            build/./src/Pin.o
+Pin_C4                                            build/./src/Pin.o
+Pin_C6                                            build/./src/Pin.o
+Pin_C7                                            build/./src/Pin.o
+Pin_E2                                            build/./src/Pin.o
+Pin_E3                                            build/./src/Pin.o
+Pin_EnableAnalog                                  build/./src/Pin.o
+                                                  build/./src/main.o
+Pin_F2                                            build/./src/Pin.o
+Pin_F3                                            build/./src/Pin.o
+Pin_G2                                            build/./src/Pin.o
+Pin_ReadDigital                                   build/./src/Pin.o
+Pin_SetMode                                       build/./src/Pin.o
+                                                  build/./src/PwmBrushless.o
+                                                  build/./src/BinarySensor.o
+                                                  build/./src/main.o
+Pin_WriteAnalog                                   build/./src/Pin.o
+Pin_WriteDigital                                  build/./src/Pin.o
+Timer_0A                                          build/./src/Pin.o
+Timer_1A                                          build/./src/Pin.o
+Timer_2A                                          build/./src/Pin.o
+USART0_init                                       build/./src/uart0.o
+USART0_receive                                    build/./src/uart0.o
+USART0_transmit                                   build/./src/uart0.o
+Utils_Init                                        build/./src/Utils.o
+Utils_Mills                                       build/./src/Utils.o
+__adddi3_s8                                       /usr/lib/gcc/avr/4.9.2/avr51/libgcc.a(_adddi3_s8.o)
+                                                  build/./src/Utils.o
+__addsf3                                          /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr51/libm.a(addsf3.o)
+                                                  build/./src/PwmBrushless.o
+__addsf3x                                         /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr51/libm.a(addsf3x.o)
+                                                  /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr51/libm.a(addsf3.o)
+__bad_interrupt                                   /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr51/crtat90can128.o
+__bss_end                                         /usr/lib/gcc/avr/4.9.2/avr51/libgcc.a(_clear_bss.o)
+__bss_start                                       /usr/lib/gcc/avr/4.9.2/avr51/libgcc.a(_clear_bss.o)
+__data_end                                        /usr/lib/gcc/avr/4.9.2/avr51/libgcc.a(_copy_data.o)
+__data_load_start                                 /usr/lib/gcc/avr/4.9.2/avr51/libgcc.a(_copy_data.o)
+__data_start                                      /usr/lib/gcc/avr/4.9.2/avr51/libgcc.a(_copy_data.o)
+__do_clear_bss                                    /usr/lib/gcc/avr/4.9.2/avr51/libgcc.a(_clear_bss.o)
+                                                  build/./src/PwmBrushless.o
+                                                  build/./src/Utils.o
+__do_copy_data                                    /usr/lib/gcc/avr/4.9.2/avr51/libgcc.a(_copy_data.o)
+                                                  build/./src/Pin.o
+__fixunssfsi                                      /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr51/libm.a(fixunssfsi.o)
+                                                  build/./src/PwmBrushless.o
+__floatsisf                                       /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr51/libm.a(floatsisf.o)
+                                                  build/./src/PwmBrushless.o
+__floatunsisf                                     /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr51/libm.a(floatsisf.o)
+                                                  build/./src/PwmBrushless.o
+__fp_inf                                          /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr51/libm.a(fp_inf.o)
+                                                  /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr51/libm.a(mulsf3x.o)
+                                                  /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr51/libm.a(addsf3x.o)
+__fp_nan                                          /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr51/libm.a(fp_nan.o)
+                                                  /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr51/libm.a(mulsf3x.o)
+                                                  /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr51/libm.a(addsf3x.o)
+__fp_pscA                                         /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr51/libm.a(fp_pscA.o)
+                                                  /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr51/libm.a(mulsf3x.o)
+                                                  /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr51/libm.a(addsf3x.o)
+__fp_pscB                                         /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr51/libm.a(fp_pscB.o)
+                                                  /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr51/libm.a(mulsf3x.o)
+                                                  /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr51/libm.a(addsf3x.o)
+__fp_round                                        /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr51/libm.a(fp_round.o)
+                                                  /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr51/libm.a(mulsf3.o)
+                                                  /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr51/libm.a(addsf3.o)
+__fp_split3                                       /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr51/libm.a(fp_split3.o)
+                                                  /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr51/libm.a(mulsf3x.o)
+                                                  /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr51/libm.a(addsf3x.o)
+__fp_splitA                                       /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr51/libm.a(fp_split3.o)
+                                                  /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr51/libm.a(fixunssfsi.o)
+__fp_szero                                        /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr51/libm.a(fp_zero.o)
+                                                  /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr51/libm.a(mulsf3x.o)
+__fp_zero                                         /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr51/libm.a(fp_zero.o)
+                                                  /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr51/libm.a(fixunssfsi.o)
+                                                  /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr51/libm.a(addsf3x.o)
+__heap_end                                        /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr51/crtat90can128.o
+__init                                            /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr51/crtat90can128.o
+__mulsf3                                          /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr51/libm.a(mulsf3.o)
+                                                  build/./src/PwmBrushless.o
+__mulsf3_pse                                      /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr51/libm.a(mulsf3x.o)
+__mulsf3x                                         /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr51/libm.a(mulsf3x.o)
+                                                  /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr51/libm.a(mulsf3.o)
+__stack                                           /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr51/crtat90can128.o
+__subsf3                                          /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr51/libm.a(addsf3.o)
+__udivmodsi4                                      /usr/lib/gcc/avr/4.9.2/avr51/libgcc.a(_udivmodsi4.o)
+                                                  build/./src/uart0.o
+__vector_1                                        /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr51/crtat90can128.o
+__vector_10                                       /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr51/crtat90can128.o
+__vector_11                                       /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr51/crtat90can128.o
+__vector_12                                       build/./src/Utils.o
+                                                  /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr51/crtat90can128.o
+__vector_13                                       /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr51/crtat90can128.o
+__vector_14                                       /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr51/crtat90can128.o
+__vector_15                                       /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr51/crtat90can128.o
+__vector_16                                       /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr51/crtat90can128.o
+__vector_17                                       /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr51/crtat90can128.o
+__vector_18                                       /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr51/crtat90can128.o
+__vector_19                                       /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr51/crtat90can128.o
+__vector_2                                        /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr51/crtat90can128.o
+__vector_20                                       /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr51/crtat90can128.o
+__vector_21                                       /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr51/crtat90can128.o
+__vector_22                                       /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr51/crtat90can128.o
+__vector_23                                       /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr51/crtat90can128.o
+__vector_24                                       /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr51/crtat90can128.o
+__vector_25                                       /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr51/crtat90can128.o
+__vector_26                                       /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr51/crtat90can128.o
+__vector_27                                       /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr51/crtat90can128.o
+__vector_28                                       /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr51/crtat90can128.o
+__vector_29                                       /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr51/crtat90can128.o
+__vector_3                                        /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr51/crtat90can128.o
+__vector_30                                       /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr51/crtat90can128.o
+__vector_31                                       /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr51/crtat90can128.o
+__vector_32                                       /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr51/crtat90can128.o
+__vector_33                                       /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr51/crtat90can128.o
+__vector_34                                       /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr51/crtat90can128.o
+__vector_35                                       /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr51/crtat90can128.o
+__vector_36                                       /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr51/crtat90can128.o
+__vector_4                                        /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr51/crtat90can128.o
+__vector_5                                        /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr51/crtat90can128.o
+__vector_6                                        /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr51/crtat90can128.o
+__vector_7                                        /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr51/crtat90can128.o
+__vector_8                                        /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr51/crtat90can128.o
+__vector_9                                        /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr51/crtat90can128.o
+__vector_default                                  /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr51/crtat90can128.o
+__vectors                                         /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr51/crtat90can128.o
+_exit                                             /usr/lib/gcc/avr/4.9.2/avr51/libgcc.a(_exit.o)
+exit                                              /usr/lib/gcc/avr/4.9.2/avr51/libgcc.a(_exit.o)
+                                                  /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr51/crtat90can128.o
+ifSensorDetected                                  build/./src/BinarySensor.o
+main                                              build/./src/main.o
+                                                  /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr51/crtat90can128.o

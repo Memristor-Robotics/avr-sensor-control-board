@@ -1,0 +1,546 @@
+   1               		.file	"PwmBrushless.c"
+   2               	__SP_H__ = 0x3e
+   3               	__SP_L__ = 0x3d
+   4               	__SREG__ = 0x3f
+   5               	__RAMPZ__ = 0x3b
+   6               	__tmp_reg__ = 0
+   7               	__zero_reg__ = 1
+   8               		.text
+   9               	.Ltext0:
+  10               		.cfi_sections	.debug_frame
+  12               	PWM_SetDuty:
+  13               	.LFB11:
+  14               		.file 1 "src/PwmBrushless.c"
+   1:src/PwmBrushless.c **** #include "PwmBrushless.h"
+   2:src/PwmBrushless.c **** 
+   3:src/PwmBrushless.c **** static void PWM_SetDuty(uint16_t promil);
+   4:src/PwmBrushless.c **** 
+   5:src/PwmBrushless.c **** static uint8_t CurrentSpeed = 0;
+   6:src/PwmBrushless.c **** 
+   7:src/PwmBrushless.c **** 
+   8:src/PwmBrushless.c **** void Brushless_Init(Pin* pin) {
+   9:src/PwmBrushless.c **** 
+  10:src/PwmBrushless.c ****   Pin_SetMode(pin, PIN_OUTPUT);
+  11:src/PwmBrushless.c **** 
+  12:src/PwmBrushless.c ****   //*(pin->timer->TCCRnA) |= (1 << pin->timer->COMnA1) | (1 << pin->timer->WGMn1);
+  13:src/PwmBrushless.c ****   TCCR1A = (1 << COM1A1) | (1 << WGM11);
+  14:src/PwmBrushless.c ****   //*(pin->timer->TCCRnB) |= (1 << pin->timer->WGMn3) | (1 << pin->timer->CSn1);
+  15:src/PwmBrushless.c ****   TCCR1B = (1 << WGM13);
+  16:src/PwmBrushless.c ****   //*(pin->timer->ICRn) = MAX_OCR;
+  17:src/PwmBrushless.c ****   ICR1 = MAX_OCR;
+  18:src/PwmBrushless.c ****   TCCR1B |= (1 << CS11);
+  19:src/PwmBrushless.c **** 
+  20:src/PwmBrushless.c **** /*
+  21:src/PwmBrushless.c ****   PWM_SetDuty(100);
+  22:src/PwmBrushless.c ****   _delay_ms(8000);
+  23:src/PwmBrushless.c ****   PWM_SetDuty(50);
+  24:src/PwmBrushless.c ****   _delay_ms(2000);
+  25:src/PwmBrushless.c **** */
+  26:src/PwmBrushless.c **** }
+  27:src/PwmBrushless.c **** // duty cycle (0 pr-1000 pr)
+  28:src/PwmBrushless.c **** void PWM_SetDuty(uint16_t promil) {
+  15               		.loc 1 28 0
+  16               		.cfi_startproc
+  17               	.LVL0:
+  18               	/* prologue: function */
+  19               	/* frame size = 0 */
+  20               	/* stack size = 0 */
+  21               	.L__stack_usage = 0
+  29:src/PwmBrushless.c **** 
+  30:src/PwmBrushless.c ****   if(promil > 100) {
+  22               		.loc 1 30 0
+  23 0000 8536      		cpi r24,101
+  24 0002 9105      		cpc r25,__zero_reg__
+  25 0004 00F4      		brsh .L3
+  31:src/PwmBrushless.c ****     promil = 100;
+  32:src/PwmBrushless.c ****   } else if(promil < 50) {
+  26               		.loc 1 32 0
+  27 0006 8233      		cpi r24,50
+  28 0008 9105      		cpc r25,__zero_reg__
+  29 000a 00F4      		brsh .L2
+  33:src/PwmBrushless.c ****     promil = 50;
+  30               		.loc 1 33 0
+  31 000c 82E3      		ldi r24,lo8(50)
+  32 000e 90E0      		ldi r25,0
+  33               	.LVL1:
+  34 0010 00C0      		rjmp .L2
+  35               	.LVL2:
+  36               	.L3:
+  31:src/PwmBrushless.c ****     promil = 100;
+  37               		.loc 1 31 0
+  38 0012 84E6      		ldi r24,lo8(100)
+  39 0014 90E0      		ldi r25,0
+  40               	.LVL3:
+  41               	.L2:
+  34:src/PwmBrushless.c ****   }
+  35:src/PwmBrushless.c **** 
+  36:src/PwmBrushless.c ****   uint16_t duty = 20 * promil;
+  42               		.loc 1 36 0
+  43 0016 44E1      		ldi r20,lo8(20)
+  44 0018 489F      		mul r20,r24
+  45 001a 9001      		movw r18,r0
+  46 001c 499F      		mul r20,r25
+  47 001e 300D      		add r19,r0
+  48 0020 1124      		clr __zero_reg__
+  49               	.LVL4:
+  37:src/PwmBrushless.c **** 
+  38:src/PwmBrushless.c ****   OCR1A = duty;
+  50               		.loc 1 38 0
+  51 0022 3093 8900 		sts 136+1,r19
+  52 0026 2093 8800 		sts 136,r18
+  53 002a 0895      		ret
+  54               		.cfi_endproc
+  55               	.LFE11:
+  57               	.global	Brushless_Init
+  59               	Brushless_Init:
+  60               	.LFB10:
+   8:src/PwmBrushless.c **** 
+  61               		.loc 1 8 0
+  62               		.cfi_startproc
+  63               	.LVL5:
+  64               	/* prologue: function */
+  65               	/* frame size = 0 */
+  66               	/* stack size = 0 */
+  67               	.L__stack_usage = 0
+  10:src/PwmBrushless.c **** 
+  68               		.loc 1 10 0
+  69 002c 61E0      		ldi r22,lo8(1)
+  70 002e 0E94 0000 		call Pin_SetMode
+  71               	.LVL6:
+  13:src/PwmBrushless.c ****   //*(pin->timer->TCCRnB) |= (1 << pin->timer->WGMn3) | (1 << pin->timer->CSn1);
+  72               		.loc 1 13 0
+  73 0032 82E8      		ldi r24,lo8(-126)
+  74 0034 8093 8000 		sts 128,r24
+  15:src/PwmBrushless.c ****   //*(pin->timer->ICRn) = MAX_OCR;
+  75               		.loc 1 15 0
+  76 0038 E1E8      		ldi r30,lo8(-127)
+  77 003a F0E0      		ldi r31,0
+  78 003c 80E1      		ldi r24,lo8(16)
+  79 003e 8083      		st Z,r24
+  17:src/PwmBrushless.c ****   TCCR1B |= (1 << CS11);
+  80               		.loc 1 17 0
+  81 0040 80E2      		ldi r24,lo8(32)
+  82 0042 9EE4      		ldi r25,lo8(78)
+  83 0044 9093 8700 		sts 134+1,r25
+  84 0048 8093 8600 		sts 134,r24
+  18:src/PwmBrushless.c **** 
+  85               		.loc 1 18 0
+  86 004c 8081      		ld r24,Z
+  87 004e 8260      		ori r24,lo8(2)
+  88 0050 8083      		st Z,r24
+  89 0052 0895      		ret
+  90               		.cfi_endproc
+  91               	.LFE10:
+  93               	.global	__floatunsisf
+  94               	.global	__mulsf3
+  95               	.global	__addsf3
+  96               	.global	__fixunssfsi
+  97               	.global	__floatsisf
+  98               	.global	Brushless_Update
+ 100               	Brushless_Update:
+ 101               	.LFB12:
+  39:src/PwmBrushless.c **** 
+  40:src/PwmBrushless.c **** }
+  41:src/PwmBrushless.c **** 
+  42:src/PwmBrushless.c **** // speed (50 pr - 100 pr)
+  43:src/PwmBrushless.c **** void Brushless_Update(uint8_t speed) {
+ 102               		.loc 1 43 0
+ 103               		.cfi_startproc
+ 104               	.LVL7:
+ 105 0054 FF92      		push r15
+ 106               	.LCFI0:
+ 107               		.cfi_def_cfa_offset 3
+ 108               		.cfi_offset 15, -2
+ 109 0056 0F93      		push r16
+ 110               	.LCFI1:
+ 111               		.cfi_def_cfa_offset 4
+ 112               		.cfi_offset 16, -3
+ 113 0058 1F93      		push r17
+ 114               	.LCFI2:
+ 115               		.cfi_def_cfa_offset 5
+ 116               		.cfi_offset 17, -4
+ 117 005a CF93      		push r28
+ 118               	.LCFI3:
+ 119               		.cfi_def_cfa_offset 6
+ 120               		.cfi_offset 28, -5
+ 121 005c DF93      		push r29
+ 122               	.LCFI4:
+ 123               		.cfi_def_cfa_offset 7
+ 124               		.cfi_offset 29, -6
+ 125               	/* prologue: function */
+ 126               	/* frame size = 0 */
+ 127               	/* stack size = 5 */
+ 128               	.L__stack_usage = 5
+ 129 005e F82E      		mov r15,r24
+ 130               	.LVL8:
+  44:src/PwmBrushless.c **** 
+  45:src/PwmBrushless.c ****   size_t i = 0;
+  46:src/PwmBrushless.c **** 
+  47:src/PwmBrushless.c ****   //NewSpeed = speed;
+  48:src/PwmBrushless.c **** 
+  49:src/PwmBrushless.c ****   if(speed > CurrentSpeed) {
+ 131               		.loc 1 49 0
+ 132 0060 C091 0000 		lds r28,CurrentSpeed
+ 133 0064 082F      		mov r16,r24
+ 134 0066 10E0      		ldi r17,0
+ 135 0068 C817      		cp r28,r24
+ 136 006a 00F4      		brsh .L7
+  50:src/PwmBrushless.c ****       for(i = CurrentSpeed; i < speed; i++) {
+ 137               		.loc 1 50 0
+ 138 006c D0E0      		ldi r29,0
+ 139               	.LVL9:
+ 140               	.L8:
+ 141               		.loc 1 50 0 is_stmt 0 discriminator 1
+ 142 006e C017      		cp r28,r16
+ 143 0070 D107      		cpc r29,r17
+ 144 0072 00F0      		brlo .+2
+ 145 0074 00C0      		rjmp .L10
+  51:src/PwmBrushless.c ****           PWM_SetDuty((uint16_t)(50 + (50.0 / 255.0) * i + 0.5));
+ 146               		.loc 1 51 0 is_stmt 1 discriminator 3
+ 147 0076 BE01      		movw r22,r28
+ 148 0078 80E0      		ldi r24,0
+ 149 007a 90E0      		ldi r25,0
+ 150 007c 0E94 0000 		call __floatunsisf
+ 151               	.LVL10:
+ 152 0080 29EC      		ldi r18,lo8(-55)
+ 153 0082 38EC      		ldi r19,lo8(-56)
+ 154 0084 48E4      		ldi r20,lo8(72)
+ 155 0086 5EE3      		ldi r21,lo8(62)
+ 156 0088 0E94 0000 		call __mulsf3
+ 157               	.LVL11:
+ 158 008c 20E0      		ldi r18,0
+ 159 008e 30E0      		ldi r19,0
+ 160 0090 48E4      		ldi r20,lo8(72)
+ 161 0092 52E4      		ldi r21,lo8(66)
+ 162 0094 0E94 0000 		call __addsf3
+ 163               	.LVL12:
+ 164 0098 20E0      		ldi r18,0
+ 165 009a 30E0      		ldi r19,0
+ 166 009c 40E0      		ldi r20,0
+ 167 009e 5FE3      		ldi r21,lo8(63)
+ 168 00a0 0E94 0000 		call __addsf3
+ 169               	.LVL13:
+ 170 00a4 0E94 0000 		call __fixunssfsi
+ 171               	.LVL14:
+ 172 00a8 CB01      		movw r24,r22
+ 173 00aa 0E94 0000 		call PWM_SetDuty
+ 174               	.LVL15:
+ 175               	.LBB6:
+ 176               	.LBB7:
+ 177               		.file 2 "/usr/lib/avr/include/util/delay.h"
+   1:/usr/lib/avr/include/util/delay.h **** /* Copyright (c) 2002, Marek Michalkiewicz
+   2:/usr/lib/avr/include/util/delay.h ****    Copyright (c) 2004,2005,2007 Joerg Wunsch
+   3:/usr/lib/avr/include/util/delay.h ****    Copyright (c) 2007  Florin-Viorel Petrov
+   4:/usr/lib/avr/include/util/delay.h ****    All rights reserved.
+   5:/usr/lib/avr/include/util/delay.h **** 
+   6:/usr/lib/avr/include/util/delay.h ****    Redistribution and use in source and binary forms, with or without
+   7:/usr/lib/avr/include/util/delay.h ****    modification, are permitted provided that the following conditions are met:
+   8:/usr/lib/avr/include/util/delay.h **** 
+   9:/usr/lib/avr/include/util/delay.h ****    * Redistributions of source code must retain the above copyright
+  10:/usr/lib/avr/include/util/delay.h ****      notice, this list of conditions and the following disclaimer.
+  11:/usr/lib/avr/include/util/delay.h **** 
+  12:/usr/lib/avr/include/util/delay.h ****    * Redistributions in binary form must reproduce the above copyright
+  13:/usr/lib/avr/include/util/delay.h ****      notice, this list of conditions and the following disclaimer in
+  14:/usr/lib/avr/include/util/delay.h ****      the documentation and/or other materials provided with the
+  15:/usr/lib/avr/include/util/delay.h ****      distribution.
+  16:/usr/lib/avr/include/util/delay.h **** 
+  17:/usr/lib/avr/include/util/delay.h ****    * Neither the name of the copyright holders nor the names of
+  18:/usr/lib/avr/include/util/delay.h ****      contributors may be used to endorse or promote products derived
+  19:/usr/lib/avr/include/util/delay.h ****      from this software without specific prior written permission.
+  20:/usr/lib/avr/include/util/delay.h **** 
+  21:/usr/lib/avr/include/util/delay.h ****   THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+  22:/usr/lib/avr/include/util/delay.h ****   AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+  23:/usr/lib/avr/include/util/delay.h ****   IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+  24:/usr/lib/avr/include/util/delay.h ****   ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE
+  25:/usr/lib/avr/include/util/delay.h ****   LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+  26:/usr/lib/avr/include/util/delay.h ****   CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
+  27:/usr/lib/avr/include/util/delay.h ****   SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+  28:/usr/lib/avr/include/util/delay.h ****   INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+  29:/usr/lib/avr/include/util/delay.h ****   CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+  30:/usr/lib/avr/include/util/delay.h ****   ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+  31:/usr/lib/avr/include/util/delay.h ****   POSSIBILITY OF SUCH DAMAGE. */
+  32:/usr/lib/avr/include/util/delay.h **** 
+  33:/usr/lib/avr/include/util/delay.h **** /* $Id$ */
+  34:/usr/lib/avr/include/util/delay.h **** 
+  35:/usr/lib/avr/include/util/delay.h **** #ifndef _UTIL_DELAY_H_
+  36:/usr/lib/avr/include/util/delay.h **** #define _UTIL_DELAY_H_ 1
+  37:/usr/lib/avr/include/util/delay.h **** 
+  38:/usr/lib/avr/include/util/delay.h **** #ifndef __HAS_DELAY_CYCLES
+  39:/usr/lib/avr/include/util/delay.h **** #define __HAS_DELAY_CYCLES 1
+  40:/usr/lib/avr/include/util/delay.h **** #endif
+  41:/usr/lib/avr/include/util/delay.h **** 
+  42:/usr/lib/avr/include/util/delay.h **** #include <inttypes.h>
+  43:/usr/lib/avr/include/util/delay.h **** #include <util/delay_basic.h>
+  44:/usr/lib/avr/include/util/delay.h **** #include <math.h>
+  45:/usr/lib/avr/include/util/delay.h **** 
+  46:/usr/lib/avr/include/util/delay.h **** /** \file */
+  47:/usr/lib/avr/include/util/delay.h **** /** \defgroup util_delay <util/delay.h>: Convenience functions for busy-wait delay loops
+  48:/usr/lib/avr/include/util/delay.h ****     \code
+  49:/usr/lib/avr/include/util/delay.h ****     #define F_CPU 1000000UL  // 1 MHz
+  50:/usr/lib/avr/include/util/delay.h ****     //#define F_CPU 14.7456E6
+  51:/usr/lib/avr/include/util/delay.h ****     #include <util/delay.h>
+  52:/usr/lib/avr/include/util/delay.h ****     \endcode
+  53:/usr/lib/avr/include/util/delay.h **** 
+  54:/usr/lib/avr/include/util/delay.h ****     \note As an alternative method, it is possible to pass the
+  55:/usr/lib/avr/include/util/delay.h ****     F_CPU macro down to the compiler from the Makefile.
+  56:/usr/lib/avr/include/util/delay.h ****     Obviously, in that case, no \c \#define statement should be
+  57:/usr/lib/avr/include/util/delay.h ****     used.
+  58:/usr/lib/avr/include/util/delay.h **** 
+  59:/usr/lib/avr/include/util/delay.h ****     The functions in this header file are wrappers around the basic
+  60:/usr/lib/avr/include/util/delay.h ****     busy-wait functions from <util/delay_basic.h>.  They are meant as
+  61:/usr/lib/avr/include/util/delay.h ****     convenience functions where actual time values can be specified
+  62:/usr/lib/avr/include/util/delay.h ****     rather than a number of cycles to wait for.  The idea behind is
+  63:/usr/lib/avr/include/util/delay.h ****     that compile-time constant expressions will be eliminated by
+  64:/usr/lib/avr/include/util/delay.h ****     compiler optimization so floating-point expressions can be used
+  65:/usr/lib/avr/include/util/delay.h ****     to calculate the number of delay cycles needed based on the CPU
+  66:/usr/lib/avr/include/util/delay.h ****     frequency passed by the macro F_CPU.
+  67:/usr/lib/avr/include/util/delay.h **** 
+  68:/usr/lib/avr/include/util/delay.h ****     \note In order for these functions to work as intended, compiler
+  69:/usr/lib/avr/include/util/delay.h ****     optimizations <em>must</em> be enabled, and the delay time
+  70:/usr/lib/avr/include/util/delay.h ****     <em>must</em> be an expression that is a known constant at
+  71:/usr/lib/avr/include/util/delay.h ****     compile-time.  If these requirements are not met, the resulting
+  72:/usr/lib/avr/include/util/delay.h ****     delay will be much longer (and basically unpredictable), and
+  73:/usr/lib/avr/include/util/delay.h ****     applications that otherwise do not use floating-point calculations
+  74:/usr/lib/avr/include/util/delay.h ****     will experience severe code bloat by the floating-point library
+  75:/usr/lib/avr/include/util/delay.h ****     routines linked into the application.
+  76:/usr/lib/avr/include/util/delay.h **** 
+  77:/usr/lib/avr/include/util/delay.h ****     The functions available allow the specification of microsecond, and
+  78:/usr/lib/avr/include/util/delay.h ****     millisecond delays directly, using the application-supplied macro
+  79:/usr/lib/avr/include/util/delay.h ****     F_CPU as the CPU clock frequency (in Hertz).
+  80:/usr/lib/avr/include/util/delay.h **** 
+  81:/usr/lib/avr/include/util/delay.h **** */
+  82:/usr/lib/avr/include/util/delay.h **** 
+  83:/usr/lib/avr/include/util/delay.h **** #if !defined(__DOXYGEN__)
+  84:/usr/lib/avr/include/util/delay.h **** static inline void _delay_us(double __us) __attribute__((always_inline));
+  85:/usr/lib/avr/include/util/delay.h **** static inline void _delay_ms(double __ms) __attribute__((always_inline));
+  86:/usr/lib/avr/include/util/delay.h **** #endif
+  87:/usr/lib/avr/include/util/delay.h **** 
+  88:/usr/lib/avr/include/util/delay.h **** #ifndef F_CPU
+  89:/usr/lib/avr/include/util/delay.h **** /* prevent compiler error by supplying a default */
+  90:/usr/lib/avr/include/util/delay.h **** # warning "F_CPU not defined for <util/delay.h>"
+  91:/usr/lib/avr/include/util/delay.h **** # define F_CPU 1000000UL
+  92:/usr/lib/avr/include/util/delay.h **** #endif
+  93:/usr/lib/avr/include/util/delay.h **** 
+  94:/usr/lib/avr/include/util/delay.h **** #ifndef __OPTIMIZE__
+  95:/usr/lib/avr/include/util/delay.h **** # warning "Compiler optimizations disabled; functions from <util/delay.h> won't work as designed"
+  96:/usr/lib/avr/include/util/delay.h **** #endif
+  97:/usr/lib/avr/include/util/delay.h **** 
+  98:/usr/lib/avr/include/util/delay.h **** #if __HAS_DELAY_CYCLES && defined(__OPTIMIZE__) && \
+  99:/usr/lib/avr/include/util/delay.h ****   !defined(__DELAY_BACKWARD_COMPATIBLE__) &&	   \
+ 100:/usr/lib/avr/include/util/delay.h ****   __STDC_HOSTED__
+ 101:/usr/lib/avr/include/util/delay.h **** #  include <math.h>
+ 102:/usr/lib/avr/include/util/delay.h **** #endif
+ 103:/usr/lib/avr/include/util/delay.h **** 
+ 104:/usr/lib/avr/include/util/delay.h **** /**
+ 105:/usr/lib/avr/include/util/delay.h ****    \ingroup util_delay
+ 106:/usr/lib/avr/include/util/delay.h **** 
+ 107:/usr/lib/avr/include/util/delay.h ****    Perform a delay of \c __ms milliseconds, using _delay_loop_2().
+ 108:/usr/lib/avr/include/util/delay.h **** 
+ 109:/usr/lib/avr/include/util/delay.h ****    The macro F_CPU is supposed to be defined to a
+ 110:/usr/lib/avr/include/util/delay.h ****    constant defining the CPU clock frequency (in Hertz).
+ 111:/usr/lib/avr/include/util/delay.h **** 
+ 112:/usr/lib/avr/include/util/delay.h ****    The maximal possible delay is 262.14 ms / F_CPU in MHz.
+ 113:/usr/lib/avr/include/util/delay.h **** 
+ 114:/usr/lib/avr/include/util/delay.h ****    When the user request delay which exceed the maximum possible one,
+ 115:/usr/lib/avr/include/util/delay.h ****    _delay_ms() provides a decreased resolution functionality. In this
+ 116:/usr/lib/avr/include/util/delay.h ****    mode _delay_ms() will work with a resolution of 1/10 ms, providing
+ 117:/usr/lib/avr/include/util/delay.h ****    delays up to 6.5535 seconds (independent from CPU frequency).  The
+ 118:/usr/lib/avr/include/util/delay.h ****    user will not be informed about decreased resolution.
+ 119:/usr/lib/avr/include/util/delay.h **** 
+ 120:/usr/lib/avr/include/util/delay.h ****    If the avr-gcc toolchain has __builtin_avr_delay_cycles(unsigned long)
+ 121:/usr/lib/avr/include/util/delay.h ****    support, maximal possible delay is 4294967.295 ms/ F_CPU in MHz. For
+ 122:/usr/lib/avr/include/util/delay.h ****    values greater than the maximal possible delay, overflows results in
+ 123:/usr/lib/avr/include/util/delay.h ****    no delay i.e., 0ms.
+ 124:/usr/lib/avr/include/util/delay.h **** 
+ 125:/usr/lib/avr/include/util/delay.h ****    Conversion of __us into clock cycles may not always result in integer.
+ 126:/usr/lib/avr/include/util/delay.h ****    By default, the clock cycles rounded up to next integer. This ensures that
+ 127:/usr/lib/avr/include/util/delay.h ****    the user gets atleast __us microseconds of delay.
+ 128:/usr/lib/avr/include/util/delay.h **** 
+ 129:/usr/lib/avr/include/util/delay.h ****    Alternatively, user can define __DELAY_ROUND_DOWN__ and __DELAY_ROUND_CLOSEST__
+ 130:/usr/lib/avr/include/util/delay.h ****    to round down and round to closest integer.
+ 131:/usr/lib/avr/include/util/delay.h **** 
+ 132:/usr/lib/avr/include/util/delay.h ****    Note: The new implementation of _delay_ms(double __ms) with 
+ 133:/usr/lib/avr/include/util/delay.h ****     __builtin_avr_delay_cycles(unsigned long) support is not backward compatible. 
+ 134:/usr/lib/avr/include/util/delay.h ****    User can define __DELAY_BACKWARD_COMPATIBLE__ to get a backward compatible delay.
+ 135:/usr/lib/avr/include/util/delay.h ****    Also, the backward compatible
+ 136:/usr/lib/avr/include/util/delay.h ****    algorithm will be chosen if the code is compiled in a <em>freestanding
+ 137:/usr/lib/avr/include/util/delay.h ****    environment</em> (GCC option \c -ffreestanding), as the math functions
+ 138:/usr/lib/avr/include/util/delay.h ****    required for rounding are not available to the compiler then.
+ 139:/usr/lib/avr/include/util/delay.h **** 
+ 140:/usr/lib/avr/include/util/delay.h ****  */
+ 141:/usr/lib/avr/include/util/delay.h **** void
+ 142:/usr/lib/avr/include/util/delay.h **** _delay_ms(double __ms)
+ 143:/usr/lib/avr/include/util/delay.h **** {
+ 144:/usr/lib/avr/include/util/delay.h **** 	double __tmp ; 
+ 145:/usr/lib/avr/include/util/delay.h **** #if __HAS_DELAY_CYCLES && defined(__OPTIMIZE__) && \
+ 146:/usr/lib/avr/include/util/delay.h ****   !defined(__DELAY_BACKWARD_COMPATIBLE__) &&	   \
+ 147:/usr/lib/avr/include/util/delay.h ****   __STDC_HOSTED__
+ 148:/usr/lib/avr/include/util/delay.h **** 	uint32_t __ticks_dc;
+ 149:/usr/lib/avr/include/util/delay.h **** 	extern void __builtin_avr_delay_cycles(unsigned long);
+ 150:/usr/lib/avr/include/util/delay.h **** 	__tmp = ((F_CPU) / 1e3) * __ms;
+ 151:/usr/lib/avr/include/util/delay.h **** 
+ 152:/usr/lib/avr/include/util/delay.h **** 	#if defined(__DELAY_ROUND_DOWN__)
+ 153:/usr/lib/avr/include/util/delay.h **** 		__ticks_dc = (uint32_t)fabs(__tmp);
+ 154:/usr/lib/avr/include/util/delay.h **** 
+ 155:/usr/lib/avr/include/util/delay.h **** 	#elif defined(__DELAY_ROUND_CLOSEST__)
+ 156:/usr/lib/avr/include/util/delay.h **** 		__ticks_dc = (uint32_t)(fabs(__tmp)+0.5);
+ 157:/usr/lib/avr/include/util/delay.h **** 
+ 158:/usr/lib/avr/include/util/delay.h **** 	#else
+ 159:/usr/lib/avr/include/util/delay.h **** 		//round up by default
+ 160:/usr/lib/avr/include/util/delay.h **** 		__ticks_dc = (uint32_t)(ceil(fabs(__tmp)));
+ 161:/usr/lib/avr/include/util/delay.h **** 	#endif
+ 162:/usr/lib/avr/include/util/delay.h **** 
+ 163:/usr/lib/avr/include/util/delay.h **** 	__builtin_avr_delay_cycles(__ticks_dc);
+ 178               		.loc 2 163 0 discriminator 3
+ 179 00ae 2FEF      		ldi r18,lo8(63999)
+ 180 00b0 89EF      		ldi r24,hi8(63999)
+ 181 00b2 90E0      		ldi r25,hlo8(63999)
+ 182 00b4 2150      	1:	subi r18,1
+ 183 00b6 8040      		sbci r24,0
+ 184 00b8 9040      		sbci r25,0
+ 185 00ba 01F4      		brne 1b
+ 186 00bc 00C0      		rjmp .
+ 187 00be 0000      		nop
+ 188               	.LBE7:
+ 189               	.LBE6:
+  50:src/PwmBrushless.c ****           PWM_SetDuty((uint16_t)(50 + (50.0 / 255.0) * i + 0.5));
+ 190               		.loc 1 50 0 discriminator 3
+ 191 00c0 2196      		adiw r28,1
+ 192               	.LVL16:
+ 193 00c2 00C0      		rjmp .L8
+ 194               	.LVL17:
+ 195               	.L7:
+  52:src/PwmBrushless.c ****           _delay_ms(20);
+  53:src/PwmBrushless.c ****         }
+  54:src/PwmBrushless.c ****   } else if(speed < CurrentSpeed) {
+ 196               		.loc 1 54 0
+ 197 00c4 8C17      		cp r24,r28
+ 198 00c6 00F4      		brsh .L11
+  55:src/PwmBrushless.c ****       for(i = CurrentSpeed; i > speed; i--) {
+ 199               		.loc 1 55 0
+ 200 00c8 D0E0      		ldi r29,0
+ 201               	.LVL18:
+ 202               	.L12:
+ 203               		.loc 1 55 0 is_stmt 0 discriminator 1
+ 204 00ca 0C17      		cp r16,r28
+ 205 00cc 1D07      		cpc r17,r29
+ 206 00ce 00F4      		brsh .L10
+  56:src/PwmBrushless.c ****         PWM_SetDuty((uint16_t)(50 + (50.0 / 255) * i));
+ 207               		.loc 1 56 0 is_stmt 1 discriminator 3
+ 208 00d0 BE01      		movw r22,r28
+ 209 00d2 80E0      		ldi r24,0
+ 210 00d4 90E0      		ldi r25,0
+ 211 00d6 0E94 0000 		call __floatunsisf
+ 212               	.LVL19:
+ 213 00da 29EC      		ldi r18,lo8(-55)
+ 214 00dc 38EC      		ldi r19,lo8(-56)
+ 215 00de 48E4      		ldi r20,lo8(72)
+ 216 00e0 5EE3      		ldi r21,lo8(62)
+ 217 00e2 0E94 0000 		call __mulsf3
+ 218               	.LVL20:
+ 219 00e6 20E0      		ldi r18,0
+ 220 00e8 30E0      		ldi r19,0
+ 221 00ea 48E4      		ldi r20,lo8(72)
+ 222 00ec 52E4      		ldi r21,lo8(66)
+ 223 00ee 0E94 0000 		call __addsf3
+ 224               	.LVL21:
+ 225 00f2 0E94 0000 		call __fixunssfsi
+ 226               	.LVL22:
+ 227 00f6 CB01      		movw r24,r22
+ 228 00f8 0E94 0000 		call PWM_SetDuty
+ 229               	.LVL23:
+ 230               	.LBB8:
+ 231               	.LBB9:
+ 232               		.loc 2 163 0 discriminator 3
+ 233 00fc 2FEF      		ldi r18,lo8(63999)
+ 234 00fe 89EF      		ldi r24,hi8(63999)
+ 235 0100 90E0      		ldi r25,hlo8(63999)
+ 236 0102 2150      	1:	subi r18,1
+ 237 0104 8040      		sbci r24,0
+ 238 0106 9040      		sbci r25,0
+ 239 0108 01F4      		brne 1b
+ 240 010a 00C0      		rjmp .
+ 241 010c 0000      		nop
+ 242               	.LBE9:
+ 243               	.LBE8:
+  55:src/PwmBrushless.c ****       for(i = CurrentSpeed; i > speed; i--) {
+ 244               		.loc 1 55 0 discriminator 3
+ 245 010e 2197      		sbiw r28,1
+ 246               	.LVL24:
+ 247 0110 00C0      		rjmp .L12
+ 248               	.LVL25:
+ 249               	.L11:
+  57:src/PwmBrushless.c ****         _delay_ms(20);
+  58:src/PwmBrushless.c ****       }
+  59:src/PwmBrushless.c ****   } else {
+  60:src/PwmBrushless.c ****     PWM_SetDuty((uint16_t)(50 + (50.0 / 255) * speed));
+ 250               		.loc 1 60 0
+ 251 0112 B801      		movw r22,r16
+ 252 0114 110F      		lsl r17
+ 253 0116 880B      		sbc r24,r24
+ 254 0118 990B      		sbc r25,r25
+ 255 011a 0E94 0000 		call __floatsisf
+ 256               	.LVL26:
+ 257 011e 29EC      		ldi r18,lo8(-55)
+ 258 0120 38EC      		ldi r19,lo8(-56)
+ 259 0122 48E4      		ldi r20,lo8(72)
+ 260 0124 5EE3      		ldi r21,lo8(62)
+ 261 0126 0E94 0000 		call __mulsf3
+ 262               	.LVL27:
+ 263 012a 20E0      		ldi r18,0
+ 264 012c 30E0      		ldi r19,0
+ 265 012e 48E4      		ldi r20,lo8(72)
+ 266 0130 52E4      		ldi r21,lo8(66)
+ 267 0132 0E94 0000 		call __addsf3
+ 268               	.LVL28:
+ 269 0136 0E94 0000 		call __fixunssfsi
+ 270               	.LVL29:
+ 271 013a CB01      		movw r24,r22
+ 272 013c 0E94 0000 		call PWM_SetDuty
+ 273               	.LVL30:
+ 274               	.L10:
+  61:src/PwmBrushless.c ****   }
+  62:src/PwmBrushless.c **** 
+  63:src/PwmBrushless.c ****   CurrentSpeed = speed;
+ 275               		.loc 1 63 0
+ 276 0140 F092 0000 		sts CurrentSpeed,r15
+ 277               	/* epilogue start */
+  64:src/PwmBrushless.c **** 
+  65:src/PwmBrushless.c **** }
+ 278               		.loc 1 65 0
+ 279 0144 DF91      		pop r29
+ 280 0146 CF91      		pop r28
+ 281 0148 1F91      		pop r17
+ 282 014a 0F91      		pop r16
+ 283 014c FF90      		pop r15
+ 284               	.LVL31:
+ 285 014e 0895      		ret
+ 286               		.cfi_endproc
+ 287               	.LFE12:
+ 289               		.local	CurrentSpeed
+ 290               		.comm	CurrentSpeed,1,1
+ 291               	.Letext0:
+ 292               		.file 3 "/usr/lib/avr/include/stdint.h"
+ 293               		.file 4 "/usr/lib/gcc/avr/4.9.2/include/stddef.h"
+ 294               		.file 5 "src/Pin.h"
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 PwmBrushless.c
+     /tmp/ccEaTo9g.s:2      *ABS*:000000000000003e __SP_H__
+     /tmp/ccEaTo9g.s:3      *ABS*:000000000000003d __SP_L__
+     /tmp/ccEaTo9g.s:4      *ABS*:000000000000003f __SREG__
+     /tmp/ccEaTo9g.s:5      *ABS*:000000000000003b __RAMPZ__
+     /tmp/ccEaTo9g.s:6      *ABS*:0000000000000000 __tmp_reg__
+     /tmp/ccEaTo9g.s:7      *ABS*:0000000000000001 __zero_reg__
+     /tmp/ccEaTo9g.s:12     .text:0000000000000000 PWM_SetDuty
+     /tmp/ccEaTo9g.s:59     .text:000000000000002c Brushless_Init
+     /tmp/ccEaTo9g.s:100    .text:0000000000000054 Brushless_Update
+                             .bss:0000000000000000 CurrentSpeed
+
+UNDEFINED SYMBOLS
+Pin_SetMode
+__floatunsisf
+__mulsf3
+__addsf3
+__fixunssfsi
+__floatsisf
+__do_clear_bss
