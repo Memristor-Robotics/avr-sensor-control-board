@@ -8,9 +8,7 @@
 #include <util/delay.h>
 #include "Pin.h"
 
-static uint8_t CurrentSpeed = 0;
-
-void Brushless_Init(void);
+void Brushless_Init(Pin* pin);
 
 void Brushless_Update(uint8_t speed);
 
