@@ -80,11 +80,9 @@ OBJDIR = build
 
 
 # List C source files here. (C dependencies are automatically generated.)
-<<<<<<< HEAD
+
 SRC = ./src/main.c ./src/uart0.c ./src/Pin.c ./src/Utils.c ./src/BinarySensor.c ./src/PwmBrushless.c ./src/CanBus.c
-=======
-SRC = ./src/main.c ./src/uart0.c ./src/Pin.c ./src/BinarySensor.c ./src/PwmBrushless.c
->>>>>>> 0124e6667ecd4c62a4bed88b9b1fcd7743bdace2
+
 
 SRC += ./libs/can/can_wrapper.c ./libs/can/libcan.a
 

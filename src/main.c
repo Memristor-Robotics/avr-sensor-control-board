@@ -37,6 +37,7 @@ int main() {
   Brushless_Init(&Pin_B5);
 
 
+	/* ALL Initialisations Passed and UART send 'k' */
   USART0_transmit('k');
 
   while(1) {
