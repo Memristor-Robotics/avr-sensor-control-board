@@ -31,14 +31,14 @@ int main() {
 	CANbus_Init();
 
 	/* UART0 for DEBUG Initialisation */
-  USART0_init(57600);
+	USART0_init(57600);
 
-	/* Brushless EDF Initialisation on pin*/
-  Brushless_Init(&Pin_B5);
+	/* Brushless EDF Initialisation on pin */
+	Brushless_Init(&Pin_B5);
 
 
-	/* ALL Initialisations Passed and UART send 'k' */
-  USART0_transmit('k');
+	/* ALL Initialisations Passed and UART sends 'k' */
+	USART0_transmit('k');
 
   while(1) {
 
