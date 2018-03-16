@@ -59,10 +59,9 @@ MCU = at90can128
 #         F_CPU =  8000000
 #         F_CPU = 11059200
 #         F_CPU = 14745600
-#         F_CPU = 16000000
+F_CPU = 16000000
 #         F_CPU = 18432000
 #         F_CPU = 20000000
-F_CPU = 16000000
 
 
 # Output format. (can be srec, ihex, binary)
@@ -82,7 +81,6 @@ OBJDIR = build
 # List C source files here. (C dependencies are automatically generated.)
 
 SRC = ./src/main.c ./src/uart0.c ./src/Pin.c ./src/Utils.c ./src/BinarySensor.c ./src/PwmBrushless.c ./src/CanBus.c
-
 
 SRC += ./libs/can/can_wrapper.c ./libs/can/libcan.a
 
