@@ -9,7 +9,7 @@
    9               	.Ltext0:
   10               		.cfi_sections	.debug_frame
   12               	PWM_SetDuty:
-  13               	.LFB11:
+  13               	.LFB13:
   14               		.file 1 "src/PwmBrushless.c"
    1:src/PwmBrushless.c **** #include "PwmBrushless.h"
    2:src/PwmBrushless.c **** 
@@ -17,65 +17,67 @@
    4:src/PwmBrushless.c **** 
    5:src/PwmBrushless.c **** static uint8_t CurrentSpeed = 0;
    6:src/PwmBrushless.c **** 
-   7:src/PwmBrushless.c **** 
-   8:src/PwmBrushless.c **** void Brushless_Init(Pin* pin) {
-   9:src/PwmBrushless.c **** 
-  10:src/PwmBrushless.c ****   Pin_SetMode(pin, PIN_OUTPUT);
-  11:src/PwmBrushless.c **** 
-  12:src/PwmBrushless.c ****   //*(pin->timer->TCCRnA) |= (1 << pin->timer->COMnA1) | (1 << pin->timer->WGMn1);
-  13:src/PwmBrushless.c ****   TCCR1A = (1 << COM1A1) | (1 << WGM11);
-  14:src/PwmBrushless.c ****   //*(pin->timer->TCCRnB) |= (1 << pin->timer->WGMn3) | (1 << pin->timer->CSn1);
-  15:src/PwmBrushless.c ****   TCCR1B = (1 << WGM13);
-  16:src/PwmBrushless.c ****   //*(pin->timer->ICRn) = MAX_OCR;
-  17:src/PwmBrushless.c ****   ICR1 = MAX_OCR;
-  18:src/PwmBrushless.c ****   TCCR1B |= (1 << CS11);
+   7:src/PwmBrushless.c **** void Brushless_Calibration(void) {
+   8:src/PwmBrushless.c **** 
+   9:src/PwmBrushless.c ****   PWM_SetDuty(100);
+  10:src/PwmBrushless.c ****   _delay_ms(8000);
+  11:src/PwmBrushless.c ****   PWM_SetDuty(50);
+  12:src/PwmBrushless.c ****   _delay_ms(2000);
+  13:src/PwmBrushless.c **** 
+  14:src/PwmBrushless.c **** }
+  15:src/PwmBrushless.c **** 
+  16:src/PwmBrushless.c **** void Brushless_Init(Pin* pin) {
+  17:src/PwmBrushless.c **** 
+  18:src/PwmBrushless.c ****   Pin_SetMode(pin, PIN_OUTPUT);
   19:src/PwmBrushless.c **** 
-  20:src/PwmBrushless.c **** /*
-  21:src/PwmBrushless.c ****   PWM_SetDuty(100);
-  22:src/PwmBrushless.c ****   _delay_ms(8000);
-  23:src/PwmBrushless.c ****   PWM_SetDuty(50);
-  24:src/PwmBrushless.c ****   _delay_ms(2000);
-  25:src/PwmBrushless.c **** */
-  26:src/PwmBrushless.c **** }
-  27:src/PwmBrushless.c **** // duty cycle (0 pr-1000 pr)
-  28:src/PwmBrushless.c **** void PWM_SetDuty(uint16_t promil) {
-  15               		.loc 1 28 0
+  20:src/PwmBrushless.c ****   *(pin->timer->TCCRnA) |= (1 << pin->timer->COMnA1) | (1 << pin->timer->WGMn1);
+  21:src/PwmBrushless.c ****   *(pin->timer->TCCRnB) |= (1 << pin->timer->WGMn3) | (1 << pin->timer->CSn1);
+  22:src/PwmBrushless.c ****   *(pin->timer->ICRn) = MAX_OCR;
+  23:src/PwmBrushless.c **** 
+  24:src/PwmBrushless.c ****   PWM_SetDuty(50);
+  25:src/PwmBrushless.c ****   _delay_ms(5000);
+  26:src/PwmBrushless.c **** 
+  27:src/PwmBrushless.c **** }
+  28:src/PwmBrushless.c **** 
+  29:src/PwmBrushless.c **** // duty cycle (0 pr-1000 pr)
+  30:src/PwmBrushless.c **** void PWM_SetDuty(uint16_t promil) {
+  15               		.loc 1 30 0
   16               		.cfi_startproc
   17               	.LVL0:
   18               	/* prologue: function */
   19               	/* frame size = 0 */
   20               	/* stack size = 0 */
   21               	.L__stack_usage = 0
-  29:src/PwmBrushless.c **** 
-  30:src/PwmBrushless.c ****   if(promil > 100) {
-  22               		.loc 1 30 0
+  31:src/PwmBrushless.c **** 
+  32:src/PwmBrushless.c ****   if(promil > 100) {
+  22               		.loc 1 32 0
   23 0000 8536      		cpi r24,101
   24 0002 9105      		cpc r25,__zero_reg__
   25 0004 00F4      		brsh .L3
-  31:src/PwmBrushless.c ****     promil = 100;
-  32:src/PwmBrushless.c ****   } else if(promil < 50) {
-  26               		.loc 1 32 0
+  33:src/PwmBrushless.c ****     promil = 100;
+  34:src/PwmBrushless.c ****   } else if(promil < 50) {
+  26               		.loc 1 34 0
   27 0006 8233      		cpi r24,50
   28 0008 9105      		cpc r25,__zero_reg__
   29 000a 00F4      		brsh .L2
-  33:src/PwmBrushless.c ****     promil = 50;
-  30               		.loc 1 33 0
+  35:src/PwmBrushless.c ****     promil = 50;
+  30               		.loc 1 35 0
   31 000c 82E3      		ldi r24,lo8(50)
   32 000e 90E0      		ldi r25,0
   33               	.LVL1:
   34 0010 00C0      		rjmp .L2
   35               	.LVL2:
   36               	.L3:
-  31:src/PwmBrushless.c ****     promil = 100;
-  37               		.loc 1 31 0
+  33:src/PwmBrushless.c ****     promil = 100;
+  37               		.loc 1 33 0
   38 0012 84E6      		ldi r24,lo8(100)
   39 0014 90E0      		ldi r25,0
   40               	.LVL3:
   41               	.L2:
-  34:src/PwmBrushless.c ****   }
-  35:src/PwmBrushless.c **** 
-  36:src/PwmBrushless.c ****   uint16_t duty = 20 * promil;
-  42               		.loc 1 36 0
+  36:src/PwmBrushless.c ****   }
+  37:src/PwmBrushless.c **** 
+  38:src/PwmBrushless.c ****   uint16_t duty = 20 * promil;
+  42               		.loc 1 38 0
   43 0016 44E1      		ldi r20,lo8(20)
   44 0018 489F      		mul r20,r24
   45 001a 9001      		movw r18,r0
@@ -83,151 +85,40 @@
   47 001e 300D      		add r19,r0
   48 0020 1124      		clr __zero_reg__
   49               	.LVL4:
-  37:src/PwmBrushless.c **** 
-  38:src/PwmBrushless.c ****   OCR1A = duty;
-  50               		.loc 1 38 0
+  39:src/PwmBrushless.c **** 
+  40:src/PwmBrushless.c ****   OCR1A = duty;
+  50               		.loc 1 40 0
   51 0022 3093 8900 		sts 136+1,r19
   52 0026 2093 8800 		sts 136,r18
   53 002a 0895      		ret
   54               		.cfi_endproc
-  55               	.LFE11:
-  57               	.global	Brushless_Init
-  59               	Brushless_Init:
-  60               	.LFB10:
-   8:src/PwmBrushless.c **** 
-  61               		.loc 1 8 0
+  55               	.LFE13:
+  57               	.global	Brushless_Calibration
+  59               	Brushless_Calibration:
+  60               	.LFB11:
+   7:src/PwmBrushless.c **** 
+  61               		.loc 1 7 0
   62               		.cfi_startproc
-  63               	.LVL5:
-  64               	/* prologue: function */
-  65               	/* frame size = 0 */
-  66               	/* stack size = 0 */
-  67               	.L__stack_usage = 0
-  10:src/PwmBrushless.c **** 
-  68               		.loc 1 10 0
-  69 002c 61E0      		ldi r22,lo8(1)
-  70 002e 0E94 0000 		call Pin_SetMode
-  71               	.LVL6:
-  13:src/PwmBrushless.c ****   //*(pin->timer->TCCRnB) |= (1 << pin->timer->WGMn3) | (1 << pin->timer->CSn1);
-  72               		.loc 1 13 0
-  73 0032 82E8      		ldi r24,lo8(-126)
-  74 0034 8093 8000 		sts 128,r24
-  15:src/PwmBrushless.c ****   //*(pin->timer->ICRn) = MAX_OCR;
-  75               		.loc 1 15 0
-  76 0038 E1E8      		ldi r30,lo8(-127)
-  77 003a F0E0      		ldi r31,0
-  78 003c 80E1      		ldi r24,lo8(16)
-  79 003e 8083      		st Z,r24
-  17:src/PwmBrushless.c ****   TCCR1B |= (1 << CS11);
-  80               		.loc 1 17 0
-  81 0040 80E2      		ldi r24,lo8(32)
-  82 0042 9EE4      		ldi r25,lo8(78)
-  83 0044 9093 8700 		sts 134+1,r25
-  84 0048 8093 8600 		sts 134,r24
-  18:src/PwmBrushless.c **** 
-  85               		.loc 1 18 0
-  86 004c 8081      		ld r24,Z
-  87 004e 8260      		ori r24,lo8(2)
-  88 0050 8083      		st Z,r24
-  89 0052 0895      		ret
-  90               		.cfi_endproc
-  91               	.LFE10:
-  93               	.global	__floatunsisf
-  94               	.global	__mulsf3
-  95               	.global	__addsf3
-  96               	.global	__fixunssfsi
-  97               	.global	__floatsisf
-  98               	.global	Brushless_Update
- 100               	Brushless_Update:
- 101               	.LFB12:
-  39:src/PwmBrushless.c **** 
-  40:src/PwmBrushless.c **** }
-  41:src/PwmBrushless.c **** 
-  42:src/PwmBrushless.c **** // speed (50 pr - 100 pr)
-  43:src/PwmBrushless.c **** void Brushless_Update(uint8_t speed) {
- 102               		.loc 1 43 0
- 103               		.cfi_startproc
- 104               	.LVL7:
- 105 0054 FF92      		push r15
- 106               	.LCFI0:
- 107               		.cfi_def_cfa_offset 3
- 108               		.cfi_offset 15, -2
- 109 0056 0F93      		push r16
- 110               	.LCFI1:
- 111               		.cfi_def_cfa_offset 4
- 112               		.cfi_offset 16, -3
- 113 0058 1F93      		push r17
- 114               	.LCFI2:
- 115               		.cfi_def_cfa_offset 5
- 116               		.cfi_offset 17, -4
- 117 005a CF93      		push r28
- 118               	.LCFI3:
- 119               		.cfi_def_cfa_offset 6
- 120               		.cfi_offset 28, -5
- 121 005c DF93      		push r29
- 122               	.LCFI4:
- 123               		.cfi_def_cfa_offset 7
- 124               		.cfi_offset 29, -6
- 125               	/* prologue: function */
- 126               	/* frame size = 0 */
- 127               	/* stack size = 5 */
- 128               	.L__stack_usage = 5
- 129 005e F82E      		mov r15,r24
- 130               	.LVL8:
-  44:src/PwmBrushless.c **** 
-  45:src/PwmBrushless.c ****   size_t i = 0;
-  46:src/PwmBrushless.c **** 
-  47:src/PwmBrushless.c ****   //NewSpeed = speed;
-  48:src/PwmBrushless.c **** 
-  49:src/PwmBrushless.c ****   if(speed > CurrentSpeed) {
- 131               		.loc 1 49 0
- 132 0060 C091 0000 		lds r28,CurrentSpeed
- 133 0064 082F      		mov r16,r24
- 134 0066 10E0      		ldi r17,0
- 135 0068 C817      		cp r28,r24
- 136 006a 00F4      		brsh .L7
-  50:src/PwmBrushless.c ****       for(i = CurrentSpeed; i < speed; i++) {
- 137               		.loc 1 50 0
- 138 006c D0E0      		ldi r29,0
- 139               	.LVL9:
- 140               	.L8:
- 141               		.loc 1 50 0 is_stmt 0 discriminator 1
- 142 006e C017      		cp r28,r16
- 143 0070 D107      		cpc r29,r17
- 144 0072 00F0      		brlo .+2
- 145 0074 00C0      		rjmp .L10
-  51:src/PwmBrushless.c ****           PWM_SetDuty((uint16_t)(50 + (50.0 / 255.0) * i + 0.5));
- 146               		.loc 1 51 0 is_stmt 1 discriminator 3
- 147 0076 BE01      		movw r22,r28
- 148 0078 80E0      		ldi r24,0
- 149 007a 90E0      		ldi r25,0
- 150 007c 0E94 0000 		call __floatunsisf
- 151               	.LVL10:
- 152 0080 29EC      		ldi r18,lo8(-55)
- 153 0082 38EC      		ldi r19,lo8(-56)
- 154 0084 48E4      		ldi r20,lo8(72)
- 155 0086 5EE3      		ldi r21,lo8(62)
- 156 0088 0E94 0000 		call __mulsf3
- 157               	.LVL11:
- 158 008c 20E0      		ldi r18,0
- 159 008e 30E0      		ldi r19,0
- 160 0090 48E4      		ldi r20,lo8(72)
- 161 0092 52E4      		ldi r21,lo8(66)
- 162 0094 0E94 0000 		call __addsf3
- 163               	.LVL12:
- 164 0098 20E0      		ldi r18,0
- 165 009a 30E0      		ldi r19,0
- 166 009c 40E0      		ldi r20,0
- 167 009e 5FE3      		ldi r21,lo8(63)
- 168 00a0 0E94 0000 		call __addsf3
- 169               	.LVL13:
- 170 00a4 0E94 0000 		call __fixunssfsi
- 171               	.LVL14:
- 172 00a8 CB01      		movw r24,r22
- 173 00aa 0E94 0000 		call PWM_SetDuty
- 174               	.LVL15:
- 175               	.LBB6:
- 176               	.LBB7:
- 177               		.file 2 "/usr/lib/avr/include/util/delay.h"
+  63               	/* prologue: function */
+  64               	/* frame size = 0 */
+  65               	/* stack size = 0 */
+  66               	.L__stack_usage = 0
+  67               	.LVL5:
+  68               	.LBB21:
+  69               	.LBB22:
+  70               		.loc 1 40 0
+  71 002c E8E8      		ldi r30,lo8(-120)
+  72 002e F0E0      		ldi r31,0
+  73 0030 80ED      		ldi r24,lo8(-48)
+  74 0032 97E0      		ldi r25,lo8(7)
+  75 0034 9183      		std Z+1,r25
+  76 0036 8083      		st Z,r24
+  77               	.LVL6:
+  78               	.LBE22:
+  79               	.LBE21:
+  80               	.LBB23:
+  81               	.LBB24:
+  82               		.file 2 "/usr/lib/avr/include/util/delay.h"
    1:/usr/lib/avr/include/util/delay.h **** /* Copyright (c) 2002, Marek Michalkiewicz
    2:/usr/lib/avr/include/util/delay.h ****    Copyright (c) 2004,2005,2007 Joerg Wunsch
    3:/usr/lib/avr/include/util/delay.h ****    Copyright (c) 2007  Florin-Viorel Petrov
@@ -391,149 +282,431 @@
  161:/usr/lib/avr/include/util/delay.h **** 	#endif
  162:/usr/lib/avr/include/util/delay.h **** 
  163:/usr/lib/avr/include/util/delay.h **** 	__builtin_avr_delay_cycles(__ticks_dc);
- 178               		.loc 2 163 0 discriminator 3
- 179 00ae 2FEF      		ldi r18,lo8(63999)
- 180 00b0 89EF      		ldi r24,hi8(63999)
- 181 00b2 90E0      		ldi r25,hlo8(63999)
- 182 00b4 2150      	1:	subi r18,1
- 183 00b6 8040      		sbci r24,0
- 184 00b8 9040      		sbci r25,0
- 185 00ba 01F4      		brne 1b
- 186 00bc 00C0      		rjmp .
- 187 00be 0000      		nop
- 188               	.LBE7:
- 189               	.LBE6:
-  50:src/PwmBrushless.c ****           PWM_SetDuty((uint16_t)(50 + (50.0 / 255.0) * i + 0.5));
- 190               		.loc 1 50 0 discriminator 3
- 191 00c0 2196      		adiw r28,1
- 192               	.LVL16:
- 193 00c2 00C0      		rjmp .L8
- 194               	.LVL17:
- 195               	.L7:
-  52:src/PwmBrushless.c ****           _delay_ms(20);
-  53:src/PwmBrushless.c ****         }
-  54:src/PwmBrushless.c ****   } else if(speed < CurrentSpeed) {
- 196               		.loc 1 54 0
- 197 00c4 8C17      		cp r24,r28
- 198 00c6 00F4      		brsh .L11
-  55:src/PwmBrushless.c ****       for(i = CurrentSpeed; i > speed; i--) {
- 199               		.loc 1 55 0
- 200 00c8 D0E0      		ldi r29,0
- 201               	.LVL18:
- 202               	.L12:
- 203               		.loc 1 55 0 is_stmt 0 discriminator 1
- 204 00ca 0C17      		cp r16,r28
- 205 00cc 1D07      		cpc r17,r29
- 206 00ce 00F4      		brsh .L10
-  56:src/PwmBrushless.c ****         PWM_SetDuty((uint16_t)(50 + (50.0 / 255) * i));
- 207               		.loc 1 56 0 is_stmt 1 discriminator 3
- 208 00d0 BE01      		movw r22,r28
- 209 00d2 80E0      		ldi r24,0
- 210 00d4 90E0      		ldi r25,0
- 211 00d6 0E94 0000 		call __floatunsisf
- 212               	.LVL19:
- 213 00da 29EC      		ldi r18,lo8(-55)
- 214 00dc 38EC      		ldi r19,lo8(-56)
- 215 00de 48E4      		ldi r20,lo8(72)
- 216 00e0 5EE3      		ldi r21,lo8(62)
- 217 00e2 0E94 0000 		call __mulsf3
- 218               	.LVL20:
- 219 00e6 20E0      		ldi r18,0
- 220 00e8 30E0      		ldi r19,0
- 221 00ea 48E4      		ldi r20,lo8(72)
- 222 00ec 52E4      		ldi r21,lo8(66)
- 223 00ee 0E94 0000 		call __addsf3
- 224               	.LVL21:
- 225 00f2 0E94 0000 		call __fixunssfsi
- 226               	.LVL22:
- 227 00f6 CB01      		movw r24,r22
- 228 00f8 0E94 0000 		call PWM_SetDuty
- 229               	.LVL23:
- 230               	.LBB8:
- 231               	.LBB9:
- 232               		.loc 2 163 0 discriminator 3
- 233 00fc 2FEF      		ldi r18,lo8(63999)
- 234 00fe 89EF      		ldi r24,hi8(63999)
- 235 0100 90E0      		ldi r25,hlo8(63999)
- 236 0102 2150      	1:	subi r18,1
- 237 0104 8040      		sbci r24,0
- 238 0106 9040      		sbci r25,0
- 239 0108 01F4      		brne 1b
- 240 010a 00C0      		rjmp .
- 241 010c 0000      		nop
- 242               	.LBE9:
- 243               	.LBE8:
-  55:src/PwmBrushless.c ****       for(i = CurrentSpeed; i > speed; i--) {
- 244               		.loc 1 55 0 discriminator 3
- 245 010e 2197      		sbiw r28,1
- 246               	.LVL24:
- 247 0110 00C0      		rjmp .L12
- 248               	.LVL25:
- 249               	.L11:
-  57:src/PwmBrushless.c ****         _delay_ms(20);
-  58:src/PwmBrushless.c ****       }
-  59:src/PwmBrushless.c ****   } else {
-  60:src/PwmBrushless.c ****     PWM_SetDuty((uint16_t)(50 + (50.0 / 255) * speed));
- 250               		.loc 1 60 0
- 251 0112 B801      		movw r22,r16
- 252 0114 110F      		lsl r17
- 253 0116 880B      		sbc r24,r24
- 254 0118 990B      		sbc r25,r25
- 255 011a 0E94 0000 		call __floatsisf
- 256               	.LVL26:
- 257 011e 29EC      		ldi r18,lo8(-55)
- 258 0120 38EC      		ldi r19,lo8(-56)
- 259 0122 48E4      		ldi r20,lo8(72)
- 260 0124 5EE3      		ldi r21,lo8(62)
- 261 0126 0E94 0000 		call __mulsf3
- 262               	.LVL27:
- 263 012a 20E0      		ldi r18,0
- 264 012c 30E0      		ldi r19,0
- 265 012e 48E4      		ldi r20,lo8(72)
- 266 0130 52E4      		ldi r21,lo8(66)
- 267 0132 0E94 0000 		call __addsf3
- 268               	.LVL28:
- 269 0136 0E94 0000 		call __fixunssfsi
- 270               	.LVL29:
- 271 013a CB01      		movw r24,r22
- 272 013c 0E94 0000 		call PWM_SetDuty
- 273               	.LVL30:
- 274               	.L10:
-  61:src/PwmBrushless.c ****   }
-  62:src/PwmBrushless.c **** 
-  63:src/PwmBrushless.c ****   CurrentSpeed = speed;
- 275               		.loc 1 63 0
- 276 0140 F092 0000 		sts CurrentSpeed,r15
- 277               	/* epilogue start */
-  64:src/PwmBrushless.c **** 
-  65:src/PwmBrushless.c **** }
- 278               		.loc 1 65 0
- 279 0144 DF91      		pop r29
- 280 0146 CF91      		pop r28
- 281 0148 1F91      		pop r17
- 282 014a 0F91      		pop r16
- 283 014c FF90      		pop r15
- 284               	.LVL31:
- 285 014e 0895      		ret
- 286               		.cfi_endproc
- 287               	.LFE12:
- 289               		.local	CurrentSpeed
- 290               		.comm	CurrentSpeed,1,1
- 291               	.Letext0:
- 292               		.file 3 "/usr/lib/avr/include/stdint.h"
- 293               		.file 4 "/usr/lib/gcc/avr/4.9.2/include/stddef.h"
- 294               		.file 5 "src/Pin.h"
+  83               		.loc 2 163 0
+  84 0038 24E5      		ldi r18,lo8(21333332)
+  85 003a 35E8      		ldi r19,hi8(21333332)
+  86 003c 85E4      		ldi r24,hlo8(21333332)
+  87 003e 91E0      		ldi r25,hhi8(21333332)
+  88 0040 2150      	1:	subi r18,1
+  89 0042 3040      		sbci r19,0
+  90 0044 8040      		sbci r24,0
+  91 0046 9040      		sbci r25,0
+  92 0048 01F4      		brne 1b
+  93 004a 00C0      		rjmp .
+  94 004c 00C0      		rjmp .
+  95 004e 0000      		nop
+  96               	.LVL7:
+  97               	.LBE24:
+  98               	.LBE23:
+  99               	.LBB25:
+ 100               	.LBB26:
+ 101               		.loc 1 40 0
+ 102 0050 88EE      		ldi r24,lo8(-24)
+ 103 0052 93E0      		ldi r25,lo8(3)
+ 104 0054 9183      		std Z+1,r25
+ 105 0056 8083      		st Z,r24
+ 106               	.LVL8:
+ 107               	.LBE26:
+ 108               	.LBE25:
+ 109               	.LBB27:
+ 110               	.LBB28:
+ 111               		.loc 2 163 0
+ 112 0058 2FEF      		ldi r18,lo8(6399999)
+ 113 005a 37EA      		ldi r19,hi8(6399999)
+ 114 005c 81E6      		ldi r24,hlo8(6399999)
+ 115 005e 2150      	1:	subi r18,1
+ 116 0060 3040      		sbci r19,0
+ 117 0062 8040      		sbci r24,0
+ 118 0064 01F4      		brne 1b
+ 119 0066 00C0      		rjmp .
+ 120 0068 0000      		nop
+ 121 006a 0895      		ret
+ 122               	.LBE28:
+ 123               	.LBE27:
+ 124               		.cfi_endproc
+ 125               	.LFE11:
+ 127               	.global	Brushless_Init
+ 129               	Brushless_Init:
+ 130               	.LFB12:
+  16:src/PwmBrushless.c **** 
+ 131               		.loc 1 16 0
+ 132               		.cfi_startproc
+ 133               	.LVL9:
+ 134 006c CF93      		push r28
+ 135               	.LCFI0:
+ 136               		.cfi_def_cfa_offset 3
+ 137               		.cfi_offset 28, -2
+ 138 006e DF93      		push r29
+ 139               	.LCFI1:
+ 140               		.cfi_def_cfa_offset 4
+ 141               		.cfi_offset 29, -3
+ 142               	/* prologue: function */
+ 143               	/* frame size = 0 */
+ 144               	/* stack size = 2 */
+ 145               	.L__stack_usage = 2
+ 146 0070 EC01      		movw r28,r24
+  18:src/PwmBrushless.c **** 
+ 147               		.loc 1 18 0
+ 148 0072 61E0      		ldi r22,lo8(1)
+ 149 0074 0E94 0000 		call Pin_SetMode
+ 150               	.LVL10:
+  20:src/PwmBrushless.c ****   *(pin->timer->TCCRnB) |= (1 << pin->timer->WGMn3) | (1 << pin->timer->CSn1);
+ 151               		.loc 1 20 0
+ 152 0078 EF81      		ldd r30,Y+7
+ 153 007a F885      		ldd r31,Y+8
+ 154 007c A081      		ld r26,Z
+ 155 007e B181      		ldd r27,Z+1
+ 156 0080 9C91      		ld r25,X
+ 157 0082 21E0      		ldi r18,lo8(1)
+ 158 0084 30E0      		ldi r19,0
+ 159 0086 B901      		movw r22,r18
+ 160 0088 0484      		ldd r0,Z+12
+ 161 008a 00C0      		rjmp 2f
+ 162               		1:
+ 163 008c 660F      		lsl r22
+ 164 008e 771F      		rol r23
+ 165               		2:
+ 166 0090 0A94      		dec r0
+ 167 0092 02F4      		brpl 1b
+ 168 0094 A901      		movw r20,r18
+ 169 0096 0184      		ldd r0,Z+9
+ 170 0098 00C0      		rjmp 2f
+ 171               		1:
+ 172 009a 440F      		lsl r20
+ 173 009c 551F      		rol r21
+ 174               		2:
+ 175 009e 0A94      		dec r0
+ 176 00a0 02F4      		brpl 1b
+ 177 00a2 862F      		mov r24,r22
+ 178 00a4 842B      		or r24,r20
+ 179 00a6 892B      		or r24,r25
+ 180 00a8 8C93      		st X,r24
+  21:src/PwmBrushless.c ****   *(pin->timer->ICRn) = MAX_OCR;
+ 181               		.loc 1 21 0
+ 182 00aa EF81      		ldd r30,Y+7
+ 183 00ac F885      		ldd r31,Y+8
+ 184 00ae A281      		ldd r26,Z+2
+ 185 00b0 B381      		ldd r27,Z+3
+ 186 00b2 8C91      		ld r24,X
+ 187 00b4 A901      		movw r20,r18
+ 188 00b6 0384      		ldd r0,Z+11
+ 189 00b8 00C0      		rjmp 2f
+ 190               		1:
+ 191 00ba 440F      		lsl r20
+ 192 00bc 551F      		rol r21
+ 193               		2:
+ 194 00be 0A94      		dec r0
+ 195 00c0 02F4      		brpl 1b
+ 196 00c2 0684      		ldd r0,Z+14
+ 197 00c4 00C0      		rjmp 2f
+ 198               		1:
+ 199 00c6 220F      		lsl r18
+ 200 00c8 331F      		rol r19
+ 201               		2:
+ 202 00ca 0A94      		dec r0
+ 203 00cc 02F4      		brpl 1b
+ 204 00ce 242B      		or r18,r20
+ 205 00d0 282B      		or r18,r24
+ 206 00d2 2C93      		st X,r18
+  22:src/PwmBrushless.c **** 
+ 207               		.loc 1 22 0
+ 208 00d4 EF81      		ldd r30,Y+7
+ 209 00d6 F885      		ldd r31,Y+8
+ 210 00d8 0680      		ldd __tmp_reg__,Z+6
+ 211 00da F781      		ldd r31,Z+7
+ 212 00dc E02D      		mov r30,__tmp_reg__
+ 213 00de 80E2      		ldi r24,lo8(32)
+ 214 00e0 9EE4      		ldi r25,lo8(78)
+ 215 00e2 9183      		std Z+1,r25
+ 216 00e4 8083      		st Z,r24
+ 217               	.LVL11:
+ 218               	.LBB33:
+ 219               	.LBB34:
+ 220               		.loc 1 40 0
+ 221 00e6 88EE      		ldi r24,lo8(-24)
+ 222 00e8 93E0      		ldi r25,lo8(3)
+ 223 00ea 9093 8900 		sts 136+1,r25
+ 224 00ee 8093 8800 		sts 136,r24
+ 225               	.LVL12:
+ 226               	.LBE34:
+ 227               	.LBE33:
+ 228               	.LBB35:
+ 229               	.LBB36:
+ 230               		.loc 2 163 0
+ 231 00f2 2FEF      		ldi r18,lo8(15999999)
+ 232 00f4 83E2      		ldi r24,hi8(15999999)
+ 233 00f6 94EF      		ldi r25,hlo8(15999999)
+ 234 00f8 2150      	1:	subi r18,1
+ 235 00fa 8040      		sbci r24,0
+ 236 00fc 9040      		sbci r25,0
+ 237 00fe 01F4      		brne 1b
+ 238 0100 00C0      		rjmp .
+ 239 0102 0000      		nop
+ 240               	/* epilogue start */
+ 241               	.LBE36:
+ 242               	.LBE35:
+  27:src/PwmBrushless.c **** 
+ 243               		.loc 1 27 0
+ 244 0104 DF91      		pop r29
+ 245 0106 CF91      		pop r28
+ 246               	.LVL13:
+ 247 0108 0895      		ret
+ 248               		.cfi_endproc
+ 249               	.LFE12:
+ 251               	.global	__floatunsisf
+ 252               	.global	__mulsf3
+ 253               	.global	__addsf3
+ 254               	.global	__fixunssfsi
+ 255               	.global	__floatsisf
+ 256               	.global	Brushless_Update
+ 258               	Brushless_Update:
+ 259               	.LFB14:
+  41:src/PwmBrushless.c **** 
+  42:src/PwmBrushless.c **** }
+  43:src/PwmBrushless.c **** 
+  44:src/PwmBrushless.c **** // speed (50 pr - 100 pr)
+  45:src/PwmBrushless.c **** void Brushless_Update(can_t* canMsg) {
+ 260               		.loc 1 45 0
+ 261               		.cfi_startproc
+ 262               	.LVL14:
+ 263 010a FF92      		push r15
+ 264               	.LCFI2:
+ 265               		.cfi_def_cfa_offset 3
+ 266               		.cfi_offset 15, -2
+ 267 010c 0F93      		push r16
+ 268               	.LCFI3:
+ 269               		.cfi_def_cfa_offset 4
+ 270               		.cfi_offset 16, -3
+ 271 010e 1F93      		push r17
+ 272               	.LCFI4:
+ 273               		.cfi_def_cfa_offset 5
+ 274               		.cfi_offset 17, -4
+ 275 0110 CF93      		push r28
+ 276               	.LCFI5:
+ 277               		.cfi_def_cfa_offset 6
+ 278               		.cfi_offset 28, -5
+ 279 0112 DF93      		push r29
+ 280               	.LCFI6:
+ 281               		.cfi_def_cfa_offset 7
+ 282               		.cfi_offset 29, -6
+ 283               	/* prologue: function */
+ 284               	/* frame size = 0 */
+ 285               	/* stack size = 5 */
+ 286               	.L__stack_usage = 5
+ 287               	.LVL15:
+  46:src/PwmBrushless.c **** 
+  47:src/PwmBrushless.c ****   size_t i = 0;
+  48:src/PwmBrushless.c ****   if(canMsg->id == BRUSHLESS_CANID) {
+ 288               		.loc 1 48 0
+ 289 0114 FC01      		movw r30,r24
+ 290 0116 4081      		ld r20,Z
+ 291 0118 5181      		ldd r21,Z+1
+ 292 011a 6281      		ldd r22,Z+2
+ 293 011c 7381      		ldd r23,Z+3
+ 294 011e 4335      		cpi r20,83
+ 295 0120 5D48      		sbci r21,-115
+ 296 0122 6105      		cpc r22,__zero_reg__
+ 297 0124 7105      		cpc r23,__zero_reg__
+ 298 0126 01F0      		breq .+2
+ 299 0128 00C0      		rjmp .L7
+ 300 012a FC01      		movw r30,r24
+ 301               	.LBB37:
+  49:src/PwmBrushless.c **** 
+  50:src/PwmBrushless.c ****     uint8_t speed = canMsg->data[0];
+ 302               		.loc 1 50 0
+ 303 012c F680      		ldd r15,Z+6
+ 304               	.LVL16:
+  51:src/PwmBrushless.c **** 
+  52:src/PwmBrushless.c ****     if(speed > CurrentSpeed) {
+ 305               		.loc 1 52 0
+ 306 012e C091 0000 		lds r28,CurrentSpeed
+ 307 0132 0F2D      		mov r16,r15
+ 308 0134 10E0      		ldi r17,0
+ 309 0136 CF15      		cp r28,r15
+ 310 0138 00F4      		brsh .L9
+  53:src/PwmBrushless.c ****       for(i = CurrentSpeed; i < speed; i++) {
+ 311               		.loc 1 53 0
+ 312 013a D0E0      		ldi r29,0
+ 313               	.LVL17:
+ 314               	.L10:
+ 315               		.loc 1 53 0 is_stmt 0 discriminator 1
+ 316 013c C017      		cp r28,r16
+ 317 013e D107      		cpc r29,r17
+ 318 0140 00F0      		brlo .+2
+ 319 0142 00C0      		rjmp .L12
+  54:src/PwmBrushless.c ****           PWM_SetDuty((uint16_t)(50 + (50.0 / 255.0) * i + 0.5));
+ 320               		.loc 1 54 0 is_stmt 1 discriminator 3
+ 321 0144 BE01      		movw r22,r28
+ 322 0146 80E0      		ldi r24,0
+ 323 0148 90E0      		ldi r25,0
+ 324 014a 0E94 0000 		call __floatunsisf
+ 325               	.LVL18:
+ 326 014e 29EC      		ldi r18,lo8(-55)
+ 327 0150 38EC      		ldi r19,lo8(-56)
+ 328 0152 48E4      		ldi r20,lo8(72)
+ 329 0154 5EE3      		ldi r21,lo8(62)
+ 330 0156 0E94 0000 		call __mulsf3
+ 331               	.LVL19:
+ 332 015a 20E0      		ldi r18,0
+ 333 015c 30E0      		ldi r19,0
+ 334 015e 48E4      		ldi r20,lo8(72)
+ 335 0160 52E4      		ldi r21,lo8(66)
+ 336 0162 0E94 0000 		call __addsf3
+ 337               	.LVL20:
+ 338 0166 20E0      		ldi r18,0
+ 339 0168 30E0      		ldi r19,0
+ 340 016a 40E0      		ldi r20,0
+ 341 016c 5FE3      		ldi r21,lo8(63)
+ 342 016e 0E94 0000 		call __addsf3
+ 343               	.LVL21:
+ 344 0172 0E94 0000 		call __fixunssfsi
+ 345               	.LVL22:
+ 346 0176 CB01      		movw r24,r22
+ 347 0178 0E94 0000 		call PWM_SetDuty
+ 348               	.LVL23:
+ 349               	.LBB38:
+ 350               	.LBB39:
+ 351               		.loc 2 163 0 discriminator 3
+ 352 017c 8FE3      		ldi r24,lo8(-25537)
+ 353 017e 9CE9      		ldi r25,hi8(-25537)
+ 354 0180 0197      	1:	sbiw r24,1
+ 355 0182 01F4      		brne 1b
+ 356 0184 00C0      		rjmp .
+ 357 0186 0000      		nop
+ 358               	.LBE39:
+ 359               	.LBE38:
+  53:src/PwmBrushless.c ****       for(i = CurrentSpeed; i < speed; i++) {
+ 360               		.loc 1 53 0 discriminator 3
+ 361 0188 2196      		adiw r28,1
+ 362               	.LVL24:
+ 363 018a 00C0      		rjmp .L10
+ 364               	.LVL25:
+ 365               	.L9:
+  55:src/PwmBrushless.c ****           _delay_ms(10);
+  56:src/PwmBrushless.c ****         }
+  57:src/PwmBrushless.c ****     } else if(speed < CurrentSpeed) {
+ 366               		.loc 1 57 0
+ 367 018c FC16      		cp r15,r28
+ 368 018e 00F4      		brsh .L13
+  58:src/PwmBrushless.c ****       for(i = CurrentSpeed; i > speed; i--) {
+ 369               		.loc 1 58 0
+ 370 0190 D0E0      		ldi r29,0
+ 371               	.LVL26:
+ 372               	.L14:
+ 373               		.loc 1 58 0 is_stmt 0 discriminator 1
+ 374 0192 0C17      		cp r16,r28
+ 375 0194 1D07      		cpc r17,r29
+ 376 0196 00F4      		brsh .L12
+  59:src/PwmBrushless.c ****         PWM_SetDuty((uint16_t)(50 + (50.0 / 255) * i));
+ 377               		.loc 1 59 0 is_stmt 1 discriminator 3
+ 378 0198 BE01      		movw r22,r28
+ 379 019a 80E0      		ldi r24,0
+ 380 019c 90E0      		ldi r25,0
+ 381 019e 0E94 0000 		call __floatunsisf
+ 382               	.LVL27:
+ 383 01a2 29EC      		ldi r18,lo8(-55)
+ 384 01a4 38EC      		ldi r19,lo8(-56)
+ 385 01a6 48E4      		ldi r20,lo8(72)
+ 386 01a8 5EE3      		ldi r21,lo8(62)
+ 387 01aa 0E94 0000 		call __mulsf3
+ 388               	.LVL28:
+ 389 01ae 20E0      		ldi r18,0
+ 390 01b0 30E0      		ldi r19,0
+ 391 01b2 48E4      		ldi r20,lo8(72)
+ 392 01b4 52E4      		ldi r21,lo8(66)
+ 393 01b6 0E94 0000 		call __addsf3
+ 394               	.LVL29:
+ 395 01ba 0E94 0000 		call __fixunssfsi
+ 396               	.LVL30:
+ 397 01be CB01      		movw r24,r22
+ 398 01c0 0E94 0000 		call PWM_SetDuty
+ 399               	.LVL31:
+ 400               	.LBB40:
+ 401               	.LBB41:
+ 402               		.loc 2 163 0 discriminator 3
+ 403 01c4 EFE3      		ldi r30,lo8(-25537)
+ 404 01c6 FCE9      		ldi r31,hi8(-25537)
+ 405 01c8 3197      	1:	sbiw r30,1
+ 406 01ca 01F4      		brne 1b
+ 407 01cc 00C0      		rjmp .
+ 408 01ce 0000      		nop
+ 409               	.LBE41:
+ 410               	.LBE40:
+  58:src/PwmBrushless.c ****       for(i = CurrentSpeed; i > speed; i--) {
+ 411               		.loc 1 58 0 discriminator 3
+ 412 01d0 2197      		sbiw r28,1
+ 413               	.LVL32:
+ 414 01d2 00C0      		rjmp .L14
+ 415               	.LVL33:
+ 416               	.L13:
+  60:src/PwmBrushless.c ****         _delay_ms(10);
+  61:src/PwmBrushless.c ****       }
+  62:src/PwmBrushless.c ****     } else {
+  63:src/PwmBrushless.c ****       PWM_SetDuty((uint16_t)(50 + (50.0 / 255) * speed));
+ 417               		.loc 1 63 0
+ 418 01d4 B801      		movw r22,r16
+ 419 01d6 110F      		lsl r17
+ 420 01d8 880B      		sbc r24,r24
+ 421 01da 990B      		sbc r25,r25
+ 422 01dc 0E94 0000 		call __floatsisf
+ 423               	.LVL34:
+ 424 01e0 29EC      		ldi r18,lo8(-55)
+ 425 01e2 38EC      		ldi r19,lo8(-56)
+ 426 01e4 48E4      		ldi r20,lo8(72)
+ 427 01e6 5EE3      		ldi r21,lo8(62)
+ 428 01e8 0E94 0000 		call __mulsf3
+ 429               	.LVL35:
+ 430 01ec 20E0      		ldi r18,0
+ 431 01ee 30E0      		ldi r19,0
+ 432 01f0 48E4      		ldi r20,lo8(72)
+ 433 01f2 52E4      		ldi r21,lo8(66)
+ 434 01f4 0E94 0000 		call __addsf3
+ 435               	.LVL36:
+ 436 01f8 0E94 0000 		call __fixunssfsi
+ 437               	.LVL37:
+ 438 01fc CB01      		movw r24,r22
+ 439 01fe 0E94 0000 		call PWM_SetDuty
+ 440               	.LVL38:
+ 441               	.L12:
+  64:src/PwmBrushless.c ****     }
+  65:src/PwmBrushless.c **** 
+  66:src/PwmBrushless.c ****   CurrentSpeed = speed;
+ 442               		.loc 1 66 0
+ 443 0202 F092 0000 		sts CurrentSpeed,r15
+ 444               	.LVL39:
+ 445               	.L7:
+ 446               	/* epilogue start */
+ 447               	.LBE37:
+  67:src/PwmBrushless.c ****   }
+  68:src/PwmBrushless.c **** }
+ 448               		.loc 1 68 0
+ 449 0206 DF91      		pop r29
+ 450 0208 CF91      		pop r28
+ 451 020a 1F91      		pop r17
+ 452 020c 0F91      		pop r16
+ 453 020e FF90      		pop r15
+ 454 0210 0895      		ret
+ 455               		.cfi_endproc
+ 456               	.LFE14:
+ 458               		.local	CurrentSpeed
+ 459               		.comm	CurrentSpeed,1,1
+ 460               	.Letext0:
+ 461               		.file 3 "/usr/lib/avr/include/stdint.h"
+ 462               		.file 4 "/usr/lib/gcc/avr/4.9.2/include/stddef.h"
+ 463               		.file 5 "./libs/can/can.h"
+ 464               		.file 6 "src/Pin.h"
 DEFINED SYMBOLS
                             *ABS*:0000000000000000 PwmBrushless.c
-     /tmp/ccEaTo9g.s:2      *ABS*:000000000000003e __SP_H__
-     /tmp/ccEaTo9g.s:3      *ABS*:000000000000003d __SP_L__
-     /tmp/ccEaTo9g.s:4      *ABS*:000000000000003f __SREG__
-     /tmp/ccEaTo9g.s:5      *ABS*:000000000000003b __RAMPZ__
-     /tmp/ccEaTo9g.s:6      *ABS*:0000000000000000 __tmp_reg__
-     /tmp/ccEaTo9g.s:7      *ABS*:0000000000000001 __zero_reg__
-     /tmp/ccEaTo9g.s:12     .text:0000000000000000 PWM_SetDuty
-     /tmp/ccEaTo9g.s:59     .text:000000000000002c Brushless_Init
-     /tmp/ccEaTo9g.s:100    .text:0000000000000054 Brushless_Update
+     /tmp/cc9gijm4.s:2      *ABS*:000000000000003e __SP_H__
+     /tmp/cc9gijm4.s:3      *ABS*:000000000000003d __SP_L__
+     /tmp/cc9gijm4.s:4      *ABS*:000000000000003f __SREG__
+     /tmp/cc9gijm4.s:5      *ABS*:000000000000003b __RAMPZ__
+     /tmp/cc9gijm4.s:6      *ABS*:0000000000000000 __tmp_reg__
+     /tmp/cc9gijm4.s:7      *ABS*:0000000000000001 __zero_reg__
+     /tmp/cc9gijm4.s:12     .text:0000000000000000 PWM_SetDuty
+     /tmp/cc9gijm4.s:59     .text:000000000000002c Brushless_Calibration
+     /tmp/cc9gijm4.s:129    .text:000000000000006c Brushless_Init
+     /tmp/cc9gijm4.s:258    .text:000000000000010a Brushless_Update
                              .bss:0000000000000000 CurrentSpeed
 
 UNDEFINED SYMBOLS

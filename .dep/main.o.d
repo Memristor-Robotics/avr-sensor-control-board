@@ -1,5 +1,18 @@
-build/./src/main.o: src/main.c src/uart0.h src/Pin.h src/Utils.h \
- src/BinarySensor.h src/Config.h src/PwmBrushless.h src/ADC.h
+build/./src/main.o: src/main.c src/CanBus.h libs/can/can_wrapper.h \
+ libs/can/can.h libs/can/config.h libs/can/can.h src/Config.h src/uart0.h \
+ src/Pin.h src/Utils.h src/BinarySensor.h src/PwmBrushless.h src/ADC.h
+
+src/CanBus.h:
+
+libs/can/can_wrapper.h:
+
+libs/can/can.h:
+
+libs/can/config.h:
+
+libs/can/can.h:
+
+src/Config.h:
 
 src/uart0.h:
 
@@ -8,8 +21,6 @@ src/Pin.h:
 src/Utils.h:
 
 src/BinarySensor.h:
-
-src/Config.h:
 
 src/PwmBrushless.h:
 

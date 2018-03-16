@@ -80,9 +80,11 @@ OBJDIR = build
 
 
 # List C source files here. (C dependencies are automatically generated.)
-SRC = ./src/main.c ./src/uart0.c ./src/Pin.c ./src/Utils.c ./src/BinarySensor.c ./src/PwmBrushless.c
+SRC = ./src/main.c ./src/uart0.c ./src/Pin.c ./src/Utils.c ./src/BinarySensor.c ./src/PwmBrushless.c ./src/CanBus.c
 
-BUILD_DIRS = ./build/src
+SRC += ./libs/can/can_wrapper.c ./libs/can/libcan.a
+
+BUILD_DIRS = ./build/src ./build/libs/can
 # List C++ source files here. (C dependencies are automatically generated.)
 CPPSRC =
 
@@ -114,7 +116,7 @@ DEBUG = dwarf-2
 #     Each directory must be seperated by a space.
 #     Use forward slashes for directory separators.
 #     For a directory that has spaces, enclose it in quotes.
-EXTRAINCDIRS = ./src
+EXTRAINCDIRS = ./src ./libs
 
 
 # Compiler flag to set the C Standard level.

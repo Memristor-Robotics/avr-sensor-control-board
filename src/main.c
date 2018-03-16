@@ -2,6 +2,7 @@
 
 #include <avr/io.h>
 #include <util/delay.h>
+#include "CanBus.h"
 #include "uart0.h"
 #include "Pin.h"
 #include "BinarySensor.h"
@@ -9,7 +10,9 @@
 #include "ADC.h"
 #include "Config.h"
 
-void HBridge_Add(Pin* inA, Pin* inB, Pin* inH, PinFrequency frequency) {
+
+
+/*void HBridge_Add(Pin* inA, Pin* inB, Pin* inH, PinFrequency frequency) {
 
 	Pin_SetMode(inA, PIN_OUTPUT);
 	Pin_SetMode(inB, PIN_OUTPUT);
@@ -17,37 +20,37 @@ void HBridge_Add(Pin* inA, Pin* inB, Pin* inH, PinFrequency frequency) {
 
 	Pin_EnableAnalog(inA, frequency);
 }
-
+*/
 int main() {
 
 
+	char uart_char;
 
-	//HBridge_Add(&Pin_B5, &Pin_B2, &Pin_E2, PIN_20KHz);
+	sei();
+
+	/* CANbus Initialisation */
+	CANbus_Init();
+
+	/* UART0 for DEBUG Initialisation */
   USART0_init(57600);
 
-	//Pin_WriteAnalog(&Pin_B5, 50);
+	/* Brushless EDF Initialisation on pin*/
   Brushless_Init(&Pin_B5);
 
-	_delay_ms(1000);
-
-  //Pin_WriteDigital(&Pin_E2, PIN_HIGH);
-	//Pin_WriteDigital(&Pin_E3, PIN_HIGH);
 
   USART0_transmit('k');
 
   while(1) {
 
-     Brushless_Update(USART0_receive());
-      USART0_transmit('s');
-      _delay_ms(1000);
-/*
-	Pin_WriteDigital(&Pin_B2, PIN_LOW);
-	_delay_ms(2000);
+		if (can_check_message()) {
+			can_t msg;
 
-	Pin_WriteDigital(&Pin_B2, PIN_HIGH);
-	_delay_ms(2000);
-*/
+			if (can_get_message(&msg)) {
 
+				Brushless_Update(&msg);
+
+			}
+		}
   }
 
   return 0;

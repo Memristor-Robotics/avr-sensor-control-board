@@ -1,5 +1,22 @@
 Archive member included to satisfy reference by file (symbol)
 
+libs/can/libcan.a(at90can.o)  build/./src/CanBus.o (can_init)
+libs/can/libcan.a(at90can_buffer.o)
+                              build/./src/main.o (can_check_message)
+libs/can/libcan.a(at90can_disable_dyn_filter.o)
+                              libs/can/libcan.a(at90can.o) (can_disable_filter)
+libs/can/libcan.a(at90can_set_dyn_filter.o)
+                              build/./src/CanBus.o (can_set_filter)
+libs/can/libcan.a(at90can_send_message.o)
+                              libs/can/libcan.a(at90can.o) (at90can_copy_message_to_mob)
+libs/can/libcan.a(at90can_send_buf_message.o)
+                              build/./libs/can/can_wrapper.o (can_send_message)
+libs/can/libcan.a(at90can_get_message.o)
+                              libs/can/libcan.a(at90can.o) (at90can_copy_mob_to_message)
+libs/can/libcan.a(at90can_get_buf_message.o)
+                              build/./src/main.o (can_get_message)
+libs/can/libcan.a(can_buffer.o)
+                              libs/can/libcan.a(at90can.o) (can_buffer_init)
 /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr51/libm.a(addsf3.o)
                               build/./src/PwmBrushless.o (__addsf3)
 /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr51/libm.a(addsf3x.o)
@@ -37,6 +54,14 @@ Archive member included to satisfy reference by file (symbol)
 /usr/lib/gcc/avr/4.9.2/avr51/libgcc.a(_adddi3_s8.o)
                               build/./src/Utils.o (__adddi3_s8)
 
+Allocating common symbols
+Common symbol       size              file
+
+can_tx_list         0x70              libs/can/libcan.a(at90can.o)
+can_tx_buffer       0x6               libs/can/libcan.a(at90can.o)
+can_rx_list         0xe0              libs/can/libcan.a(at90can.o)
+can_rx_buffer       0x6               libs/can/libcan.a(at90can.o)
+
 Memory Configuration
 
 Name             Origin             Length             Attributes
@@ -59,6 +84,9 @@ LOAD build/./src/Pin.o
 LOAD build/./src/Utils.o
 LOAD build/./src/BinarySensor.o
 LOAD build/./src/PwmBrushless.o
+LOAD build/./src/CanBus.o
+LOAD build/./libs/can/can_wrapper.o
+LOAD libs/can/libcan.a
 LOAD /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr51/libm.a
 START GROUP
 LOAD /usr/lib/gcc/avr/4.9.2/avr51/libgcc.a
@@ -157,7 +185,7 @@ END GROUP
 .rela.plt
  *(.rela.plt)
 
-.text           0x0000000000000000      0xb1a
+.text           0x0000000000000000     0x14fc
  *(.vectors)
  .vectors       0x0000000000000000       0x94 /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr51/crtat90can128.o
                 0x0000000000000000                __vectors
@@ -171,35 +199,37 @@ END GROUP
  *(.trampolines*)
                 0x0000000000000094                __trampolines_end = .
  *(.progmem*)
-                0x0000000000000094                . = ALIGN (0x2)
+ .progmem.data  0x0000000000000094       0x18 libs/can/libcan.a(at90can.o)
+                0x0000000000000094                _at90can_cnf
+                0x00000000000000ac                . = ALIGN (0x2)
  *(.jumptables)
  *(.jumptables*)
  *(.lowtext)
  *(.lowtext*)
-                0x0000000000000094                __ctors_start = .
+                0x00000000000000ac                __ctors_start = .
  *(.ctors)
-                0x0000000000000094                __ctors_end = .
-                0x0000000000000094                __dtors_start = .
+                0x00000000000000ac                __ctors_end = .
+                0x00000000000000ac                __dtors_start = .
  *(.dtors)
-                0x0000000000000094                __dtors_end = .
+                0x00000000000000ac                __dtors_end = .
  SORT(*)(.ctors)
  SORT(*)(.dtors)
  *(.init0)
- .init0         0x0000000000000094        0x0 /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr51/crtat90can128.o
-                0x0000000000000094                __init
+ .init0         0x00000000000000ac        0x0 /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr51/crtat90can128.o
+                0x00000000000000ac                __init
  *(.init0)
  *(.init1)
  *(.init1)
  *(.init2)
- .init2         0x0000000000000094        0xc /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr51/crtat90can128.o
+ .init2         0x00000000000000ac        0xc /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr51/crtat90can128.o
  *(.init2)
  *(.init3)
  *(.init3)
  *(.init4)
- .init4         0x00000000000000a0       0x1a /usr/lib/gcc/avr/4.9.2/avr51/libgcc.a(_copy_data.o)
-                0x00000000000000a0                __do_copy_data
- .init4         0x00000000000000ba       0x10 /usr/lib/gcc/avr/4.9.2/avr51/libgcc.a(_clear_bss.o)
-                0x00000000000000ba                __do_clear_bss
+ .init4         0x00000000000000b8       0x1a /usr/lib/gcc/avr/4.9.2/avr51/libgcc.a(_copy_data.o)
+                0x00000000000000b8                __do_copy_data
+ .init4         0x00000000000000d2       0x10 /usr/lib/gcc/avr/4.9.2/avr51/libgcc.a(_clear_bss.o)
+                0x00000000000000d2                __do_clear_bss
  *(.init4)
  *(.init5)
  *(.init5)
@@ -210,206 +240,241 @@ END GROUP
  *(.init8)
  *(.init8)
  *(.init9)
- .init9         0x00000000000000ca        0x8 /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr51/crtat90can128.o
+ .init9         0x00000000000000e2        0x8 /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr51/crtat90can128.o
  *(.init9)
  *(.text)
- .text          0x00000000000000d2        0x4 /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr51/crtat90can128.o
-                0x00000000000000d2                __vector_22
-                0x00000000000000d2                __vector_28
-                0x00000000000000d2                __vector_1
-                0x00000000000000d2                __vector_32
-                0x00000000000000d2                __vector_34
-                0x00000000000000d2                __vector_24
-                0x00000000000000d2                __bad_interrupt
-                0x00000000000000d2                __vector_6
-                0x00000000000000d2                __vector_31
-                0x00000000000000d2                __vector_35
-                0x00000000000000d2                __vector_3
-                0x00000000000000d2                __vector_23
-                0x00000000000000d2                __vector_30
-                0x00000000000000d2                __vector_25
-                0x00000000000000d2                __vector_11
-                0x00000000000000d2                __vector_13
-                0x00000000000000d2                __vector_17
-                0x00000000000000d2                __vector_19
-                0x00000000000000d2                __vector_7
-                0x00000000000000d2                __vector_27
-                0x00000000000000d2                __vector_5
-                0x00000000000000d2                __vector_33
-                0x00000000000000d2                __vector_4
-                0x00000000000000d2                __vector_9
-                0x00000000000000d2                __vector_2
-                0x00000000000000d2                __vector_21
-                0x00000000000000d2                __vector_15
-                0x00000000000000d2                __vector_36
-                0x00000000000000d2                __vector_29
-                0x00000000000000d2                __vector_8
-                0x00000000000000d2                __vector_26
-                0x00000000000000d2                __vector_14
-                0x00000000000000d2                __vector_10
-                0x00000000000000d2                __vector_16
-                0x00000000000000d2                __vector_18
-                0x00000000000000d2                __vector_20
- .text          0x00000000000000d6       0x50 build/./src/main.o
-                0x00000000000000d6                HBridge_Add
- .text          0x0000000000000126       0xb0 build/./src/uart0.o
-                0x0000000000000126                USART0_init
-                0x00000000000001ba                USART0_transmit
-                0x00000000000001c8                USART0_receive
- .text          0x00000000000001d6      0x354 build/./src/Pin.o
-                0x00000000000001d6                Pin_SetMode
-                0x000000000000022a                Pin_EnableAnalog
-                0x00000000000004c4                Pin_WriteAnalog
-                0x00000000000004da                Pin_WriteDigital
-                0x0000000000000506                Pin_ReadDigital
- .text          0x000000000000052a       0xc6 build/./src/Utils.o
-                0x000000000000052a                __vector_12
-                0x00000000000005a8                Utils_Init
-                0x00000000000005ca                Utils_Mills
- .text          0x00000000000005f0       0x2a build/./src/BinarySensor.o
-                0x00000000000005f0                BinarySensor_Add
-                0x00000000000005f6                ifSensorDetected
- .text          0x000000000000061a      0x150 build/./src/PwmBrushless.o
-                0x0000000000000646                Brushless_Init
-                0x000000000000066e                Brushless_Update
- .text          0x000000000000076a        0x0 /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr51/libm.a(addsf3.o)
- .text          0x000000000000076a        0x0 /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr51/libm.a(addsf3x.o)
- .text          0x000000000000076a        0x0 /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr51/libm.a(fixunssfsi.o)
- .text          0x000000000000076a        0x0 /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr51/libm.a(floatsisf.o)
- .text          0x000000000000076a        0x0 /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr51/libm.a(fp_inf.o)
- .text          0x000000000000076a        0x0 /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr51/libm.a(fp_nan.o)
- .text          0x000000000000076a        0x0 /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr51/libm.a(fp_pscA.o)
- .text          0x000000000000076a        0x0 /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr51/libm.a(fp_pscB.o)
- .text          0x000000000000076a        0x0 /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr51/libm.a(fp_round.o)
- .text          0x000000000000076a        0x0 /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr51/libm.a(fp_split3.o)
- .text          0x000000000000076a        0x0 /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr51/libm.a(fp_zero.o)
- .text          0x000000000000076a        0x0 /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr51/libm.a(mulsf3.o)
- .text          0x000000000000076a        0x0 /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr51/libm.a(mulsf3x.o)
- .text          0x000000000000076a        0x0 /usr/lib/gcc/avr/4.9.2/avr51/libgcc.a(_udivmodsi4.o)
- .text          0x000000000000076a        0x0 /usr/lib/gcc/avr/4.9.2/avr51/libgcc.a(_exit.o)
- .text          0x000000000000076a        0x0 /usr/lib/gcc/avr/4.9.2/avr51/libgcc.a(_copy_data.o)
- .text          0x000000000000076a        0x0 /usr/lib/gcc/avr/4.9.2/avr51/libgcc.a(_clear_bss.o)
- .text          0x000000000000076a        0x0 /usr/lib/gcc/avr/4.9.2/avr51/libgcc.a(_adddi3_s8.o)
-                0x000000000000076a                . = ALIGN (0x2)
+ .text          0x00000000000000ea        0x4 /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr51/crtat90can128.o
+                0x00000000000000ea                __vector_22
+                0x00000000000000ea                __vector_28
+                0x00000000000000ea                __vector_1
+                0x00000000000000ea                __vector_32
+                0x00000000000000ea                __vector_34
+                0x00000000000000ea                __vector_24
+                0x00000000000000ea                __bad_interrupt
+                0x00000000000000ea                __vector_6
+                0x00000000000000ea                __vector_31
+                0x00000000000000ea                __vector_35
+                0x00000000000000ea                __vector_3
+                0x00000000000000ea                __vector_23
+                0x00000000000000ea                __vector_30
+                0x00000000000000ea                __vector_25
+                0x00000000000000ea                __vector_11
+                0x00000000000000ea                __vector_13
+                0x00000000000000ea                __vector_17
+                0x00000000000000ea                __vector_7
+                0x00000000000000ea                __vector_27
+                0x00000000000000ea                __vector_5
+                0x00000000000000ea                __vector_33
+                0x00000000000000ea                __vector_4
+                0x00000000000000ea                __vector_9
+                0x00000000000000ea                __vector_2
+                0x00000000000000ea                __vector_21
+                0x00000000000000ea                __vector_15
+                0x00000000000000ea                __vector_36
+                0x00000000000000ea                __vector_29
+                0x00000000000000ea                __vector_8
+                0x00000000000000ea                __vector_26
+                0x00000000000000ea                __vector_14
+                0x00000000000000ea                __vector_10
+                0x00000000000000ea                __vector_16
+                0x00000000000000ea                __vector_20
+ .text          0x00000000000000ee        0x0 build/./src/main.o
+ .text          0x00000000000000ee       0xb0 build/./src/uart0.o
+                0x00000000000000ee                USART0_init
+                0x0000000000000182                USART0_transmit
+                0x0000000000000190                USART0_receive
+ .text          0x000000000000019e      0x354 build/./src/Pin.o
+                0x000000000000019e                Pin_SetMode
+                0x00000000000001f2                Pin_EnableAnalog
+                0x000000000000048c                Pin_WriteAnalog
+                0x00000000000004a2                Pin_WriteDigital
+                0x00000000000004ce                Pin_ReadDigital
+ .text          0x00000000000004f2       0xc6 build/./src/Utils.o
+                0x00000000000004f2                __vector_12
+                0x0000000000000570                Utils_Init
+                0x0000000000000592                Utils_Mills
+ .text          0x00000000000005b8       0x2a build/./src/BinarySensor.o
+                0x00000000000005b8                BinarySensor_Add
+                0x00000000000005be                ifSensorDetected
+ .text          0x00000000000005e2      0x212 build/./src/PwmBrushless.o
+                0x000000000000060e                Brushless_Calibration
+                0x000000000000064e                Brushless_Init
+                0x00000000000006ec                Brushless_Update
+ .text          0x00000000000007f4       0x4a build/./src/CanBus.o
+                0x00000000000007f4                CANbus_Init
+ .text          0x000000000000083e       0xb0 build/./libs/can/can_wrapper.o
+                0x000000000000083e                can_wrapper_init
+                0x0000000000000888                can_wrapper_send
+ .text          0x00000000000008ee      0x224 libs/can/libcan.a(at90can.o)
+                0x00000000000008ee                _find_free_mob
+                0x0000000000000916                _disable_mob_interrupt
+                0x0000000000000958                _enable_mob_interrupt
+                0x0000000000000992                can_init
+                0x0000000000000a0e                __vector_18
+                0x0000000000000afe                __vector_19
+ .text          0x0000000000000b12       0x1c libs/can/libcan.a(at90can_buffer.o)
+                0x0000000000000b12                can_check_message
+                0x0000000000000b20                can_check_free_buffer
+ .text          0x0000000000000b2e       0x9c libs/can/libcan.a(at90can_disable_dyn_filter.o)
+                0x0000000000000b2e                can_disable_filter
+ .text          0x0000000000000bca      0x1c2 libs/can/libcan.a(at90can_set_dyn_filter.o)
+                0x0000000000000bca                can_set_filter
+ .text          0x0000000000000d8c      0x110 libs/can/libcan.a(at90can_send_message.o)
+                0x0000000000000d8c                at90can_copy_message_to_mob
+                0x0000000000000e48                at90can_send_message
+ .text          0x0000000000000e9c       0x62 libs/can/libcan.a(at90can_send_buf_message.o)
+                0x0000000000000e9c                can_send_message
+ .text          0x0000000000000efe      0x11c libs/can/libcan.a(at90can_get_message.o)
+                0x0000000000000efe                at90can_copy_mob_to_message
+                0x0000000000000fba                at90can_get_message
+ .text          0x000000000000101a       0x34 libs/can/libcan.a(at90can_get_buf_message.o)
+                0x000000000000101a                can_get_message
+ .text          0x000000000000104e       0xce libs/can/libcan.a(can_buffer.o)
+                0x000000000000104e                can_buffer_init
+                0x0000000000001064                can_buffer_empty
+                0x0000000000001076                can_buffer_full
+                0x000000000000108c                can_buffer_get_enqueue_ptr
+                0x00000000000010b6                can_buffer_enqueue
+                0x00000000000010d4                can_buffer_get_dequeue_ptr
+                0x00000000000010fe                can_buffer_dequeue
+ .text          0x000000000000111c        0x0 /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr51/libm.a(addsf3.o)
+ .text          0x000000000000111c        0x0 /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr51/libm.a(addsf3x.o)
+ .text          0x000000000000111c        0x0 /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr51/libm.a(fixunssfsi.o)
+ .text          0x000000000000111c        0x0 /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr51/libm.a(floatsisf.o)
+ .text          0x000000000000111c        0x0 /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr51/libm.a(fp_inf.o)
+ .text          0x000000000000111c        0x0 /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr51/libm.a(fp_nan.o)
+ .text          0x000000000000111c        0x0 /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr51/libm.a(fp_pscA.o)
+ .text          0x000000000000111c        0x0 /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr51/libm.a(fp_pscB.o)
+ .text          0x000000000000111c        0x0 /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr51/libm.a(fp_round.o)
+ .text          0x000000000000111c        0x0 /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr51/libm.a(fp_split3.o)
+ .text          0x000000000000111c        0x0 /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr51/libm.a(fp_zero.o)
+ .text          0x000000000000111c        0x0 /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr51/libm.a(mulsf3.o)
+ .text          0x000000000000111c        0x0 /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr51/libm.a(mulsf3x.o)
+ .text          0x000000000000111c        0x0 /usr/lib/gcc/avr/4.9.2/avr51/libgcc.a(_udivmodsi4.o)
+ .text          0x000000000000111c        0x0 /usr/lib/gcc/avr/4.9.2/avr51/libgcc.a(_exit.o)
+ .text          0x000000000000111c        0x0 /usr/lib/gcc/avr/4.9.2/avr51/libgcc.a(_copy_data.o)
+ .text          0x000000000000111c        0x0 /usr/lib/gcc/avr/4.9.2/avr51/libgcc.a(_clear_bss.o)
+ .text          0x000000000000111c        0x0 /usr/lib/gcc/avr/4.9.2/avr51/libgcc.a(_adddi3_s8.o)
+                0x000000000000111c                . = ALIGN (0x2)
  *(.text.*)
- .text.startup  0x000000000000076a       0x22 build/./src/main.o
-                0x000000000000076a                main
+ .text.startup  0x000000000000111c       0x52 build/./src/main.o
+                0x000000000000111c                main
  .text.avr-libc.fplib
-                0x000000000000078c        0xe /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr51/libm.a(addsf3.o)
-                0x000000000000078c                __subsf3
-                0x000000000000078e                __addsf3
+                0x000000000000116e        0xe /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr51/libm.a(addsf3.o)
+                0x000000000000116e                __subsf3
+                0x0000000000001170                __addsf3
  .text.avr-libc.fplib
-                0x000000000000079a       0xcc /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr51/libm.a(addsf3x.o)
-                0x00000000000007bc                __addsf3x
+                0x000000000000117c       0xcc /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr51/libm.a(addsf3x.o)
+                0x000000000000119e                __addsf3x
  .text.avr-libc.fplib
-                0x0000000000000866       0x5e /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr51/libm.a(fixunssfsi.o)
-                0x0000000000000866                __fixunssfsi
+                0x0000000000001248       0x5e /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr51/libm.a(fixunssfsi.o)
+                0x0000000000001248                __fixunssfsi
  .text.avr-libc.fplib
-                0x00000000000008c4       0x7a /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr51/libm.a(floatsisf.o)
-                0x00000000000008c4                __floatunsisf
-                0x00000000000008c8                __floatsisf
+                0x00000000000012a6       0x7a /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr51/libm.a(floatsisf.o)
+                0x00000000000012a6                __floatunsisf
+                0x00000000000012aa                __floatsisf
  .text.avr-libc.fplib
-                0x000000000000093e        0xc /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr51/libm.a(fp_inf.o)
-                0x000000000000093e                __fp_inf
+                0x0000000000001320        0xc /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr51/libm.a(fp_inf.o)
+                0x0000000000001320                __fp_inf
  .text.avr-libc.fplib
-                0x000000000000094a        0x6 /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr51/libm.a(fp_nan.o)
-                0x000000000000094a                __fp_nan
+                0x000000000000132c        0x6 /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr51/libm.a(fp_nan.o)
+                0x000000000000132c                __fp_nan
  .text.avr-libc.fplib
-                0x0000000000000950        0xe /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr51/libm.a(fp_pscA.o)
-                0x0000000000000950                __fp_pscA
+                0x0000000000001332        0xe /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr51/libm.a(fp_pscA.o)
+                0x0000000000001332                __fp_pscA
  .text.avr-libc.fplib
-                0x000000000000095e        0xe /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr51/libm.a(fp_pscB.o)
-                0x000000000000095e                __fp_pscB
+                0x0000000000001340        0xe /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr51/libm.a(fp_pscB.o)
+                0x0000000000001340                __fp_pscB
  .text.avr-libc.fplib
-                0x000000000000096c       0x22 /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr51/libm.a(fp_round.o)
-                0x000000000000096c                __fp_round
+                0x000000000000134e       0x22 /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr51/libm.a(fp_round.o)
+                0x000000000000134e                __fp_round
  .text.avr-libc.fplib
-                0x000000000000098e       0x44 /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr51/libm.a(fp_split3.o)
-                0x000000000000098e                __fp_split3
-                0x000000000000099e                __fp_splitA
+                0x0000000000001370       0x44 /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr51/libm.a(fp_split3.o)
+                0x0000000000001370                __fp_split3
+                0x0000000000001380                __fp_splitA
  .text.avr-libc.fplib
-                0x00000000000009d2        0xe /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr51/libm.a(fp_zero.o)
-                0x00000000000009d2                __fp_zero
-                0x00000000000009d4                __fp_szero
+                0x00000000000013b4        0xe /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr51/libm.a(fp_zero.o)
+                0x00000000000013b4                __fp_zero
+                0x00000000000013b6                __fp_szero
  .text.avr-libc.fplib
-                0x00000000000009e0        0x8 /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr51/libm.a(mulsf3.o)
-                0x00000000000009e0                __mulsf3
+                0x00000000000013c2        0x8 /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr51/libm.a(mulsf3.o)
+                0x00000000000013c2                __mulsf3
  .text.avr-libc.fplib
-                0x00000000000009e8       0xd2 /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr51/libm.a(mulsf3x.o)
-                0x0000000000000a06                __mulsf3x
-                0x0000000000000a0c                __mulsf3_pse
+                0x00000000000013ca       0xd2 /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr51/libm.a(mulsf3x.o)
+                0x00000000000013e8                __mulsf3x
+                0x00000000000013ee                __mulsf3_pse
  .text.libgcc.mul
-                0x0000000000000aba        0x0 /usr/lib/gcc/avr/4.9.2/avr51/libgcc.a(_udivmodsi4.o)
+                0x000000000000149c        0x0 /usr/lib/gcc/avr/4.9.2/avr51/libgcc.a(_udivmodsi4.o)
  .text.libgcc.div
-                0x0000000000000aba       0x44 /usr/lib/gcc/avr/4.9.2/avr51/libgcc.a(_udivmodsi4.o)
-                0x0000000000000aba                __udivmodsi4
- .text.libgcc   0x0000000000000afe        0x0 /usr/lib/gcc/avr/4.9.2/avr51/libgcc.a(_udivmodsi4.o)
+                0x000000000000149c       0x44 /usr/lib/gcc/avr/4.9.2/avr51/libgcc.a(_udivmodsi4.o)
+                0x000000000000149c                __udivmodsi4
+ .text.libgcc   0x00000000000014e0        0x0 /usr/lib/gcc/avr/4.9.2/avr51/libgcc.a(_udivmodsi4.o)
  .text.libgcc.prologue
-                0x0000000000000afe        0x0 /usr/lib/gcc/avr/4.9.2/avr51/libgcc.a(_udivmodsi4.o)
+                0x00000000000014e0        0x0 /usr/lib/gcc/avr/4.9.2/avr51/libgcc.a(_udivmodsi4.o)
  .text.libgcc.builtins
-                0x0000000000000afe        0x0 /usr/lib/gcc/avr/4.9.2/avr51/libgcc.a(_udivmodsi4.o)
+                0x00000000000014e0        0x0 /usr/lib/gcc/avr/4.9.2/avr51/libgcc.a(_udivmodsi4.o)
  .text.libgcc.fmul
-                0x0000000000000afe        0x0 /usr/lib/gcc/avr/4.9.2/avr51/libgcc.a(_udivmodsi4.o)
+                0x00000000000014e0        0x0 /usr/lib/gcc/avr/4.9.2/avr51/libgcc.a(_udivmodsi4.o)
  .text.libgcc.fixed
-                0x0000000000000afe        0x0 /usr/lib/gcc/avr/4.9.2/avr51/libgcc.a(_udivmodsi4.o)
+                0x00000000000014e0        0x0 /usr/lib/gcc/avr/4.9.2/avr51/libgcc.a(_udivmodsi4.o)
  .text.libgcc.mul
-                0x0000000000000afe        0x0 /usr/lib/gcc/avr/4.9.2/avr51/libgcc.a(_exit.o)
+                0x00000000000014e0        0x0 /usr/lib/gcc/avr/4.9.2/avr51/libgcc.a(_exit.o)
  .text.libgcc.div
-                0x0000000000000afe        0x0 /usr/lib/gcc/avr/4.9.2/avr51/libgcc.a(_exit.o)
- .text.libgcc   0x0000000000000afe        0x0 /usr/lib/gcc/avr/4.9.2/avr51/libgcc.a(_exit.o)
+                0x00000000000014e0        0x0 /usr/lib/gcc/avr/4.9.2/avr51/libgcc.a(_exit.o)
+ .text.libgcc   0x00000000000014e0        0x0 /usr/lib/gcc/avr/4.9.2/avr51/libgcc.a(_exit.o)
  .text.libgcc.prologue
-                0x0000000000000afe        0x0 /usr/lib/gcc/avr/4.9.2/avr51/libgcc.a(_exit.o)
+                0x00000000000014e0        0x0 /usr/lib/gcc/avr/4.9.2/avr51/libgcc.a(_exit.o)
  .text.libgcc.builtins
-                0x0000000000000afe        0x0 /usr/lib/gcc/avr/4.9.2/avr51/libgcc.a(_exit.o)
+                0x00000000000014e0        0x0 /usr/lib/gcc/avr/4.9.2/avr51/libgcc.a(_exit.o)
  .text.libgcc.fmul
-                0x0000000000000afe        0x0 /usr/lib/gcc/avr/4.9.2/avr51/libgcc.a(_exit.o)
+                0x00000000000014e0        0x0 /usr/lib/gcc/avr/4.9.2/avr51/libgcc.a(_exit.o)
  .text.libgcc.fixed
-                0x0000000000000afe        0x0 /usr/lib/gcc/avr/4.9.2/avr51/libgcc.a(_exit.o)
+                0x00000000000014e0        0x0 /usr/lib/gcc/avr/4.9.2/avr51/libgcc.a(_exit.o)
  .text.libgcc.mul
-                0x0000000000000afe        0x0 /usr/lib/gcc/avr/4.9.2/avr51/libgcc.a(_copy_data.o)
+                0x00000000000014e0        0x0 /usr/lib/gcc/avr/4.9.2/avr51/libgcc.a(_copy_data.o)
  .text.libgcc.div
-                0x0000000000000afe        0x0 /usr/lib/gcc/avr/4.9.2/avr51/libgcc.a(_copy_data.o)
- .text.libgcc   0x0000000000000afe        0x0 /usr/lib/gcc/avr/4.9.2/avr51/libgcc.a(_copy_data.o)
+                0x00000000000014e0        0x0 /usr/lib/gcc/avr/4.9.2/avr51/libgcc.a(_copy_data.o)
+ .text.libgcc   0x00000000000014e0        0x0 /usr/lib/gcc/avr/4.9.2/avr51/libgcc.a(_copy_data.o)
  .text.libgcc.prologue
-                0x0000000000000afe        0x0 /usr/lib/gcc/avr/4.9.2/avr51/libgcc.a(_copy_data.o)
+                0x00000000000014e0        0x0 /usr/lib/gcc/avr/4.9.2/avr51/libgcc.a(_copy_data.o)
  .text.libgcc.builtins
-                0x0000000000000afe        0x0 /usr/lib/gcc/avr/4.9.2/avr51/libgcc.a(_copy_data.o)
+                0x00000000000014e0        0x0 /usr/lib/gcc/avr/4.9.2/avr51/libgcc.a(_copy_data.o)
  .text.libgcc.fmul
-                0x0000000000000afe        0x0 /usr/lib/gcc/avr/4.9.2/avr51/libgcc.a(_copy_data.o)
+                0x00000000000014e0        0x0 /usr/lib/gcc/avr/4.9.2/avr51/libgcc.a(_copy_data.o)
  .text.libgcc.fixed
-                0x0000000000000afe        0x0 /usr/lib/gcc/avr/4.9.2/avr51/libgcc.a(_copy_data.o)
+                0x00000000000014e0        0x0 /usr/lib/gcc/avr/4.9.2/avr51/libgcc.a(_copy_data.o)
  .text.libgcc.mul
-                0x0000000000000afe        0x0 /usr/lib/gcc/avr/4.9.2/avr51/libgcc.a(_clear_bss.o)
+                0x00000000000014e0        0x0 /usr/lib/gcc/avr/4.9.2/avr51/libgcc.a(_clear_bss.o)
  .text.libgcc.div
-                0x0000000000000afe        0x0 /usr/lib/gcc/avr/4.9.2/avr51/libgcc.a(_clear_bss.o)
- .text.libgcc   0x0000000000000afe        0x0 /usr/lib/gcc/avr/4.9.2/avr51/libgcc.a(_clear_bss.o)
+                0x00000000000014e0        0x0 /usr/lib/gcc/avr/4.9.2/avr51/libgcc.a(_clear_bss.o)
+ .text.libgcc   0x00000000000014e0        0x0 /usr/lib/gcc/avr/4.9.2/avr51/libgcc.a(_clear_bss.o)
  .text.libgcc.prologue
-                0x0000000000000afe        0x0 /usr/lib/gcc/avr/4.9.2/avr51/libgcc.a(_clear_bss.o)
+                0x00000000000014e0        0x0 /usr/lib/gcc/avr/4.9.2/avr51/libgcc.a(_clear_bss.o)
  .text.libgcc.builtins
-                0x0000000000000afe        0x0 /usr/lib/gcc/avr/4.9.2/avr51/libgcc.a(_clear_bss.o)
+                0x00000000000014e0        0x0 /usr/lib/gcc/avr/4.9.2/avr51/libgcc.a(_clear_bss.o)
  .text.libgcc.fmul
-                0x0000000000000afe        0x0 /usr/lib/gcc/avr/4.9.2/avr51/libgcc.a(_clear_bss.o)
+                0x00000000000014e0        0x0 /usr/lib/gcc/avr/4.9.2/avr51/libgcc.a(_clear_bss.o)
  .text.libgcc.fixed
-                0x0000000000000afe        0x0 /usr/lib/gcc/avr/4.9.2/avr51/libgcc.a(_clear_bss.o)
+                0x00000000000014e0        0x0 /usr/lib/gcc/avr/4.9.2/avr51/libgcc.a(_clear_bss.o)
  .text.libgcc.mul
-                0x0000000000000afe        0x0 /usr/lib/gcc/avr/4.9.2/avr51/libgcc.a(_adddi3_s8.o)
+                0x00000000000014e0        0x0 /usr/lib/gcc/avr/4.9.2/avr51/libgcc.a(_adddi3_s8.o)
  .text.libgcc.div
-                0x0000000000000afe        0x0 /usr/lib/gcc/avr/4.9.2/avr51/libgcc.a(_adddi3_s8.o)
- .text.libgcc   0x0000000000000afe       0x18 /usr/lib/gcc/avr/4.9.2/avr51/libgcc.a(_adddi3_s8.o)
-                0x0000000000000afe                __adddi3_s8
+                0x00000000000014e0        0x0 /usr/lib/gcc/avr/4.9.2/avr51/libgcc.a(_adddi3_s8.o)
+ .text.libgcc   0x00000000000014e0       0x18 /usr/lib/gcc/avr/4.9.2/avr51/libgcc.a(_adddi3_s8.o)
+                0x00000000000014e0                __adddi3_s8
  .text.libgcc.prologue
-                0x0000000000000b16        0x0 /usr/lib/gcc/avr/4.9.2/avr51/libgcc.a(_adddi3_s8.o)
+                0x00000000000014f8        0x0 /usr/lib/gcc/avr/4.9.2/avr51/libgcc.a(_adddi3_s8.o)
  .text.libgcc.builtins
-                0x0000000000000b16        0x0 /usr/lib/gcc/avr/4.9.2/avr51/libgcc.a(_adddi3_s8.o)
+                0x00000000000014f8        0x0 /usr/lib/gcc/avr/4.9.2/avr51/libgcc.a(_adddi3_s8.o)
  .text.libgcc.fmul
-                0x0000000000000b16        0x0 /usr/lib/gcc/avr/4.9.2/avr51/libgcc.a(_adddi3_s8.o)
+                0x00000000000014f8        0x0 /usr/lib/gcc/avr/4.9.2/avr51/libgcc.a(_adddi3_s8.o)
  .text.libgcc.fixed
-                0x0000000000000b16        0x0 /usr/lib/gcc/avr/4.9.2/avr51/libgcc.a(_adddi3_s8.o)
-                0x0000000000000b16                . = ALIGN (0x2)
+                0x00000000000014f8        0x0 /usr/lib/gcc/avr/4.9.2/avr51/libgcc.a(_adddi3_s8.o)
+                0x00000000000014f8                . = ALIGN (0x2)
  *(.fini9)
- .fini9         0x0000000000000b16        0x0 /usr/lib/gcc/avr/4.9.2/avr51/libgcc.a(_exit.o)
-                0x0000000000000b16                exit
-                0x0000000000000b16                _exit
+ .fini9         0x00000000000014f8        0x0 /usr/lib/gcc/avr/4.9.2/avr51/libgcc.a(_exit.o)
+                0x00000000000014f8                exit
+                0x00000000000014f8                _exit
  *(.fini9)
  *(.fini8)
  *(.fini8)
@@ -428,11 +493,11 @@ END GROUP
  *(.fini1)
  *(.fini1)
  *(.fini0)
- .fini0         0x0000000000000b16        0x4 /usr/lib/gcc/avr/4.9.2/avr51/libgcc.a(_exit.o)
+ .fini0         0x00000000000014f8        0x4 /usr/lib/gcc/avr/4.9.2/avr51/libgcc.a(_exit.o)
  *(.fini0)
-                0x0000000000000b1a                _etext = .
+                0x00000000000014fc                _etext = .
 
-.data           0x0000000000800100      0x11a load address 0x0000000000000b1a
+.data           0x0000000000800100      0x124 load address 0x00000000000014fc
                 0x0000000000800100                PROVIDE (__data_start, .)
  *(.data)
  .data          0x0000000000800100        0x0 /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr51/crtat90can128.o
@@ -471,6 +536,17 @@ END GROUP
  .data          0x000000000080021a        0x0 build/./src/Utils.o
  .data          0x000000000080021a        0x0 build/./src/BinarySensor.o
  .data          0x000000000080021a        0x0 build/./src/PwmBrushless.o
+ .data          0x000000000080021a        0x0 build/./src/CanBus.o
+ .data          0x000000000080021a        0x0 build/./libs/can/can_wrapper.o
+ .data          0x000000000080021a        0x0 libs/can/libcan.a(at90can.o)
+ .data          0x000000000080021a        0x0 libs/can/libcan.a(at90can_buffer.o)
+ .data          0x000000000080021a        0x0 libs/can/libcan.a(at90can_disable_dyn_filter.o)
+ .data          0x000000000080021a        0x0 libs/can/libcan.a(at90can_set_dyn_filter.o)
+ .data          0x000000000080021a        0x0 libs/can/libcan.a(at90can_send_message.o)
+ .data          0x000000000080021a        0x0 libs/can/libcan.a(at90can_send_buf_message.o)
+ .data          0x000000000080021a        0x0 libs/can/libcan.a(at90can_get_message.o)
+ .data          0x000000000080021a        0x0 libs/can/libcan.a(at90can_get_buf_message.o)
+ .data          0x000000000080021a        0x0 libs/can/libcan.a(can_buffer.o)
  .data          0x000000000080021a        0x0 /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr51/libm.a(addsf3.o)
  .data          0x000000000080021a        0x0 /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr51/libm.a(addsf3x.o)
  .data          0x000000000080021a        0x0 /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr51/libm.a(fixunssfsi.o)
@@ -491,52 +567,71 @@ END GROUP
  .data          0x000000000080021a        0x0 /usr/lib/gcc/avr/4.9.2/avr51/libgcc.a(_adddi3_s8.o)
  *(.data*)
  *(.rodata)
+ .rodata        0x000000000080021a        0x9 build/./src/CanBus.o
  *(.rodata*)
  *(.gnu.linkonce.d*)
-                0x000000000080021a                . = ALIGN (0x2)
-                0x000000000080021a                _edata = .
-                0x000000000080021a                PROVIDE (__data_end, .)
+                0x0000000000800224                . = ALIGN (0x2)
+ *fill*         0x0000000000800223        0x1 
+                0x0000000000800224                _edata = .
+                0x0000000000800224                PROVIDE (__data_end, .)
 
-.bss            0x000000000080021a        0x9
-                0x000000000080021a                PROVIDE (__bss_start, .)
+.bss            0x0000000000800224      0x166
+                0x0000000000800224                PROVIDE (__bss_start, .)
  *(.bss)
- .bss           0x000000000080021a        0x0 /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr51/crtat90can128.o
- .bss           0x000000000080021a        0x0 build/./src/main.o
- .bss           0x000000000080021a        0x0 build/./src/uart0.o
- .bss           0x000000000080021a        0x0 build/./src/Pin.o
- .bss           0x000000000080021a        0x8 build/./src/Utils.o
- .bss           0x0000000000800222        0x0 build/./src/BinarySensor.o
- .bss           0x0000000000800222        0x1 build/./src/PwmBrushless.o
- .bss           0x0000000000800223        0x0 /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr51/libm.a(addsf3.o)
- .bss           0x0000000000800223        0x0 /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr51/libm.a(addsf3x.o)
- .bss           0x0000000000800223        0x0 /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr51/libm.a(fixunssfsi.o)
- .bss           0x0000000000800223        0x0 /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr51/libm.a(floatsisf.o)
- .bss           0x0000000000800223        0x0 /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr51/libm.a(fp_inf.o)
- .bss           0x0000000000800223        0x0 /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr51/libm.a(fp_nan.o)
- .bss           0x0000000000800223        0x0 /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr51/libm.a(fp_pscA.o)
- .bss           0x0000000000800223        0x0 /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr51/libm.a(fp_pscB.o)
- .bss           0x0000000000800223        0x0 /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr51/libm.a(fp_round.o)
- .bss           0x0000000000800223        0x0 /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr51/libm.a(fp_split3.o)
- .bss           0x0000000000800223        0x0 /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr51/libm.a(fp_zero.o)
- .bss           0x0000000000800223        0x0 /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr51/libm.a(mulsf3.o)
- .bss           0x0000000000800223        0x0 /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr51/libm.a(mulsf3x.o)
- .bss           0x0000000000800223        0x0 /usr/lib/gcc/avr/4.9.2/avr51/libgcc.a(_udivmodsi4.o)
- .bss           0x0000000000800223        0x0 /usr/lib/gcc/avr/4.9.2/avr51/libgcc.a(_exit.o)
- .bss           0x0000000000800223        0x0 /usr/lib/gcc/avr/4.9.2/avr51/libgcc.a(_copy_data.o)
- .bss           0x0000000000800223        0x0 /usr/lib/gcc/avr/4.9.2/avr51/libgcc.a(_clear_bss.o)
- .bss           0x0000000000800223        0x0 /usr/lib/gcc/avr/4.9.2/avr51/libgcc.a(_adddi3_s8.o)
+ .bss           0x0000000000800224        0x0 /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr51/crtat90can128.o
+ .bss           0x0000000000800224        0x0 build/./src/main.o
+ .bss           0x0000000000800224        0x0 build/./src/uart0.o
+ .bss           0x0000000000800224        0x0 build/./src/Pin.o
+ .bss           0x0000000000800224        0x8 build/./src/Utils.o
+ .bss           0x000000000080022c        0x0 build/./src/BinarySensor.o
+ .bss           0x000000000080022c        0x1 build/./src/PwmBrushless.o
+ .bss           0x000000000080022d        0x0 build/./src/CanBus.o
+ .bss           0x000000000080022d        0x0 build/./libs/can/can_wrapper.o
+ .bss           0x000000000080022d        0x1 libs/can/libcan.a(at90can.o)
+                0x000000000080022d                _transmission_in_progress
+ .bss           0x000000000080022e        0x0 libs/can/libcan.a(at90can_buffer.o)
+ .bss           0x000000000080022e        0x0 libs/can/libcan.a(at90can_disable_dyn_filter.o)
+ .bss           0x000000000080022e        0x0 libs/can/libcan.a(at90can_set_dyn_filter.o)
+ .bss           0x000000000080022e        0x0 libs/can/libcan.a(at90can_send_message.o)
+ .bss           0x000000000080022e        0x0 libs/can/libcan.a(at90can_send_buf_message.o)
+ .bss           0x000000000080022e        0x0 libs/can/libcan.a(at90can_get_message.o)
+ .bss           0x000000000080022e        0x0 libs/can/libcan.a(at90can_get_buf_message.o)
+ .bss           0x000000000080022e        0x0 libs/can/libcan.a(can_buffer.o)
+ .bss           0x000000000080022e        0x0 /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr51/libm.a(addsf3.o)
+ .bss           0x000000000080022e        0x0 /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr51/libm.a(addsf3x.o)
+ .bss           0x000000000080022e        0x0 /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr51/libm.a(fixunssfsi.o)
+ .bss           0x000000000080022e        0x0 /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr51/libm.a(floatsisf.o)
+ .bss           0x000000000080022e        0x0 /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr51/libm.a(fp_inf.o)
+ .bss           0x000000000080022e        0x0 /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr51/libm.a(fp_nan.o)
+ .bss           0x000000000080022e        0x0 /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr51/libm.a(fp_pscA.o)
+ .bss           0x000000000080022e        0x0 /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr51/libm.a(fp_pscB.o)
+ .bss           0x000000000080022e        0x0 /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr51/libm.a(fp_round.o)
+ .bss           0x000000000080022e        0x0 /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr51/libm.a(fp_split3.o)
+ .bss           0x000000000080022e        0x0 /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr51/libm.a(fp_zero.o)
+ .bss           0x000000000080022e        0x0 /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr51/libm.a(mulsf3.o)
+ .bss           0x000000000080022e        0x0 /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr51/libm.a(mulsf3x.o)
+ .bss           0x000000000080022e        0x0 /usr/lib/gcc/avr/4.9.2/avr51/libgcc.a(_udivmodsi4.o)
+ .bss           0x000000000080022e        0x0 /usr/lib/gcc/avr/4.9.2/avr51/libgcc.a(_exit.o)
+ .bss           0x000000000080022e        0x0 /usr/lib/gcc/avr/4.9.2/avr51/libgcc.a(_copy_data.o)
+ .bss           0x000000000080022e        0x0 /usr/lib/gcc/avr/4.9.2/avr51/libgcc.a(_clear_bss.o)
+ .bss           0x000000000080022e        0x0 /usr/lib/gcc/avr/4.9.2/avr51/libgcc.a(_adddi3_s8.o)
  *(.bss*)
  *(COMMON)
-                0x0000000000800223                PROVIDE (__bss_end, .)
-                0x0000000000000b1a                __data_load_start = LOADADDR (.data)
-                0x0000000000000c34                __data_load_end = (__data_load_start + SIZEOF (.data))
+ COMMON         0x000000000080022e      0x15c libs/can/libcan.a(at90can.o)
+                0x000000000080022e                can_tx_list
+                0x000000000080029e                can_tx_buffer
+                0x00000000008002a4                can_rx_list
+                0x0000000000800384                can_rx_buffer
+                0x000000000080038a                PROVIDE (__bss_end, .)
+                0x00000000000014fc                __data_load_start = LOADADDR (.data)
+                0x0000000000001620                __data_load_end = (__data_load_start + SIZEOF (.data))
 
-.noinit         0x0000000000800223        0x0
-                0x0000000000800223                PROVIDE (__noinit_start, .)
+.noinit         0x000000000080038a        0x0
+                0x000000000080038a                PROVIDE (__noinit_start, .)
  *(.noinit*)
-                0x0000000000800223                PROVIDE (__noinit_end, .)
-                0x0000000000800223                _end = .
-                0x0000000000800223                PROVIDE (__heap_start, .)
+                0x000000000080038a                PROVIDE (__noinit_end, .)
+                0x000000000080038a                _end = .
+                0x000000000080038a                PROVIDE (__heap_start, .)
 
 .eeprom         0x0000000000810000        0x0
  *(.eeprom*)
@@ -575,7 +670,7 @@ END GROUP
 .stab.indexstr
  *(.stab.indexstr)
 
-.comment        0x0000000000000000       0x11
+.comment        0x0000000000000000       0x22
  *(.comment)
  .comment       0x0000000000000000       0x11 build/./src/main.o
                                          0x12 (size before relaxing)
@@ -584,6 +679,18 @@ END GROUP
  .comment       0x0000000000000011       0x12 build/./src/Utils.o
  .comment       0x0000000000000011       0x12 build/./src/BinarySensor.o
  .comment       0x0000000000000011       0x12 build/./src/PwmBrushless.o
+ .comment       0x0000000000000011       0x12 build/./src/CanBus.o
+ .comment       0x0000000000000011       0x12 build/./libs/can/can_wrapper.o
+ .comment       0x0000000000000011       0x11 libs/can/libcan.a(at90can.o)
+                                         0x12 (size before relaxing)
+ .comment       0x0000000000000022       0x12 libs/can/libcan.a(at90can_buffer.o)
+ .comment       0x0000000000000022       0x12 libs/can/libcan.a(at90can_disable_dyn_filter.o)
+ .comment       0x0000000000000022       0x12 libs/can/libcan.a(at90can_set_dyn_filter.o)
+ .comment       0x0000000000000022       0x12 libs/can/libcan.a(at90can_send_message.o)
+ .comment       0x0000000000000022       0x12 libs/can/libcan.a(at90can_send_buf_message.o)
+ .comment       0x0000000000000022       0x12 libs/can/libcan.a(at90can_get_message.o)
+ .comment       0x0000000000000022       0x12 libs/can/libcan.a(at90can_get_buf_message.o)
+ .comment       0x0000000000000022       0x12 libs/can/libcan.a(can_buffer.o)
 
 .note.gnu.avr.deviceinfo
                 0x0000000000000000       0x40
@@ -605,83 +712,181 @@ END GROUP
 .debug_sfnames
  *(.debug_sfnames)
 
-.debug_aranges  0x0000000000000000       0xc8
+.debug_aranges  0x0000000000000000      0x220
  *(.debug_aranges)
  .debug_aranges
-                0x0000000000000000       0x28 build/./src/main.o
+                0x0000000000000000       0x20 build/./src/main.o
  .debug_aranges
-                0x0000000000000028       0x20 build/./src/uart0.o
+                0x0000000000000020       0x20 build/./src/uart0.o
  .debug_aranges
-                0x0000000000000048       0x20 build/./src/Pin.o
+                0x0000000000000040       0x20 build/./src/Pin.o
  .debug_aranges
-                0x0000000000000068       0x20 build/./src/Utils.o
+                0x0000000000000060       0x20 build/./src/Utils.o
  .debug_aranges
-                0x0000000000000088       0x20 build/./src/BinarySensor.o
+                0x0000000000000080       0x20 build/./src/BinarySensor.o
  .debug_aranges
-                0x00000000000000a8       0x20 build/./src/PwmBrushless.o
+                0x00000000000000a0       0x20 build/./src/PwmBrushless.o
+ .debug_aranges
+                0x00000000000000c0       0x20 build/./src/CanBus.o
+ .debug_aranges
+                0x00000000000000e0       0x20 build/./libs/can/can_wrapper.o
+ .debug_aranges
+                0x0000000000000100       0x20 libs/can/libcan.a(at90can.o)
+ .debug_aranges
+                0x0000000000000120       0x20 libs/can/libcan.a(at90can_buffer.o)
+ .debug_aranges
+                0x0000000000000140       0x20 libs/can/libcan.a(at90can_disable_dyn_filter.o)
+ .debug_aranges
+                0x0000000000000160       0x20 libs/can/libcan.a(at90can_set_dyn_filter.o)
+ .debug_aranges
+                0x0000000000000180       0x20 libs/can/libcan.a(at90can_send_message.o)
+ .debug_aranges
+                0x00000000000001a0       0x20 libs/can/libcan.a(at90can_send_buf_message.o)
+ .debug_aranges
+                0x00000000000001c0       0x20 libs/can/libcan.a(at90can_get_message.o)
+ .debug_aranges
+                0x00000000000001e0       0x20 libs/can/libcan.a(at90can_get_buf_message.o)
+ .debug_aranges
+                0x0000000000000200       0x20 libs/can/libcan.a(can_buffer.o)
 
 .debug_pubnames
  *(.debug_pubnames)
 
-.debug_info     0x0000000000000000     0x11cd
+.debug_info     0x0000000000000000     0x37f2
  *(.debug_info .gnu.linkonce.wi.*)
- .debug_info    0x0000000000000000      0x3fb build/./src/main.o
- .debug_info    0x00000000000003fb       0xf6 build/./src/uart0.o
- .debug_info    0x00000000000004f1      0x557 build/./src/Pin.o
- .debug_info    0x0000000000000a48      0x185 build/./src/Utils.o
- .debug_info    0x0000000000000bcd      0x268 build/./src/BinarySensor.o
- .debug_info    0x0000000000000e35      0x398 build/./src/PwmBrushless.o
+ .debug_info    0x0000000000000000      0x3bc build/./src/main.o
+ .debug_info    0x00000000000003bc       0xf6 build/./src/uart0.o
+ .debug_info    0x00000000000004b2      0x557 build/./src/Pin.o
+ .debug_info    0x0000000000000a09      0x185 build/./src/Utils.o
+ .debug_info    0x0000000000000b8e      0x268 build/./src/BinarySensor.o
+ .debug_info    0x0000000000000df6      0x5a8 build/./src/PwmBrushless.o
+ .debug_info    0x000000000000139e      0x1cd build/./src/CanBus.o
+ .debug_info    0x000000000000156b      0x347 build/./libs/can/can_wrapper.o
+ .debug_info    0x00000000000018b2      0x5cf libs/can/libcan.a(at90can.o)
+ .debug_info    0x0000000000001e81      0x247 libs/can/libcan.a(at90can_buffer.o)
+ .debug_info    0x00000000000020c8      0x2b8 libs/can/libcan.a(at90can_disable_dyn_filter.o)
+ .debug_info    0x0000000000002380      0x322 libs/can/libcan.a(at90can_set_dyn_filter.o)
+ .debug_info    0x00000000000026a2      0x383 libs/can/libcan.a(at90can_send_message.o)
+ .debug_info    0x0000000000002a25      0x313 libs/can/libcan.a(at90can_send_buf_message.o)
+ .debug_info    0x0000000000002d38      0x396 libs/can/libcan.a(at90can_get_message.o)
+ .debug_info    0x00000000000030ce      0x23f libs/can/libcan.a(at90can_get_buf_message.o)
+ .debug_info    0x000000000000330d      0x4e5 libs/can/libcan.a(can_buffer.o)
 
-.debug_abbrev   0x0000000000000000      0x7be
+.debug_abbrev   0x0000000000000000     0x1a40
  *(.debug_abbrev)
- .debug_abbrev  0x0000000000000000      0x1d7 build/./src/main.o
- .debug_abbrev  0x00000000000001d7       0x98 build/./src/uart0.o
- .debug_abbrev  0x000000000000026f      0x147 build/./src/Pin.o
- .debug_abbrev  0x00000000000003b6      0x135 build/./src/Utils.o
- .debug_abbrev  0x00000000000004eb      0x110 build/./src/BinarySensor.o
- .debug_abbrev  0x00000000000005fb      0x1c3 build/./src/PwmBrushless.o
+ .debug_abbrev  0x0000000000000000      0x1a0 build/./src/main.o
+ .debug_abbrev  0x00000000000001a0       0x98 build/./src/uart0.o
+ .debug_abbrev  0x0000000000000238      0x147 build/./src/Pin.o
+ .debug_abbrev  0x000000000000037f      0x135 build/./src/Utils.o
+ .debug_abbrev  0x00000000000004b4      0x110 build/./src/BinarySensor.o
+ .debug_abbrev  0x00000000000005c4      0x274 build/./src/PwmBrushless.o
+ .debug_abbrev  0x0000000000000838      0x11b build/./src/CanBus.o
+ .debug_abbrev  0x0000000000000953      0x193 build/./libs/can/can_wrapper.o
+ .debug_abbrev  0x0000000000000ae6      0x25a libs/can/libcan.a(at90can.o)
+ .debug_abbrev  0x0000000000000d40      0x109 libs/can/libcan.a(at90can_buffer.o)
+ .debug_abbrev  0x0000000000000e49      0x1ba libs/can/libcan.a(at90can_disable_dyn_filter.o)
+ .debug_abbrev  0x0000000000001003      0x19b libs/can/libcan.a(at90can_set_dyn_filter.o)
+ .debug_abbrev  0x000000000000119e      0x1f4 libs/can/libcan.a(at90can_send_message.o)
+ .debug_abbrev  0x0000000000001392      0x1b8 libs/can/libcan.a(at90can_send_buf_message.o)
+ .debug_abbrev  0x000000000000154a      0x20e libs/can/libcan.a(at90can_get_message.o)
+ .debug_abbrev  0x0000000000001758      0x127 libs/can/libcan.a(at90can_get_buf_message.o)
+ .debug_abbrev  0x000000000000187f      0x1c1 libs/can/libcan.a(can_buffer.o)
 
-.debug_line     0x0000000000000000      0x401
+.debug_line     0x0000000000000000     0x13a5
  *(.debug_line .debug_line.* .debug_line_end)
- .debug_line    0x0000000000000000       0xba build/./src/main.o
- .debug_line    0x00000000000000ba       0x7a build/./src/uart0.o
- .debug_line    0x0000000000000134       0xb2 build/./src/Pin.o
- .debug_line    0x00000000000001e6       0x9c build/./src/Utils.o
- .debug_line    0x0000000000000282       0x6b build/./src/BinarySensor.o
- .debug_line    0x00000000000002ed      0x114 build/./src/PwmBrushless.o
+ .debug_line    0x0000000000000000       0xa6 build/./src/main.o
+ .debug_line    0x00000000000000a6       0x7a build/./src/uart0.o
+ .debug_line    0x0000000000000120       0xb2 build/./src/Pin.o
+ .debug_line    0x00000000000001d2       0x9c build/./src/Utils.o
+ .debug_line    0x000000000000026e       0x6b build/./src/BinarySensor.o
+ .debug_line    0x00000000000002d9      0x155 build/./src/PwmBrushless.o
+ .debug_line    0x000000000000042e       0x72 build/./src/CanBus.o
+ .debug_line    0x00000000000004a0       0xae build/./libs/can/can_wrapper.o
+ .debug_line    0x000000000000054e      0x220 libs/can/libcan.a(at90can.o)
+ .debug_line    0x000000000000076e       0xe4 libs/can/libcan.a(at90can_buffer.o)
+ .debug_line    0x0000000000000852      0x187 libs/can/libcan.a(at90can_disable_dyn_filter.o)
+ .debug_line    0x00000000000009d9      0x1e0 libs/can/libcan.a(at90can_set_dyn_filter.o)
+ .debug_line    0x0000000000000bb9      0x1d9 libs/can/libcan.a(at90can_send_message.o)
+ .debug_line    0x0000000000000d92      0x178 libs/can/libcan.a(at90can_send_buf_message.o)
+ .debug_line    0x0000000000000f0a      0x19b libs/can/libcan.a(at90can_get_message.o)
+ .debug_line    0x00000000000010a5       0xf9 libs/can/libcan.a(at90can_get_buf_message.o)
+ .debug_line    0x000000000000119e      0x207 libs/can/libcan.a(can_buffer.o)
 
-.debug_frame    0x0000000000000000      0x240
+.debug_frame    0x0000000000000000      0x5e8
  *(.debug_frame)
- .debug_frame   0x0000000000000000       0x6c build/./src/main.o
- .debug_frame   0x000000000000006c       0x44 build/./src/uart0.o
- .debug_frame   0x00000000000000b0       0x70 build/./src/Pin.o
- .debug_frame   0x0000000000000120       0x88 build/./src/Utils.o
- .debug_frame   0x00000000000001a8       0x34 build/./src/BinarySensor.o
- .debug_frame   0x00000000000001dc       0x64 build/./src/PwmBrushless.o
+ .debug_frame   0x0000000000000000       0x38 build/./src/main.o
+ .debug_frame   0x0000000000000038       0x44 build/./src/uart0.o
+ .debug_frame   0x000000000000007c       0x70 build/./src/Pin.o
+ .debug_frame   0x00000000000000ec       0x88 build/./src/Utils.o
+ .debug_frame   0x0000000000000174       0x34 build/./src/BinarySensor.o
+ .debug_frame   0x00000000000001a8       0x80 build/./src/PwmBrushless.o
+ .debug_frame   0x0000000000000228       0x38 build/./src/CanBus.o
+ .debug_frame   0x0000000000000260       0x60 build/./libs/can/can_wrapper.o
+ .debug_frame   0x00000000000002c0       0xe0 libs/can/libcan.a(at90can.o)
+ .debug_frame   0x00000000000003a0       0x34 libs/can/libcan.a(at90can_buffer.o)
+ .debug_frame   0x00000000000003d4       0x2c libs/can/libcan.a(at90can_disable_dyn_filter.o)
+ .debug_frame   0x0000000000000400       0x2c libs/can/libcan.a(at90can_set_dyn_filter.o)
+ .debug_frame   0x000000000000042c       0x5c libs/can/libcan.a(at90can_send_message.o)
+ .debug_frame   0x0000000000000488       0x38 libs/can/libcan.a(at90can_send_buf_message.o)
+ .debug_frame   0x00000000000004c0       0x5c libs/can/libcan.a(at90can_get_message.o)
+ .debug_frame   0x000000000000051c       0x30 libs/can/libcan.a(at90can_get_buf_message.o)
+ .debug_frame   0x000000000000054c       0x9c libs/can/libcan.a(can_buffer.o)
 
-.debug_str      0x0000000000000000      0x4e4
+.debug_str      0x0000000000000000      0xa82
  *(.debug_str)
- .debug_str     0x0000000000000000      0x276 build/./src/main.o
-                                        0x2ca (size before relaxing)
- .debug_str     0x0000000000000276       0x46 build/./src/uart0.o
+ .debug_str     0x0000000000000000      0x22f build/./src/main.o
+                                        0x27e (size before relaxing)
+ .debug_str     0x000000000000022f       0x25 build/./src/uart0.o
                                         0x18a (size before relaxing)
- .debug_str     0x00000000000002bc      0x12b build/./src/Pin.o
+ .debug_str     0x0000000000000254      0x19f build/./src/Pin.o
                                         0x372 (size before relaxing)
- .debug_str     0x00000000000003e7       0x7d build/./src/Utils.o
+ .debug_str     0x00000000000003f3       0x7d build/./src/Utils.o
                                         0x1ae (size before relaxing)
- .debug_str     0x0000000000000464       0x3b build/./src/BinarySensor.o
+ .debug_str     0x0000000000000470       0x35 build/./src/BinarySensor.o
                                         0x216 (size before relaxing)
- .debug_str     0x000000000000049f       0x45 build/./src/PwmBrushless.o
-                                        0x28b (size before relaxing)
+ .debug_str     0x00000000000004a5       0xa4 build/./src/PwmBrushless.o
+                                        0x2de (size before relaxing)
+ .debug_str     0x0000000000000549       0xc8 build/./src/CanBus.o
+                                        0x23f (size before relaxing)
+ .debug_str     0x0000000000000611       0x6e build/./libs/can/can_wrapper.o
+                                        0x2bf (size before relaxing)
+ .debug_str     0x000000000000067f      0x2a3 libs/can/libcan.a(at90can.o)
+                                        0x375 (size before relaxing)
+ .debug_str     0x0000000000000922       0x48 libs/can/libcan.a(at90can_buffer.o)
+                                        0x261 (size before relaxing)
+ .debug_str     0x000000000000096a       0x4c libs/can/libcan.a(at90can_disable_dyn_filter.o)
+                                        0x285 (size before relaxing)
+ .debug_str     0x00000000000009b6       0x19 libs/can/libcan.a(at90can_set_dyn_filter.o)
+                                        0x29e (size before relaxing)
+ .debug_str     0x00000000000009cf       0x3c libs/can/libcan.a(at90can_send_message.o)
+                                        0x2a5 (size before relaxing)
+ .debug_str     0x0000000000000a0b       0x24 libs/can/libcan.a(at90can_send_buf_message.o)
+                                        0x2a8 (size before relaxing)
+ .debug_str     0x0000000000000a2f       0x39 libs/can/libcan.a(at90can_get_message.o)
+                                        0x28d (size before relaxing)
+ .debug_str     0x0000000000000a68       0x1a libs/can/libcan.a(at90can_get_buf_message.o)
+                                        0x259 (size before relaxing)
+ .debug_str     0x0000000000000a82       0x1a libs/can/libcan.a(can_buffer.o)
+                                        0x257 (size before relaxing)
 
-.debug_loc      0x0000000000000000      0x6bb
+.debug_loc      0x0000000000000000     0x15b5
  *(.debug_loc)
- .debug_loc     0x0000000000000000      0x169 build/./src/main.o
- .debug_loc     0x0000000000000169       0x56 build/./src/uart0.o
- .debug_loc     0x00000000000001bf      0x22f build/./src/Pin.o
- .debug_loc     0x00000000000003ee       0xc4 build/./src/Utils.o
- .debug_loc     0x00000000000004b2       0x4e build/./src/BinarySensor.o
- .debug_loc     0x0000000000000500      0x1bb build/./src/PwmBrushless.o
+ .debug_loc     0x0000000000000000       0x47 build/./src/main.o
+ .debug_loc     0x0000000000000047       0x56 build/./src/uart0.o
+ .debug_loc     0x000000000000009d      0x22f build/./src/Pin.o
+ .debug_loc     0x00000000000002cc       0xc4 build/./src/Utils.o
+ .debug_loc     0x0000000000000390       0x4e build/./src/BinarySensor.o
+ .debug_loc     0x00000000000003de      0x242 build/./src/PwmBrushless.o
+ .debug_loc     0x0000000000000620       0x47 build/./src/CanBus.o
+ .debug_loc     0x0000000000000667      0x141 build/./libs/can/can_wrapper.o
+ .debug_loc     0x00000000000007a8      0x401 libs/can/libcan.a(at90can.o)
+ .debug_loc     0x0000000000000ba9       0xa8 libs/can/libcan.a(at90can_disable_dyn_filter.o)
+ .debug_loc     0x0000000000000c51       0xb1 libs/can/libcan.a(at90can_set_dyn_filter.o)
+ .debug_loc     0x0000000000000d02      0x21d libs/can/libcan.a(at90can_send_message.o)
+ .debug_loc     0x0000000000000f1f      0x16a libs/can/libcan.a(at90can_send_buf_message.o)
+ .debug_loc     0x0000000000001089      0x20e libs/can/libcan.a(at90can_get_message.o)
+ .debug_loc     0x0000000000001297       0xad libs/can/libcan.a(at90can_get_buf_message.o)
+ .debug_loc     0x0000000000001344      0x271 libs/can/libcan.a(can_buffer.o)
 
 .debug_macinfo
  *(.debug_macinfo)
@@ -701,9 +906,12 @@ END GROUP
 .debug_pubtypes
  *(.debug_pubtypes)
 
-.debug_ranges   0x0000000000000000       0x18
+.debug_ranges   0x0000000000000000       0x90
  *(.debug_ranges)
- .debug_ranges  0x0000000000000000       0x18 build/./src/main.o
+ .debug_ranges  0x0000000000000000       0x10 build/./src/main.o
+ .debug_ranges  0x0000000000000010       0x30 libs/can/libcan.a(at90can.o)
+ .debug_ranges  0x0000000000000040       0x38 libs/can/libcan.a(at90can_send_buf_message.o)
+ .debug_ranges  0x0000000000000078       0x18 libs/can/libcan.a(at90can_get_message.o)
 
 .debug_macro
  *(.debug_macro)
@@ -714,11 +922,13 @@ Cross Reference Table
 
 Symbol                                            File
 BinarySensor_Add                                  build/./src/BinarySensor.o
+Brushless_Calibration                             build/./src/PwmBrushless.o
 Brushless_Init                                    build/./src/PwmBrushless.o
                                                   build/./src/main.o
 Brushless_Update                                  build/./src/PwmBrushless.o
                                                   build/./src/main.o
-HBridge_Add                                       build/./src/main.o
+CANbus_Init                                       build/./src/CanBus.o
+                                                  build/./src/main.o
 Pin_A0                                            build/./src/Pin.o
 Pin_A1                                            build/./src/Pin.o
 Pin_A2                                            build/./src/Pin.o
@@ -744,7 +954,6 @@ Pin_C7                                            build/./src/Pin.o
 Pin_E2                                            build/./src/Pin.o
 Pin_E3                                            build/./src/Pin.o
 Pin_EnableAnalog                                  build/./src/Pin.o
-                                                  build/./src/main.o
 Pin_F2                                            build/./src/Pin.o
 Pin_F3                                            build/./src/Pin.o
 Pin_G2                                            build/./src/Pin.o
@@ -752,15 +961,16 @@ Pin_ReadDigital                                   build/./src/Pin.o
 Pin_SetMode                                       build/./src/Pin.o
                                                   build/./src/PwmBrushless.o
                                                   build/./src/BinarySensor.o
-                                                  build/./src/main.o
 Pin_WriteAnalog                                   build/./src/Pin.o
 Pin_WriteDigital                                  build/./src/Pin.o
 Timer_0A                                          build/./src/Pin.o
 Timer_1A                                          build/./src/Pin.o
 Timer_2A                                          build/./src/Pin.o
 USART0_init                                       build/./src/uart0.o
+                                                  build/./src/main.o
 USART0_receive                                    build/./src/uart0.o
 USART0_transmit                                   build/./src/uart0.o
+                                                  build/./src/main.o
 Utils_Init                                        build/./src/Utils.o
 Utils_Mills                                       build/./src/Utils.o
 __adddi3_s8                                       /usr/lib/gcc/avr/4.9.2/avr51/libgcc.a(_adddi3_s8.o)
@@ -776,9 +986,11 @@ __data_end                                        /usr/lib/gcc/avr/4.9.2/avr51/l
 __data_load_start                                 /usr/lib/gcc/avr/4.9.2/avr51/libgcc.a(_copy_data.o)
 __data_start                                      /usr/lib/gcc/avr/4.9.2/avr51/libgcc.a(_copy_data.o)
 __do_clear_bss                                    /usr/lib/gcc/avr/4.9.2/avr51/libgcc.a(_clear_bss.o)
+                                                  libs/can/libcan.a(at90can.o)
                                                   build/./src/PwmBrushless.o
                                                   build/./src/Utils.o
 __do_copy_data                                    /usr/lib/gcc/avr/4.9.2/avr51/libgcc.a(_copy_data.o)
+                                                  build/./src/CanBus.o
                                                   build/./src/Pin.o
 __fixunssfsi                                      /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr51/libm.a(fixunssfsi.o)
                                                   build/./src/PwmBrushless.o
@@ -832,8 +1044,10 @@ __vector_14                                       /usr/lib/gcc/avr/4.9.2/../../.
 __vector_15                                       /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr51/crtat90can128.o
 __vector_16                                       /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr51/crtat90can128.o
 __vector_17                                       /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr51/crtat90can128.o
-__vector_18                                       /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr51/crtat90can128.o
-__vector_19                                       /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr51/crtat90can128.o
+__vector_18                                       libs/can/libcan.a(at90can.o)
+                                                  /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr51/crtat90can128.o
+__vector_19                                       libs/can/libcan.a(at90can.o)
+                                                  /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr51/crtat90can128.o
 __vector_2                                        /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr51/crtat90can128.o
 __vector_20                                       /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr51/crtat90can128.o
 __vector_21                                       /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr51/crtat90can128.o
@@ -861,7 +1075,70 @@ __vector_8                                        /usr/lib/gcc/avr/4.9.2/../../.
 __vector_9                                        /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr51/crtat90can128.o
 __vector_default                                  /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr51/crtat90can128.o
 __vectors                                         /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr51/crtat90can128.o
+_at90can_cnf                                      libs/can/libcan.a(at90can.o)
+_disable_mob_interrupt                            libs/can/libcan.a(at90can.o)
+                                                  libs/can/libcan.a(at90can_disable_dyn_filter.o)
+_enable_mob_interrupt                             libs/can/libcan.a(at90can.o)
+                                                  libs/can/libcan.a(at90can_get_message.o)
+                                                  libs/can/libcan.a(at90can_send_message.o)
+                                                  libs/can/libcan.a(at90can_set_dyn_filter.o)
 _exit                                             /usr/lib/gcc/avr/4.9.2/avr51/libgcc.a(_exit.o)
+_find_free_mob                                    libs/can/libcan.a(at90can.o)
+                                                  libs/can/libcan.a(at90can_send_message.o)
+_transmission_in_progress                         libs/can/libcan.a(at90can.o)
+                                                  libs/can/libcan.a(at90can_send_buf_message.o)
+                                                  libs/can/libcan.a(at90can_send_message.o)
+at90can_copy_message_to_mob                       libs/can/libcan.a(at90can_send_message.o)
+                                                  libs/can/libcan.a(at90can.o)
+at90can_copy_mob_to_message                       libs/can/libcan.a(at90can_get_message.o)
+                                                  libs/can/libcan.a(at90can.o)
+at90can_get_message                               libs/can/libcan.a(at90can_get_message.o)
+at90can_send_message                              libs/can/libcan.a(at90can_send_message.o)
+                                                  libs/can/libcan.a(at90can_send_buf_message.o)
+can_buffer_dequeue                                libs/can/libcan.a(can_buffer.o)
+                                                  libs/can/libcan.a(at90can_get_buf_message.o)
+                                                  libs/can/libcan.a(at90can.o)
+can_buffer_empty                                  libs/can/libcan.a(can_buffer.o)
+                                                  libs/can/libcan.a(at90can_buffer.o)
+can_buffer_enqueue                                libs/can/libcan.a(can_buffer.o)
+                                                  libs/can/libcan.a(at90can_send_buf_message.o)
+                                                  libs/can/libcan.a(at90can.o)
+can_buffer_full                                   libs/can/libcan.a(can_buffer.o)
+                                                  libs/can/libcan.a(at90can_buffer.o)
+can_buffer_get_dequeue_ptr                        libs/can/libcan.a(can_buffer.o)
+                                                  libs/can/libcan.a(at90can_get_buf_message.o)
+                                                  libs/can/libcan.a(at90can.o)
+can_buffer_get_enqueue_ptr                        libs/can/libcan.a(can_buffer.o)
+                                                  libs/can/libcan.a(at90can_send_buf_message.o)
+                                                  libs/can/libcan.a(at90can.o)
+can_buffer_init                                   libs/can/libcan.a(can_buffer.o)
+                                                  libs/can/libcan.a(at90can.o)
+can_check_free_buffer                             libs/can/libcan.a(at90can_buffer.o)
+can_check_message                                 libs/can/libcan.a(at90can_buffer.o)
+                                                  libs/can/libcan.a(at90can_get_message.o)
+                                                  build/./src/main.o
+can_disable_filter                                libs/can/libcan.a(at90can_disable_dyn_filter.o)
+                                                  libs/can/libcan.a(at90can.o)
+can_get_message                                   libs/can/libcan.a(at90can_get_buf_message.o)
+                                                  build/./src/main.o
+can_init                                          libs/can/libcan.a(at90can.o)
+                                                  build/./libs/can/can_wrapper.o
+                                                  build/./src/CanBus.o
+can_rx_buffer                                     libs/can/libcan.a(at90can.o)
+                                                  libs/can/libcan.a(at90can_get_buf_message.o)
+                                                  libs/can/libcan.a(at90can_buffer.o)
+can_rx_list                                       libs/can/libcan.a(at90can.o)
+can_send_message                                  libs/can/libcan.a(at90can_send_buf_message.o)
+                                                  build/./libs/can/can_wrapper.o
+can_set_filter                                    libs/can/libcan.a(at90can_set_dyn_filter.o)
+                                                  build/./libs/can/can_wrapper.o
+                                                  build/./src/CanBus.o
+can_tx_buffer                                     libs/can/libcan.a(at90can.o)
+                                                  libs/can/libcan.a(at90can_send_buf_message.o)
+                                                  libs/can/libcan.a(at90can_buffer.o)
+can_tx_list                                       libs/can/libcan.a(at90can.o)
+can_wrapper_init                                  build/./libs/can/can_wrapper.o
+can_wrapper_send                                  build/./libs/can/can_wrapper.o
 exit                                              /usr/lib/gcc/avr/4.9.2/avr51/libgcc.a(_exit.o)
                                                   /usr/lib/gcc/avr/4.9.2/../../../avr/lib/avr51/crtat90can128.o
 ifSensorDetected                                  build/./src/BinarySensor.o

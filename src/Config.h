@@ -1,6 +1,8 @@
 #ifndef _CONFIG_H_
 #define _CONFIG_H_
 
+#define CAN_BUS_BITRATE BITRATE_500_KBPS
 #define BINARY_SENSOR_CANID 0x00
+#define BRUSHLESS_CANID 0x00008D53
 
 #endif
