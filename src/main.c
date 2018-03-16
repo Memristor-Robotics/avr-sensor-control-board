@@ -23,7 +23,6 @@
 */
 int main() {
 
-
 	char uart_char;
 
 	sei();
