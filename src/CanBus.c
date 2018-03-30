@@ -2,12 +2,12 @@
 
 void CANbus_Init(void) {
 
-  can_init(CAN_BUS_BITRATE);
+  can_init(CANBUS_BITRATE);
 
   // CANbus filters Initialisation for id and mask
   can_filter_t filter = {
       .id = 0x00007F00,
-      .mask = 0x00000000,
+      .mask = 0x0000FF00,
       .flags = {
           .rtr = 0,
           .extended = 0x03
