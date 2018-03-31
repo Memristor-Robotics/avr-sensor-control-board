@@ -15,17 +15,19 @@
 
 int main() {
 
+
+#ifdef DEBUG
 	char uart_char1, uart_char2;
+
+	/* UART0 for DEBUG Initialisation */
+	USART0_init(57600);
+#endif
 
 	sei();
 
 	/* CANbus Initialisation */
 	CANbus_Init();
 
-#ifdef DEBUG
-	/* UART0 for DEBUG Initialisation */
-	USART0_init(57600);
-#endif
 
 	/*	Vacuum Pump and Vacuum Switches Initialisation	*/
 	/*	Function:	VacuumPump_Add(&pumpPin, &switchPin, number)*/
