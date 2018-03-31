@@ -1,84 +1,93 @@
 #include "VacuumPumps.h"
 
-uint8_t selectSwitch;
-uint8_t selectPump;
 
-void Init_Pumps(void){
+static VacuumPump instances[VACUUM_PUMP_CONFIG_COUNT_MAX];
+static uint8_t count = 0;
 
-	DDRC = 0xFF;
+void VacuumPump_Add(Pin* pumpPin, Pin* switchPin, uint8_t number) {
 
-	}
+	// Set mode
+  Pin_SetMode(pumpPin, PIN_OUTPUT);
+	Pin_SetMode(switchPin, PIN_OUTPUT);
 
-void Start_All_Pumps(void){
+	Pin_WriteDigital(pumpPin, PIN_LOW);
+	Pin_WriteDigital(switchPin, PIN_LOW);
 
-	PORTC = 0x3E;
+  // Initialize values
+  instances[count].canId = VACUUM_PUMP_CANID + number;
+  instances[count].pumpPin = pumpPin;
+	instances[count].switchPin = switchPin;
 
-	}
-
-void Start_Pump(uint8_t selectPump){
-
-  PORTC |= (1 << selectPump);
-
-	}
-
-void Stop_All_Pumps(void){
-
-	PORTC = 0x00;
+  // Return index
+  count++;
 
 }
 
-void Stop_Pump(uint8_t selectPump) {
+bool VacuumPump_OnMessage(can_t* canMsg) {
+	size_t i;
+	bool tmpCheck = false;
 
-	PORTC &= ~(1 << selectPump);
+	if(unlikely(canMsg->id == VACUUM_PUMP_CANID)) {
+		for(i = 0; i < count; i++) {
+
+			switch(canMsg->data[i]) {
+				case 0:
+					Pin_WriteDigital(instances[i].pumpPin, PIN_LOW);
+					Pin_WriteDigital(instances[i].switchPin, PIN_HIGH);
+					tmpCheck = true;
+					break;
+
+				case 1:
+					Pin_WriteDigital(instances[i].pumpPin, PIN_HIGH);
+					break;
+
+			}
+
+
+		}
+		if(tmpCheck == true) {
+			_delay_ms(VACUUM_SWITCH_RELASE_TIME);
+
+			for(i = 0; i < count; i++) {
+				Pin_WriteDigital(instances[i].switchPin, PIN_LOW);
+			}
+		}
+
+		return true;
+	}
+
+	return false;
 
 }
 
+bool SingleVacuumPump_OnMessage(can_t* canMsg) {
+	size_t i;
+	bool tmpCheck = false;
 
-void Init_Vacuume_Switches(void){
+	for(i = 0; i < count; i++) {
+		if(unlikely(canMsg->id == instances[i].canId)) {
 
-	DDRA = 0xFF;
+			switch(canMsg->data[0]) {
+				case 0:
+					Pin_WriteDigital(instances[i].pumpPin, PIN_LOW);
+					Pin_WriteDigital(instances[i].switchPin, PIN_HIGH);
+					tmpCheck = true;
+					break;
 
+				case 1:
+					Pin_WriteDigital(instances[i].pumpPin, PIN_HIGH);
+					Pin_WriteDigital(instances[i].switchPin, PIN_LOW);
+					break;
+			}
+
+			if(tmpCheck == true) {
+				_delay_ms(VACUUM_SWITCH_RELASE_TIME);
+				Pin_WriteDigital(instances[i].switchPin, PIN_LOW);
+			}
+
+			return true;
+		}
 	}
 
-void Open_All_Vacuume_Switches(void){
-
-	PORTB = 0xFF;
-	PORTA = 0xFF;
-
-	}
-
-// PORTA 6 4 2 1 PORTB 4
-
-const uint8_t vacuum_switches[] = {0x24, 1, 2, 4, 6};
-void Open_Vacuume_Switch(uint8_t selectSwitch){
-
-	uint8_t v = vacuum_switches[selectSwitch-1];
-
-	if(v > 0x20) {
-		v &= 0x0f;
-		PORTB |= (1<<v);
-	} else {
-		PORTA |= (1<<v);
-	}
-
-}
-
-void Close_All_Vacuume_Switches(void){
-
-	PORTA = 0x00;
-	PORTB = 0x00;
-
-	}
-
-void Close_Vacuume_Switch(uint8_t selectSwitch){
-
-	uint8_t v = vacuum_switches[selectSwitch-1];
-
-	if(v > 0x20) {
-		v &= 0x0f;
-		PORTB &= ~(1<<v);
-	} else {
-		PORTA &= ~(1<<v);
-	}
-
+	return false;
 }

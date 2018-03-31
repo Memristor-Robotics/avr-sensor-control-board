@@ -8,47 +8,51 @@
 #include "BinarySensor.h"
 #include "PwmBrushless.h"
 #include "VacuumPumps.h"
+#include "Vacuum_Test.h"
 #include "ADC.h"
 #include "Config.h"
 
 
-
-/*void HBridge_Add(Pin* inA, Pin* inB, Pin* inH, PinFrequency frequency) {
-
-	Pin_SetMode(inA, PIN_OUTPUT);
-	Pin_SetMode(inB, PIN_OUTPUT);
-	Pin_SetMode(inH, PIN_OUTPUT);
-
-	Pin_EnableAnalog(inA, frequency);
-}
-*/
 int main() {
 
 	char uart_char1, uart_char2;
 
 	sei();
 
-DDRB = 0xFF;
-PORTB = 0x00;
-
 	/* CANbus Initialisation */
-	//CANbus_Init();
+	CANbus_Init();
 
+#ifdef DEBUG
 	/* UART0 for DEBUG Initialisation */
 	USART0_init(57600);
+#endif
 
-	Init_Pumps();
+	/*	Vacuum Pump and Vacuum Switches Initialisation	*/
+	/*	Function:	VacuumPump_Add(&pumpPin, &switchPin, number)*/
+	VacuumPump_Add(&Pin_C1, &Pin_B4, 1);
+	VacuumPump_Add(&Pin_C2, &Pin_A1, 2);
+	VacuumPump_Add(&Pin_C3, &Pin_A2, 3);
+	VacuumPump_Add(&Pin_C4, &Pin_A4, 4);
+	VacuumPump_Add(&Pin_C5, &Pin_A6, 5);
 
-	Init_Vacuume_Switches();
+
+
+	//Init_Pumps();
+
+	//Init_Vacuume_Switches();
 	/* Brushless EDF Initialisation on pin */
 	//Brushless_Init(&Pin_B5);
 
 
+#ifdef DEBUG
 	/* ALL Initialisations Passed and UART sends 'k' */
 	USART0_transmit('k');
+#endif
 
   while(1) {
 
+
+/*
 		uart_char1 = USART0_receive();
 
 		if (uart_char1 == 'c') {
@@ -86,33 +90,21 @@ PORTB = 0x00;
 						Close_Vacuume_Switch(uart_char2);
 						break;
 			}
-			/*
-			if(uart_char1 == 's') {
-				//Open_Vacuume_Switch(uart_char2);
-
-			} else if(uart_char2 ) {
-				//Close_Vacuume_Switch(uart_char2);
-
-				Open_Vacuume_Switch(uart_char2);
-				_delay_ms(100);
-				Close_Vacuume_Switch(uart_char2);
-			}
-			*/
-
 
 		}
 
-		/*
+*/
+
 
 		if (can_check_message()) {
 			can_t msg;
 
 			if (can_get_message(&msg)) {
 
-				Brushless_Update(&msg);
+				SingleVacuumPump_OnMessage(&msg);
 
 			}
-		}*/
+		}
   }
 
   return 0;
