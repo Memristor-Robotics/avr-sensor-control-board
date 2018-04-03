@@ -1,13 +1,33 @@
 #include "BinarySensor.h"
 
-void BinarySensor_Add(Pin* pin) {
-  Pin_SetMode(pin, PIN_INPUT);
+static BinarySensor instances[BINARY_SENSOR_CONFIG_MAX];
+static uint8_t instancesCount = 0;
+
+void BinarySensor_Add(Pin* pin, uint8_t number) {
+	uint8_t index = instancesCount;
+
+	// Set mode
+    Pin_SetMode(pin, PIN_INPUT);
+
+    // Initialize values
+    instances[index].canId = BINARY_SENSOR_CANID + number;
+    instances[index].pin = pin;
+    instances[index].state = 0;
+
+    // Return index
+    instancesCount++;
 }
 
-bool ifSensorDetected(Pin* pin) {
-  if (bit_is_set(*(pin->PINx), pin->Pxn)) {
-    return true;
-  } else {
-    return false;
-  }
+inline void BinarySensor_UpdateAll(void) {
+	size_t i;
+	for (i = 0; i < instancesCount; i++) {
+		if (Pin_ReadDigital(instances[i].pin) == PIN_HIGH && instances[i].state == 0) {
+			instances[i].state = 1;
+			can_wrapper_send(instances[i].canId, 1, instances[i].state);
+		}
+		else if (Pin_ReadDigital(instances[i].pin) == PIN_LOW && instances[i].state == 1) {
+			instances[i].state = 0;
+			can_wrapper_send(instances[i].canId, 1, instances[i].state);
+		}
+	}
 }

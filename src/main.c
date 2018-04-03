@@ -1,5 +1,3 @@
-#define F_CPU 16000000UL
-
 #include <avr/io.h>
 #include <util/delay.h>
 #include "CanBus.h"
@@ -20,32 +18,27 @@ int main() {
 
 	sei();
 
+	/*	Binary Sensors Initalisation	*/
+	BinarySensor_Add(_pin_, 1);
+	BinarySensor_Add(_pin_, 2);
+	BinarySensor_Add(_pin_, 3);
+	BinarySensor_Add(_pin_, 4);
+	BinarySensor_Add(_pin_, 5);
+	BinarySensor_Add(_pin_, 6);
+
 	/* CANbus Initialisation */
 	CANbus_Init();
 
-
-	//Init_Pumps();
-
-	//Init_Vacuume_Switches();
-	/* Brushless EDF Initialisation on pin */
-	//Brushless_Init(&Pin_B5);
-
-
-#ifdef DEBUG
-	/* ALL Initialisations Passed and UART sends 'k' */
-	USART0_transmit('k');
-#endif
-
   while(1) {
 
-
+		BinarySensor_UpdateAll();
 
 		if (can_check_message()) {
 			can_t msg;
 
 			if (can_get_message(&msg)) {
 
-				//SingleVacuumPump_OnMessage(&msg);
+
 
 			}
 		}
